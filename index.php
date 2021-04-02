@@ -74,6 +74,9 @@
                        <li>
                            <a href="Archives.php">Archives</a>
                        </li>
+                       <li>
+                           <a href="FormConnexion.php">connexion</a>
+                       </li>
                        
                    </ul><!-- nav navbar-nav left finish -->
                     

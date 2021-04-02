@@ -8,9 +8,8 @@
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
             <title>Connexion</title>
         </head>
-        <body>
-        
-        <div class="login-form">           
+        <body> 
+        <div class="login-form">        
             <form action="connexion.php" method="post">
                 <h2 class="text-center">Connexion</h2>       
                 <div class="form-group">

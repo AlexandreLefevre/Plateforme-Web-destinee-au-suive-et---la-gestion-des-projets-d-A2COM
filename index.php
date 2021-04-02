@@ -77,6 +77,9 @@
                        <li>
                            <a href="FormConnexion.php">connexion</a>
                        </li>
+                       <li>
+                           <a href="Forminscription.php">inscription</a>
+                       </li>
                        
                    </ul><!-- nav navbar-nav left finish -->
                     

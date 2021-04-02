@@ -14,14 +14,14 @@
 
         if($row == 1)
         {
-            if(filter_var($email, filter_VALIDATE_EMAIL))
+            if(filter_var($email, FILTER_VALIDATE_EMAIL))
             {
                 $password = hash('sha256', $password);
 
                 if($data['password'] === $password)
                 {
                    $_SESSION['user'] = $data['pseudo'];
-                   header('Location:landing.php');
+                   header('Location:index.php');
                     
                 }
 

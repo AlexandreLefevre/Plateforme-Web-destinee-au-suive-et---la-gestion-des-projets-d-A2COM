@@ -81,12 +81,12 @@
                        <li>
                            <a href="Archives.php">Archives</a>
                        </li>
-                       <li>
+                       <!-- <li>
                            <a href="FormConnexion.php">connexion</a>
                        </li>
                        <li>
                            <a href="Forminscription.php">inscription</a>
-                       </li>
+                       </li> -->
                        
                    </ul><!-- nav navbar-nav left finish -->
                     

@@ -1,10 +1,11 @@
-<?php 
-  // session_start();
- //    if(!isset($_SESSION['user'])){
- //        header('Location:index.php');
- //        die();
- //    } 
-?> 
+<!-- <?php
+                // session_start();
+                // if($_SESSION['username'] !== ""){
+                //     $user = $_SESSION['username'];
+                //     // afficher un message
+                //     echo "Bonjour $user, vous êtes connecté";
+                // }
+            ?> -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -81,13 +82,10 @@
                        <li>
                            <a href="Archives.php">Archives</a>
                        </li>
-                       <!-- <li>
-                           <a href="FormConnexion.php">connexion</a>
-                       </li>
                        <li>
-                           <a href="Forminscription.php">inscription</a>
-                       </li> -->
-                       
+                           <a href="login.php">connexion</a>
+                       </li>
+                    
                    </ul><!-- nav navbar-nav left finish -->
                     
                 </div><!-- padding-nav finisg -->

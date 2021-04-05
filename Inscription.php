@@ -1,11 +1,11 @@
 <?php
                 session_start();
-                if(isset($_SESSION['username'])){
+                if(isset($_SESSION['username'])&&isset($_SESSION['Admin'])){
                 }
                 else{
                     header('Location: login.php');
                 }
-            ?>
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,14 +57,14 @@
                             <li class="nav-item">
 							<a href="Inscription.php" class="nav-link">Création de compte</a>
 						</li>
+                        <li class="nav-item">
+							<a href="GestionUser.php" class="nav-link">Gestion des utilisateurs</a>
+						</li>
                         <?php endif; ?>
                         <li class="nav-item">
                            <a href="logout.php">Déconnexion</a>
                        </li>
 					</ul>
 				</div>
-</body>
-</html>
-    
 </body>
 </html>

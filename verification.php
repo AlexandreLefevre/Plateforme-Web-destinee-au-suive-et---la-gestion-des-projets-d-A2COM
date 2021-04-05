@@ -9,7 +9,7 @@ if(isset($_POST['username']) && isset($_POST['password']))
     $db_host     = 'localhost';
     $db = mysqli_connect($db_host, $db_username, $db_password,$db_name)
            or die('could not connect to database');
-    
+    $bdd = new PDO('mysql:host=localhost;dbname=adeuxcom;charset=utf8', 'root', '');
     // on applique les deux fonctions mysqli_real_escape_string et htmlspecialchars
     // pour éliminer toute attaque de type injection SQL et XSS
     $username = mysqli_real_escape_string($db,htmlspecialchars($_POST['username'])); 
@@ -17,14 +17,17 @@ if(isset($_POST['username']) && isset($_POST['password']))
     
     if($username !== "" && $password !== "")
     {
-        $requete = "SELECT count(*) FROM utilisateur where 
-              nom_utilisateur = '".$username."' and mot_de_passe = '".$password."' ";
-        $exec_requete = mysqli_query($db,$requete);
-        $reponse      = mysqli_fetch_array($exec_requete);
-        $count = $reponse['count(*)'];
-        if($count!=0) // nom d'utilisateur et mot de passe correctes
+   
+        $requete_1 = $bdd->query("SELECT * FROM utilisateur where nom_utilisateur = '".$username."' and mot_de_passe = '".$password."' ");
+        $user = array();
+      while ($donnees = $requete_1->fetch()) {
+        $user[] = array('username' => $donnees['nom_utilisateur'], 'admin' => $donnees['Admin']);
+}
+        if($user[0]!=null) // nom d'utilisateur et mot de passe correctes
         {
+         session_name($username);
            $_SESSION['username'] = $username;
+           $_SESSION['Admin'] = $user[0]['admin'];
            header('Location: index.php');
         }
         else

@@ -15,25 +15,33 @@ if(isset($_POST['username']) && isset($_POST['password']))
     $username = mysqli_real_escape_string($db,htmlspecialchars($_POST['username'])); 
     $password = mysqli_real_escape_string($db,htmlspecialchars($_POST['password']));
     
-   //  $isPasswordCorrect = password_verify($_POST['password'], $row['pass']);
     if($username !== "" && $password !== "")
     {
-   
-        $requete_1 = $bdd->query("SELECT * FROM utilisateur where nom_utilisateur = '".$username."' and mot_de_passe = '".$password."' ");
+        $hash = password_hash($password,PASSWORD_DEFAULT);
+
+        $requete_1 = $bdd->query("SELECT * FROM utilisateur where nom_utilisateur = '".$username."'");
         $user = array();
+
       while ($donnees = $requete_1->fetch()) {
-        $user[] = array('username' => $donnees['nom_utilisateur'], 'admin' => $donnees['Admin']);
+        $user[] = array('username' => $donnees['nom_utilisateur'], 'admin' => $donnees['Admin'], 'mot_de_passe' => $donnees['mot_de_passe']);
 }
-        if($user[0]!=null) // nom d'utilisateur et mot de passe correctes
+         print_r($user);
+        if(password_verify($password, $user[0]['mot_de_passe'])) // nom d'utilisateur et mot de passe correctes
         {
          session_name($username);
            $_SESSION['username'] = $username;
            $_SESSION['Admin'] = $user[0]['admin'];
+           if($user[0]['admin']==1){
+            header('Location: Inscription.php');
+           }
+           else{
            header('Location: index.php');
+           }
         }
         else
         {
-           header('Location: login.php?erreur=1'); // utilisateur ou mot de passe incorrect
+           echo (password_verify($password, $user[0]['mot_de_passe']));
+         //   header('Location: login.php?erreur=1'); // utilisateur ou mot de passe incorrect
         }
     }
     else

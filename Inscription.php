@@ -85,13 +85,13 @@
 						 <div class="invalid-feedback">Champ vide</div>
 						 <!-- <div class="invalid-feedback">Il faut minimum x charactère</div> -->
                      </div>
-                     <div class="col-md-4 mb-3">
+                     <!-- <div class="col-md-4 mb-3">
                          <label for="pseudo">Confirmation mot de passe</label>
                          <input type="text" class="form-control" name="mot_de_passe_confirm" placeholder="Confirmation mot de passe" required>
 						 <div class="valid-feedback">Ok !</div>
 						 <div class="invalid-feedback">Champ vide</div>
-						 <!-- <div class="invalid-feedback">Ce mot de passe ne correspond pas</div> -->
-                     </div>
+						  <div class="invalid-feedback">Ce mot de passe ne correspond pas</div>
+                     </div> -->
                  </div>
                  <div class="form-row">
                      <div class="col-md-6 mb-3">

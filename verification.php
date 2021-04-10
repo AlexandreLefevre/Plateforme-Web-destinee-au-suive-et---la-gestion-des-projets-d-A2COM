@@ -15,6 +15,7 @@ if(isset($_POST['username']) && isset($_POST['password']))
     $username = mysqli_real_escape_string($db,htmlspecialchars($_POST['username'])); 
     $password = mysqli_real_escape_string($db,htmlspecialchars($_POST['password']));
     
+   //  $isPasswordCorrect = password_verify($_POST['password'], $row['pass']);
     if($username !== "" && $password !== "")
     {
    

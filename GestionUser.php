@@ -13,7 +13,7 @@
     <meta name="viewport" content="width-device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Gestion utilisateur</title>
     <!-- Bootstrap Min CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <!-- MeanMenu CSS -->
@@ -23,13 +23,6 @@
 <body>
 <!-- Start Navbar Area -->
 <div class="navbar-area">
-	<!-- Menu For Mobile Device -->
-	<div class="mobile-nav">
-		<a href="#" class="logo">
-			Logo
-		</a>
-	</div>
-
 	<!-- Menu For Desktop Device -->
 	<div class="main-nav">
 		<div class="container">

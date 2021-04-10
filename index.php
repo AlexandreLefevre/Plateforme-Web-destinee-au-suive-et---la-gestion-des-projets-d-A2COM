@@ -23,13 +23,6 @@
 <body>
 <!-- Start Navbar Area -->
 <div class="navbar-area">
-	<!-- Menu For Mobile Device -->
-	<div class="mobile-nav">
-		<a href="#" class="logo">
-			Logo
-		</a>
-	</div>
-
 	<!-- Menu For Desktop Device -->
 	<div class="main-nav">
 		<div class="container">

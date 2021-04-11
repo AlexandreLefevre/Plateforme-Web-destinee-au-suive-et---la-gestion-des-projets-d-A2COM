@@ -19,16 +19,21 @@ if(isset($_POST['submit'])) {
     $mot_de_passe = password_hash($_POST['mot_de_passe'], PASSWORD_DEFAULT);
     // $mot_de_passe_confirm = $_POST['mot_de_passe_confirm'];
     $email = $_POST['email'];
-  
+    $token = md5(uniqid($nomutilisateur, true));
     $requete_1 = $bdd->query("SELECT * FROM utilisateur where nom_utilisateur = '".$nomutilisateur."'");
 
     while ($donnees = $requete_1->fetch()) {
       $user[] = array('username' => $donnees['nom_utilisateur'], 'admin' => $donnees['Admin'], 'mot_de_passe' => $donnees['mot_de_passe']);
     }
-    if(!$user){
+    $requete_1 = $bdd->query("SELECT * FROM utilisateur where Email = '".$email."'");
+
+    while ($donnees = $requete_1->fetch()) {
+      $userEmail[] = array('username' => $donnees['nom_utilisateur'], 'admin' => $donnees['Admin'], 'mot_de_passe' => $donnees['mot_de_passe'], 'Email' => $donnees['Email']);
+    }
+    if(!isset($user) && !isset($userEmail)){
       $insert_inscription  =  "insert into utilisateur
-      (nom_utilisateur, mot_de_passe, Email) values
-      ('$nomutilisateur', '$mot_de_passe', '$email')"
+      (nom_utilisateur, mot_de_passe, Email, token) values
+      ('$nomutilisateur', '$mot_de_passe', '$email','$token')"
       ;
   
       $run_inscription = mysqli_query($dbcon, $insert_inscription);
@@ -38,8 +43,14 @@ if(isset($_POST['submit'])) {
       }
     }
     else{
+      if(isset($user)){
       echo "<script>alert('Ce nom d utilisateur existe déja !')</script>";
       echo "<script>window.open('Inscription.php','_seft')</script>";
+      }
+      if(isset($userEmail)){
+        echo "<script>alert('Cet émail existe déja !')</script>";
+        echo "<script>window.open('Inscription.php','_seft')</script>";
+        }
     }
 }
  // deleted user

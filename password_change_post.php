@@ -23,7 +23,7 @@
                     echo "<script>window.open('login.php','_seft')</script>";
                 }else{
                     echo "<script>alert('Les mots de passe ne sont pas identiques !')</script>";
-                    echo "<script>window.open('password_change.php','_seft')</script>";
+                    echo "<script>window.open('index2.php','_seft')</script>";
                 }
             }else{
                 echo "<script>alert('Ce compte n'existe pas !')</script>";

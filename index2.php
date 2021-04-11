@@ -1,7 +1,8 @@
 <!doctype html>
 <html lang="fr">
   <head>
-    <title>J'ai oublié mon mot de passe</title>
+    <title>Mot de passe oublié ?</title>
+    <link rel="icon" href="images/Favicon-A2com.ico">
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -13,7 +14,7 @@
           <div class="col-11">
               <div class="card text-center m-4 shadow p-3 mb-5 bg-white rounded">
                 <div class="card-body">
-                  <h4 class="card-title p-3">J'ai oublié mon mot de passe</h4>
+                  <h4 class="card-title p-3">Mot de passe oublié ?</h4>
                     <div class="form-group">
                         <form action="forgot.php" method="POST">
                             <input type="email" class="form-control" name="email" placeholder="Email" autocomplete="off" required />

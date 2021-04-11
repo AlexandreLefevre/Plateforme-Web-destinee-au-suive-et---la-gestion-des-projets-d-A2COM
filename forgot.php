@@ -4,7 +4,7 @@
     if(!empty($_POST['email'])){
         $email = htmlspecialchars($_POST['email']);
 
-        $check = $bdd->prepare('SELECT token FROM utilisateurs WHERE email = ?');
+        $check = $bdd->prepare('SELECT token FROM utilisateur WHERE email = ?');
         $check->execute(array($email));
         $data = $check->fetch();
         $row = $check->rowCount();
@@ -19,9 +19,8 @@
             $link = 'recover.php?u='.base64_encode($token_user).'&token='.base64_encode($token);
 
             echo "<a href='$link'>Lien</a>";
-        }else{
-            echo "Compte non existant";
-            #header('Location: ../index.php');
-            #die();
+        }else{  
+            echo "<script>alert('Ce compte n existe pas !')</script>";
+            echo "<script>window.open('index2.php','_seft')</script>";
         }
     }

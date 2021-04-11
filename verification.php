@@ -40,8 +40,8 @@ if(isset($_POST['username']) && isset($_POST['password']))
         }
         else
         {
-           echo (password_verify($password, $user[0]['mot_de_passe']));
-         //   header('Location: login.php?erreur=1'); // utilisateur ou mot de passe incorrect
+         //   echo (password_verify($password, $user[0]['mot_de_passe']));
+           header('Location: login.php?erreur=1'); // utilisateur ou mot de passe incorrect
         }
     }
     else

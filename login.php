@@ -23,7 +23,10 @@
                <div class="content"></div>
 
                <div class="field">
-               <input type="submit" id='submit' value='LOGIN' >
+               <input type="submit" id='submit' value='LOGIN' > 
+               <br>
+               <br>
+               <a href="index2.php" id='mdpforget'>Mot de passe oublié ?</a>
                 <?php
                 if(isset($_GET['erreur'])){
                     $err = $_GET['erreur'];

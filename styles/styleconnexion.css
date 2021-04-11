@@ -88,7 +88,7 @@
   
   form .field input[type="submit"]:active{
     transform: scale(0.95);}
-  
+
     form .field input[type="reset"]{
     color: #fff;
     border: none;

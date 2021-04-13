@@ -56,8 +56,11 @@ if(isset($_POST['submit'])) {
  // deleted user
 if(isset($_POST['delete'])){
   $id = $_POST['delete'];
-  $requete_1 = $bdd->query("DELETE FROM utilisateur where IdUser = '".$id."'");
- 
+
+  $requete_1 = ("UPDATE utilisateur SET Admin='deleted' WHERE IdUser = '".$id."'");
+  $stmt = $dbcon->prepare($requete_1);
+  $stmt->execute();
+  
     header("location: GestionUser.php");
 }
 

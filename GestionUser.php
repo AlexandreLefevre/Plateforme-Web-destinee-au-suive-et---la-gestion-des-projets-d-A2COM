@@ -33,7 +33,7 @@
             <img src="images/logo_A2Com.png" alt="A2com Logo" class="hidden-xs">
 				<div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
 					<ul class="navbar-nav ml-auto">
-                    <?php if($_SESSION['Admin']==0): ?>
+                    <?php if($_SESSION['Admin']=='user'): ?>
 						<li class="nav-item">
 							<a href="index.php" class="nav-link">Dashboard</a>
 						</li>
@@ -69,9 +69,7 @@
 				<table class="table">
 					<thead>
 						<tr>
-							<th>Id</th>
 							<th>Username</th>
-							<th>Password</th>
 							<th>Email</th>
 							<th>Action</th>
 						</tr>
@@ -80,15 +78,13 @@
 					<form action="verificationinscription.php" method="POST">
 					<?php 
 					//user data
-					$sQuery = "SELECT * FROM utilisateur";
+					$sQuery = "SELECT * FROM utilisateur where Admin='user'";
 				    $result = $dbcon->query($sQuery);
 					
 					while($row = $result->fetch_assoc()): ?>
 					
 					<tr>
-						<td><?= $row['IdUser']; ?></td>
 						<td><?= $row['nom_utilisateur']; ?></td>
-						<td><?= $row['mot_de_passe']; ?></td>
 						<td><?= $row['Email']; ?></td>
 						<td style="width: 15%">
 							<button type="submit" name="delete" value="<?= $row['IdUser']; ?>" class="btn btn-danger">Delete</button>

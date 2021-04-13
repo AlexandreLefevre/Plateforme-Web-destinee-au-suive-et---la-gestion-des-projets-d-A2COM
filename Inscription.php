@@ -34,7 +34,7 @@
             <img src="images/logo_A2Com.png" alt="A2com Logo" class="hidden-xs">
 				<div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
 					<ul class="navbar-nav ml-auto">
-                    <?php if($_SESSION['Admin']==0): ?>
+                    <?php if($_SESSION['Admin']=='user'): ?>
 						<li class="nav-item">
 							<a href="index.php" class="nav-link">Dashboard</a>
 						</li>

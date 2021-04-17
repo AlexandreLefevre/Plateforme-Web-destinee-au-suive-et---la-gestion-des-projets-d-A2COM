@@ -16,6 +16,7 @@
     <title>Création de compte</title>
     <!-- Bootstrap Min CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 <!-- MeanMenu CSS -->
     <link rel="stylesheet" href="styles/header.css">
     <link rel="icon" href="images/Favicon-A2com.ico">
@@ -31,7 +32,6 @@
 	<div class="row main-nav">
 		<div class="container">
 			<nav class="navbar navbar-expand-md navbar-light">
-            <img src="images/logo_A2Com.png" alt="A2com Logo" class="hidden-xs">
 				<div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
 					<ul class="navbar-nav ml-auto">
                     <?php if($_SESSION['Admin']=='user'): ?>
@@ -67,7 +67,7 @@
 		</div>
 	</div>
 
-          <div class="container" style="margin-top:150px">
+          <div class="container" style="margin-top:100px">
              <h1>Inscription</h1>
              <form class="needs-validation" novalidate method="post" action="verificationinscription.php">
                  <div class="form-row">

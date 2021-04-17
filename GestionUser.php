@@ -17,7 +17,7 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<!-- Bootstrap Min CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 <!-- MeanMenu CSS -->
 <link rel="stylesheet" href="styles/header.css">
     <link rel="icon" href="images/Favicon-A2com.ico">
@@ -30,7 +30,6 @@
 	<div class="row main-nav">
 		<div class="container">
 			<nav class="navbar navbar-expand-md navbar-light">
-            <img src="images/logo_A2Com.png" alt="A2com Logo" class="hidden-xs">
 				<div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
 					<ul class="navbar-nav ml-auto">
                     <?php if($_SESSION['Admin']=='user'): ?>
@@ -65,7 +64,7 @@
 		</div>
 	</div>
 <?php require_once("verificationinscription.php"); ?>
-		  <div class="container" style="margin-top:150px">
+		  <div class="container" style="margin-top:120px">
 				<table class="table">
 					<thead>
 						<tr>

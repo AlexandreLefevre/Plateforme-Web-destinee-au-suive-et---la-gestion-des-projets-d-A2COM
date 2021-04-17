@@ -9,6 +9,11 @@ if(isset($_POST["search"]["value"]))
 {
  $query .= '
  WHERE projet LIKE "%'.$_POST["search"]["value"].'%" 
+ OR type_de_site LIKE "%'.$_POST["search"]["value"].'%" 
+ OR graphisme LIKE "%'.$_POST["search"]["value"].'%"
+ OR contenu LIKE "%'.$_POST["search"]["value"].'%"
+ OR correction LIKE "%'.$_POST["search"]["value"].'%"
+ OR nom_utilisateur LIKE "%'.$_POST["search"]["value"].'%"    
  ';
 }
 
@@ -47,7 +52,8 @@ while($row = mysqli_fetch_array($result))
   $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="contenu">' . $row["contenu"] . '</div>';
   $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="correction">' . $row["correction"] . '</div>';
   
- $sub_array[] = '<button type="button" name="Details" class="btn btn-success btn-xs success" id="'.$row["id"].'">Details</button>';
+ $sub_array[] = '<button type="button" name="details" class="btn btn-success btn-xs success" id="'.$row["id"].'">Details</button>';
+ $sub_array[] = '<button type="button" name="archiver" class="btn btn-warning btn-xs warning" id="'.$row["id"].'">Archiver</button>';
  $sub_array[] = '<button type="button" name="delete" class="btn btn-danger btn-xs delete" id="'.$row["id"].'">Delete</button>';
  $data[] = $sub_array;
 }

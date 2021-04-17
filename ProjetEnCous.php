@@ -81,6 +81,7 @@
                       <th>Correction</th>
        <th></th>
        <th></th>
+       <th></th>
       </tr>
      </thead>
     </table>
@@ -139,7 +140,7 @@
    html += '<td contenteditable id="data2"></td>';
    html += '<td contenteditable id="data3"></td>';
    html += '<td contenteditable id="data4"></td>';
-   html += '<td id="data5"><select size="1" id="liste" name="row-2-office"><option value="0%" selected="selected">0%</option><option value="25%">25%</option><option value="50%">50%</option><option value="75%">75%</option><option value="100%">100%</option></td>';
+   html += '<td contenteditable id="data5"></td>';
    html += '<td contenteditable id="data6"></td>';
    html += '<td contenteditable id="data7"></td>';
    html += '<td contenteditable id="data8"></td>';
@@ -154,9 +155,7 @@
    var nom_utilisateur = $('#data3').text();
 
 var type_de_site = $('#data4').text();
-var facturation = '<select size="1" id="liste" name="row-2-office"><option value="0%" selected="selected">0%</option><option value="25%">25%</option><option value="50%">50%</option><option value="75%">75%</option><option value="100%">100%</option>';
-// var e = document.getElementById("liste");
-// var facturation = e.options[e.selectedIndex].text;
+var facturation = $('#data5').text();
 var graphisme = $('#data6').text();
 var contenu = $('#data7').text();
 var correction = $('#data8').text();

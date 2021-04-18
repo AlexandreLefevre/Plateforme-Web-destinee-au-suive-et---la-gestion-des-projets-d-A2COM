@@ -3,18 +3,19 @@
 $connect = mysqli_connect("localhost", "root", "", "adeuxcom");
 $columns = array('nom_utilisateur', 'type_de_site');
 
-$query = "SELECT * FROM projetencours ";
+$query = "SELECT * FROM projetencours";
 
 if(isset($_POST["search"]["value"]))
 {
  $query .= '
- WHERE projet LIKE "%'.$_POST["search"]["value"].'%" 
+ WHERE etatprojet = "En cours"
+ AND (projet LIKE "%'.$_POST["search"]["value"].'%" 
  OR type_de_site LIKE "%'.$_POST["search"]["value"].'%" 
  OR graphisme LIKE "%'.$_POST["search"]["value"].'%"
  OR contenu LIKE "%'.$_POST["search"]["value"].'%"
  OR correction LIKE "%'.$_POST["search"]["value"].'%"
  OR nom_utilisateur LIKE "%'.$_POST["search"]["value"].'%"    
- ';
+ )';
 }
 
 if(isset($_POST["order"]))
@@ -60,7 +61,7 @@ while($row = mysqli_fetch_array($result))
 
 function get_all_data($connect)
 {
- $query = "SELECT * FROM projetencours";
+ $query = "SELECT * FROM projetencours where etatprojet = 'corbeille'";
  $result = mysqli_query($connect, $query);
  return mysqli_num_rows($result);
 }

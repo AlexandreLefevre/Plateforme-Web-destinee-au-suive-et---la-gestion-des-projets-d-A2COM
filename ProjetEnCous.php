@@ -99,11 +99,11 @@
   var cells = null;  // All cells in table
    var dataTable = $('#user_data').DataTable({
     "lengthMenu": [[5, 10, 20, -1], [5, 10, 20, "Tout"]],
-    "rowReorder": true,
     "zeroRecords": "Aucune recherche ne correspond",
     "infoEmpty": "Aucune recherche disponible",
     "processing" : true,
     "serverSide" : true,
+    "ordering": false,
     "order" : [],
     "ajax" : {
      url:"fetch.php",
@@ -191,7 +191,7 @@ var correction = $('#data8').text();
    if(confirm("Are you sure you want to remove this?"))
    {
     $.ajax({
-     url:"delete.php",
+     url:"delete_save.php",
      method:"POST",
      data:{id:id},
      success:function(data){

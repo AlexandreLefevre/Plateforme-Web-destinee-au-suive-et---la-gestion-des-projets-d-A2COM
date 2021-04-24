@@ -34,16 +34,16 @@
 							<a href="index.php" class="nav-link">Dashboard</a>
 						</li>
 						<li class="nav-item">
-							<a href="ProjetEnCous.php" class="nav-link">Projet en cours</a>
+							<a href="projetencours/ProjetEnCous.php" class="nav-link">Projet en cours</a>
 						</li>
 						<li class="nav-item">
-							<a href="MiniProjet.php" class="nav-link">Mini-Projet</a>
+							<a href="MiniProjet/MiniProjet.php" class="nav-link">Mini-Projet</a>
 						</li>
 						<li class="nav-item">
-							<a href="ProjetVideo.php" class="nav-link">Projet video</a>
+							<a href="ProjetVideo/ProjetVideo.php" class="nav-link">Projet video</a>
 						</li>
 						<li class="nav-item">
-							<a href="Archives.php" class="nav-link">Archives</a>
+							<a href="Archive/Archives.php" class="nav-link">Archives</a>
 						</li>
                         <?php else: ?>
                             <li class="nav-item">

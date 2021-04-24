@@ -8,15 +8,15 @@
             ?>
 <html>
  <head>
-  <title>Live Add Edit Delete Datatables Records using PHP Ajax</title>
+  <title>Corbeille projet en cours</title>
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
   <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
-  <link rel="stylesheet" href="styles/tableau.css"/>
-  <link rel="stylesheet" href="styles/header.css">
+  <link rel="stylesheet" href="css/tableauprojet.css"/>
+  <link rel="stylesheet" href="css/header.css">
   <link rel="icon" href="images/Favicon-A2com.ico">
 
 <!-- Start Navbar Area -->
@@ -31,19 +31,19 @@
           </li>
           <?php if($_SESSION['Admin']=='user'): ?>
 						<li class="nav-item">
-							<a href="index.php" class="nav-link">Dashboard</a>
+							<a href="../index.php" class="nav-link">Dashboard</a>
 						</li>
 						<li class="nav-item">
 							<a href="ProjetEnCous.php" class="nav-link">Projet en cours</a>
 						</li>
 						<li class="nav-item">
-							<a href="MiniProjet.php" class="nav-link">Mini-Projet</a>
+							<a href="../MiniProjet/MiniProjet.php" class="nav-link">Mini-Projet</a>
 						</li>
 						<li class="nav-item">
-							<a href="ProjetVideo.php" class="nav-link">Projet video</a>
+							<a href="../ProjetVideo/ProjetVideo.php" class="nav-link">Projet video</a>
 						</li>
 						<li class="nav-item">
-							<a href="Archives.php" class="nav-link">Archives</a>
+							<a href="../Archive/Archives.php" class="nav-link">Archives</a>
 						</li>
             <?php else: ?>
             <li class="nav-item">
@@ -54,7 +54,7 @@
 						</li>
             <?php endif; ?>
             <li class="nav-item">
-               <a href="logout.php">Déconnexion</a>
+               <a href="../logout.php">Déconnexion</a>
            </li>
 					</ul>
     </div>
@@ -172,7 +172,7 @@ var correction = $('#data8').text();
    if(confirm("AEtes vous sur de vouloir placer dans la corbeille ce projet ?"))
    {
     $.ajax({
-     url:"delete_save.php",
+     url:"delete.php",
      method:"POST",
      data:{id:id},
      success:function(data){

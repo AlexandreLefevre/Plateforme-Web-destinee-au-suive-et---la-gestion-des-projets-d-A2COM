@@ -13,12 +13,13 @@
     <meta name="viewport" content="width-device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Archives</title>
+    <title>Mini-Projet</title>
     <!-- Bootstrap Min CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 <!-- MeanMenu CSS -->
-<link rel="stylesheet" href="styles/header.css">
-    <link rel="icon" href="images/Favicon-A2com.ico">
+<link rel="stylesheet" href="css/tableauprojet.css"/>
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="icon" href="images/Favicon-A2com.ico">
 </head>
 <body>
 <!-- Start Navbar Area -->
@@ -31,19 +32,19 @@
 					<ul class="navbar-nav ml-auto">
                     <?php if($_SESSION['Admin']=='user'): ?>
 						<li class="nav-item">
-							<a href="index.php" class="nav-link">Dashboard</a>
+							<a href="../index.php" class="nav-link">Dashboard</a>
 						</li>
 						<li class="nav-item">
-							<a href="ProjetEnCous.php" class="nav-link">Projet en cours</a>
+							<a href="../projetencours/ProjetEnCous.php" class="nav-link">Projet en cours</a>
 						</li>
 						<li class="nav-item">
 							<a href="MiniProjet.php" class="nav-link">Mini-Projet</a>
 						</li>
 						<li class="nav-item">
-							<a href="ProjetVideo.php" class="nav-link">Projet video</a>
+							<a href="../ProjetVideo/ProjetVideo.php" class="nav-link">Projet video</a>
 						</li>
 						<li class="nav-item">
-							<a href="Archives.php" class="nav-link">Archives</a>
+							<a href="../Archive/Archives.php" class="nav-link">Archives</a>
 						</li>
                         <?php else: ?>
                             <li class="nav-item">
@@ -51,7 +52,7 @@
 						</li>
                         <?php endif; ?>
                         <li class="nav-item">
-                           <a href="logout.php">Déconnexion</a>
+                           <a href="../logout.php">Déconnexion</a>
                        </li>
 					</ul>
 				</div>

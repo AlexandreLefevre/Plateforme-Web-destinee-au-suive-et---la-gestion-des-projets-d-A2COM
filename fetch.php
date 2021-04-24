@@ -53,7 +53,7 @@ while($row = mysqli_fetch_array($result))
   $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="contenu">' . $row["contenu"] . '</div>';
   $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="correction">' . $row["correction"] . '</div>';
   
- $sub_array[] = '<button type="button" data-toggle="modal" data-target="#exampleModal name="details" class="btn btn-success btn-xs success" id="'.$row["id"].'">Details</button>';
+ $sub_array[] = '<button type="button" data-target="#myModal" role="button" data-toggle="modal" name="details" class="btn btn-success btn-xs success" id="'.$row["id"].'">Details</button>';
  $sub_array[] = '<button type="button" name="suspendre" class="btn btn-danger btn-xs suspendre" id="'.$row["id"].'">Suspendre</button>';
  $sub_array[] = '<button type="button" name="archiver" class="btn btn-warning btn-xs archiver" id="'.$row["id"].'">Archiver</button>';
  $sub_array[] = '<button type="button" name="delete" class="btn btn-danger btn-xs delete" id="'.$row["id"].'">Delete</button>';

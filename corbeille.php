@@ -8,7 +8,7 @@
             ?>
 <html>
  <head>
-  <title>Projet en Cours</title>
+  <title>Live Add Edit Delete Datatables Records using PHP Ajax</title>
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
   <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
@@ -66,8 +66,6 @@
   <div class="container box" style="margin-top:150px">
    <div class="table-responsive">
     <div align="right">
-    <button type="button" name="corbeille" id="corbeille" class="btn btn-danger">Corbeille</button>
-     <button type="button" name="add" id="add" class="btn btn-info">Ajouter</button>
     </div>
     <table id="user_data" class="table table-bordered">
      <thead>
@@ -111,7 +109,7 @@
     "ordering": false,
     "order" : [],
     "ajax" : {
-     url:"fetch.php",
+     url:"fetch2.php",
      type:"POST"
     }
     
@@ -137,25 +135,6 @@
    var column_name = $(this).data("column");
    var value = $(this).text();
    update_data(id, column_name, value);
-  });
-  
-  $('#add').click(function(){
-   var html = '<tr>';
-   html += '<td contenteditable id="data1"></td>';
-   html += '<td contenteditable id="data2"></td>';
-   html += '<td contenteditable id="data3"></td>';
-   html += '<td contenteditable id="data4"></td>';
-   html += '<td contenteditable id="data5"></td>';
-   html += '<td contenteditable id="data6"></td>';
-   html += '<td contenteditable id="data7"></td>';
-   html += '<td contenteditable id="data8"></td>';
-   html += '<td><button type="button" name="insert" id="insert" class="btn btn-success btn-xs">Insert</button></td>';
-   html += '</tr>';
-   $('#user_data tbody').prepend(html);
-  });
-  
-  $('#corbeille').click(function(){
-    document.location.href="corbeille.php"; 
   });
 
   $(document).on('click', '#insert', function(){

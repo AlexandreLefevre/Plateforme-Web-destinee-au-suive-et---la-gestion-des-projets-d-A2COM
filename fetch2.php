@@ -8,7 +8,7 @@ $query = "SELECT * FROM projetencours";
 if(isset($_POST["search"]["value"]))
 {
  $query .= '
- WHERE etatprojet = "En cours"
+ WHERE etatprojet = "corbeille"
  AND (projet LIKE "%'.$_POST["search"]["value"].'%" 
  OR type_de_site LIKE "%'.$_POST["search"]["value"].'%" 
  OR graphisme LIKE "%'.$_POST["search"]["value"].'%"

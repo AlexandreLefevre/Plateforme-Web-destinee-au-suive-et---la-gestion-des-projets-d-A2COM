@@ -43,15 +43,73 @@ $data = array();
 
 while($row = mysqli_fetch_array($result))
 {
+  $stylegraphisme ='';
+  switch($row["graphisme"]){
+    case "Fini" : 
+      $stylegraphisme = 'style="color:red"';
+      break;
+    case "En cours" : 
+      $stylegraphisme = 'style="color:orange"';
+      break;
+    default : 
+      $stylegraphisme = '';
+      break;
+  }
+  $stylecontenu ='';
+  switch($row["contenu"]){
+    case "Fini" : 
+      $stylecontenu  = 'style="color:red"';
+      break;
+    case "En cours" : 
+      $stylecontenu  = 'style="color:orange"';
+      break;
+    default : 
+      $stylecontenu  = '';
+      break;
+  }
+  $stylecorrection ='';
+  switch($row["correction"]){
+    case "Fini" : 
+      $stylecorrection  = 'style="color:red"';
+      break;
+    case "En cours" : 
+      $stylecorrection  = 'style="color:orange"';
+      break;
+    default : 
+      $stylecorrection  = '';
+      break;
+  }
+  
+  $selectfacturation ='';
+  switch($row["facturation"]){
+    case "0" : 
+      $selectfacturation = '<select size="1" id="data5" data-id="'.$row["id"].'" data-column="facturation" onchange = "updateSelect()"><option value="0" selected>0%</option><option value="25">25%</option><option value="50">50%</option><option value="75">75% </option><option value="100">100%</option> </select>';
+      break;
+    case "25" : 
+      $selectfacturation = '<select size="1" id="data5" data-id="'.$row["id"].'" data-column="facturation" onchange = "updateSelect()"><option value="0">0%</option><option value="25" selected>25%</option><option value="50">50%</option><option value="75">75% </option><option value="100">100%</option> </select>';
+      break;
+    case "50" : 
+      $selectfacturation = '<select size="1" id="data5" data-id="'.$row["id"].'" data-column="facturation" onchange = "updateSelect()"><option value="0">0%</option><option value="25">25%</option><option value="50" selected>50%</option><option value="75">75% </option><option value="100">100%</option> </select>';
+      break;
+    case "75" : 
+      $selectfacturation = '<select size="1" id="data5" data-id="'.$row["id"].'" data-column="facturation" onchange = "updateSelect()"><option value="0">0%</option><option value="25">25%</option><option value="50">50%</option><option value="75" selected>75% </option><option value="100">100%</option> </select>';
+      break;
+    case "100" : 
+      $selectfacturation = '<select size="1" id="data5" data-id="'.$row["id"].'" data-column="facturation" onchange = "updateSelect()"><option value="0">0%</option><option value="25">25%</option><option value="50">50%</option><option value="75">75% </option><option value="100" selected>100%</option> </select>';
+      break;
+    default : 
+      $selectfacturation = '';
+      break;
+  }
  $sub_array = array();
   $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="vente">' . $row["vente"] . '</div>';
   $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="projet">' . $row["projet"] . '</div>';
  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="nom_utilisateur">' . $row["nom_utilisateur"] . '</div>';
  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="type_de_site">' . $row["type_de_site"] . '</div>';
-   $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="facturation">' . $row["facturation"] . '</div>';
-  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="graphisme">' . $row["graphisme"] . '</div>';
-  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="contenu">' . $row["contenu"] . '</div>';
-  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="correction">' . $row["correction"] . '</div>';
+   $sub_array[] = $selectfacturation;
+  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="graphisme" '.$stylegraphisme.' >' . $row["graphisme"] . '</div>';
+  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="contenu" '.$stylecontenu.' >' . $row["contenu"] . '</div>';
+  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="correction" '.$stylecorrection.' >' . $row["correction"] . '</div>';
   
  $sub_array[] = '<button type="button" data-target="#myModal" role="button" data-toggle="modal" name="details" class="btn btn-success btn-xs success" id="'.$row["id"].'">Details</button>';
  $sub_array[] = '<button type="button" name="suspendre" class="btn btn-danger btn-xs suspendre" id="'.$row["id"].'">Suspendre</button>';
@@ -59,7 +117,6 @@ while($row = mysqli_fetch_array($result))
  $sub_array[] = '<button type="button" name="delete" class="btn btn-danger btn-xs delete" id="'.$row["id"].'">Delete</button>';
  $data[] = $sub_array;
 }
-
 function get_all_data($connect)
 {
  $query = "SELECT * FROM projetencours where etatprojet = 'corbeille'";

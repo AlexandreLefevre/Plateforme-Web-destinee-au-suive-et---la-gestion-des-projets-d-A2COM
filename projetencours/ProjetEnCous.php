@@ -312,13 +312,7 @@ $('#myModal').on('hidden.bs.modal', function(e) {
             next:       "Suivant",
             last:       "Dernier"
         },
-    },
-    // "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-    //             if ( aData[5] == "Fini" )
-    //             {
-    //                 $('td', nRow).css('background-color', 'Red');
-    //             }
-    //           },
+      },
     "ajax" : {
      url:"fetch.php",
      type:"POST"
@@ -344,9 +338,21 @@ $('#myModal').on('hidden.bs.modal', function(e) {
   $(document).on('blur', '.update', function(){
    var id = $(this).data("id");
    var column_name = $(this).data("column");
-   var value = $(this).text();
+   if(column_name == 'facturation'){
+    var value = $(this).val();
+   }
+   else{
+    var value = $(this).text();
+   }
+   console.log(id);
+   console.log(column_name);
+   console.log(value);
    update_data(id, column_name, value);
   });
+
+  function updateSelect(){
+    console.log('coucouc');
+  }
   
   $('#add').click(function(){
    var html = '<tr>';
@@ -374,7 +380,7 @@ $('#myModal').on('hidden.bs.modal', function(e) {
    var nom_utilisateur = $('#data3').text();
 
 var type_de_site = $('#data4').text();
-var facturation = $('#data5').text();
+var facturation = $('#data5').val();
 var graphisme = $('#data6').text();
 var contenu = $('#data7').text();
 var correction = $('#data8').text();

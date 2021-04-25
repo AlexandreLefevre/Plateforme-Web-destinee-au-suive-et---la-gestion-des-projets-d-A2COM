@@ -18,7 +18,7 @@
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="css/tableauprojet.css"/>
   <link rel="stylesheet" href="css/header.css">
-  <link rel="icon" href="images/Favicon-A2com.ico">
+  <link rel="icon" href="../images/Favicon-A2com.ico">
 
 <!-- Start Navbar Area -->
 <div class="navbar-area">
@@ -313,6 +313,12 @@ $('#myModal').on('hidden.bs.modal', function(e) {
             last:       "Dernier"
         },
     },
+    // "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+    //             if ( aData[5] == "Fini" )
+    //             {
+    //                 $('td', nRow).css('background-color', 'Red');
+    //             }
+    //           },
     "ajax" : {
      url:"fetch.php",
      type:"POST"
@@ -349,7 +355,7 @@ $('#myModal').on('hidden.bs.modal', function(e) {
    html += '<td contenteditable id="data3"></td>';
    html += '<td contenteditable id="data4"></td>';
   //  html += '<td contenteditable id="data5"></td>';
-  html += '<td><select size="1" id="data5"><option value="0" selected="selected">0%</option><option value="25%">25%</option><option value="50">50%</option><option value="75">75% </option><option value="100">100%</option> </select></td>'
+  html += '<td><select size="1" id="data5" name="liste"><option value="0" selected="selected">0%</option><option value="25%">25%</option><option value="50">50%</option><option value="75">75% </option><option value="100">100%</option> </select></td>'
    html += '<td contenteditable id="data6"></td>';
    html += '<td contenteditable id="data7"></td>';
    html += '<td contenteditable id="data8"></td>';

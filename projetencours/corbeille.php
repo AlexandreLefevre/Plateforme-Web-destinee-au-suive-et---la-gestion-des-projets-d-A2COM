@@ -17,7 +17,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
   <link rel="stylesheet" href="css/tableauprojet.css"/>
   <link rel="stylesheet" href="css/header.css">
-  <link rel="icon" href="images/Favicon-A2com.ico">
+  <link rel="icon" href="../images/Favicon-A2com.ico">
 
 <!-- Start Navbar Area -->
 <div class="navbar-area">
@@ -169,7 +169,7 @@ var correction = $('#data8').text();
   
   $(document).on('click', '.delete', function(){
    var id = $(this).attr("id");
-   if(confirm("AEtes vous sur de vouloir placer dans la corbeille ce projet ?"))
+   if(confirm("Etes vous sur de vouloir supprimer ce projet ?"))
    {
     $.ajax({
      url:"delete.php",

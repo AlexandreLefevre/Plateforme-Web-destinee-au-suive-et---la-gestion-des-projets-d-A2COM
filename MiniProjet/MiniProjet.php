@@ -19,7 +19,7 @@
 <!-- MeanMenu CSS -->
 <link rel="stylesheet" href="css/tableauprojet.css"/>
   <link rel="stylesheet" href="css/header.css">
-  <link rel="icon" href="images/Favicon-A2com.ico">
+  <link rel="icon" href="../images/Favicon-A2com.ico">
 </head>
 <body>
 <!-- Start Navbar Area -->

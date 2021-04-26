@@ -46,7 +46,7 @@ while($row = mysqli_fetch_array($result))
   $stylegraphisme ='';
   switch($row["graphisme"]){
     case "Fini" : 
-      $stylegraphisme = 'style="color:red"';
+      $stylegraphisme = 'style="color:green"';
       break;
     case "En cours" : 
       $stylegraphisme = 'style="color:orange"';
@@ -58,7 +58,7 @@ while($row = mysqli_fetch_array($result))
   $stylecontenu ='';
   switch($row["contenu"]){
     case "Fini" : 
-      $stylecontenu  = 'style="color:red"';
+      $stylecontenu  = 'style="color:green"';
       break;
     case "En cours" : 
       $stylecontenu  = 'style="color:orange"';
@@ -70,7 +70,7 @@ while($row = mysqli_fetch_array($result))
   $stylecorrection ='';
   switch($row["correction"]){
     case "Fini" : 
-      $stylecorrection  = 'style="color:red"';
+      $stylecorrection  = 'style="color:green"';
       break;
     case "En cours" : 
       $stylecorrection  = 'style="color:orange"';
@@ -83,19 +83,19 @@ while($row = mysqli_fetch_array($result))
   $selectfacturation ='';
   switch($row["facturation"]){
     case "0" : 
-      $selectfacturation = '<select size="1" id="data5" data-id="'.$row["id"].'" data-column="facturation" onchange = "updateSelect()"><option value="0" selected>0%</option><option value="25">25%</option><option value="50">50%</option><option value="75">75% </option><option value="100">100%</option> </select>';
+      $selectfacturation = '<select size="1" class="update" id="data5" data-id="'.$row["id"].'" data-column="facturation"><option value="0" selected>0%</option><option value="25">25%</option><option value="50">50%</option><option value="75">75% </option><option value="100">100%</option> </select>';
       break;
     case "25" : 
-      $selectfacturation = '<select size="1" id="data5" data-id="'.$row["id"].'" data-column="facturation" onchange = "updateSelect()"><option value="0">0%</option><option value="25" selected>25%</option><option value="50">50%</option><option value="75">75% </option><option value="100">100%</option> </select>';
+      $selectfacturation = '<select size="1"  class="update" id="data5" data-id="'.$row["id"].'" data-column="facturation"><option value="0">0%</option><option value="25" selected>25%</option><option value="50">50%</option><option value="75">75% </option><option value="100">100%</option> </select>';
       break;
     case "50" : 
-      $selectfacturation = '<select size="1" id="data5" data-id="'.$row["id"].'" data-column="facturation" onchange = "updateSelect()"><option value="0">0%</option><option value="25">25%</option><option value="50" selected>50%</option><option value="75">75% </option><option value="100">100%</option> </select>';
+      $selectfacturation = '<select size="1"  class="update" id="data5" data-id="'.$row["id"].'" data-column="facturation"><option value="0">0%</option><option value="25">25%</option><option value="50" selected>50%</option><option value="75">75% </option><option value="100">100%</option> </select>';
       break;
     case "75" : 
-      $selectfacturation = '<select size="1" id="data5" data-id="'.$row["id"].'" data-column="facturation" onchange = "updateSelect()"><option value="0">0%</option><option value="25">25%</option><option value="50">50%</option><option value="75" selected>75% </option><option value="100">100%</option> </select>';
+      $selectfacturation = '<select size="1" class="update" id="data5" data-id="'.$row["id"].'" data-column="facturation"><option value="0">0%</option><option value="25">25%</option><option value="50">50%</option><option value="75" selected>75% </option><option value="100">100%</option> </select>';
       break;
     case "100" : 
-      $selectfacturation = '<select size="1" id="data5" data-id="'.$row["id"].'" data-column="facturation" onchange = "updateSelect()"><option value="0">0%</option><option value="25">25%</option><option value="50">50%</option><option value="75">75% </option><option value="100" selected>100%</option> </select>';
+      $selectfacturation = '<select size="1" class="update" id="data5" data-id="'.$row["id"].'" data-column="facturation"><option value="0">0%</option><option value="25">25%</option><option value="50">50%</option><option value="75">75% </option><option value="100" selected>100%</option> </select>';
       break;
     default : 
       $selectfacturation = '';

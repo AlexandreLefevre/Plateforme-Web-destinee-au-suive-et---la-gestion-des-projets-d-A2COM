@@ -64,7 +64,7 @@
 
  </head>
  <body>
-  <div class="container box" style="margin-top:150px">
+  <div class="container box" style="margin-top:150px" id ="tablecombo">
    <div class="table-responsive">
     <div align="right">
     <button type="button" name="corbeille" id="corbeille" class="btn btn-danger">Corbeille</button>
@@ -295,7 +295,6 @@ $('#myModal').on('hidden.bs.modal', function(e) {
     "processing" : true,
     "serverSide" : true,
     "ordering": false,
-    "order" : [],
     language: {
       lengthMenu:    "Afficher _MENU_ projets",
         search: "Rechercher:",
@@ -320,7 +319,6 @@ $('#myModal').on('hidden.bs.modal', function(e) {
 
    });
   }
-  
   function update_data(id, column_name, value)
   {
    $.ajax({
@@ -338,29 +336,19 @@ $('#myModal').on('hidden.bs.modal', function(e) {
   $(document).on('blur', '.update', function(){
    var id = $(this).data("id");
    var column_name = $(this).data("column");
+   var value = $(this).text();
    if(column_name == 'facturation'){
     var value = $(this).val();
    }
-   else{
-    var value = $(this).text();
-   }
-   console.log(id);
-   console.log(column_name);
-   console.log(value);
    update_data(id, column_name, value);
   });
 
-  function updateSelect(){
-    console.log('coucouc');
-  }
-  
   $('#add').click(function(){
    var html = '<tr>';
    html += '<td contenteditable id="data1"></td>';
    html += '<td contenteditable id="data2"></td>';
    html += '<td contenteditable id="data3"></td>';
    html += '<td contenteditable id="data4"></td>';
-  //  html += '<td contenteditable id="data5"></td>';
   html += '<td><select size="1" id="data5" name="liste"><option value="0" selected="selected">0%</option><option value="25%">25%</option><option value="50">50%</option><option value="75">75% </option><option value="100">100%</option> </select></td>'
    html += '<td contenteditable id="data6"></td>';
    html += '<td contenteditable id="data7"></td>';
@@ -373,7 +361,6 @@ $('#myModal').on('hidden.bs.modal', function(e) {
   $('#corbeille').click(function(){
     document.location.href="corbeille.php"; 
   });
-
   $(document).on('click', '#insert', function(){
    var vente = $('#data1').text();
    var projet = $('#data2').text();
@@ -403,7 +390,6 @@ var correction = $('#data8').text();
     alert("Tout les champs doivent être remplis");
    }
   });
-  
   $(document).on('click', '.delete', function(){
    var id = $(this).attr("id");
    if(confirm("Etes vous sur de vouloir placer dans la corbeille ce projet ?"))
@@ -469,6 +455,7 @@ window.onclick = function(event) {
       var openDropdown = dropdowns[i];
       if (openDropdown.classList.contains('show')) {
         openDropdown.classList.remove('show');
+
       }
     }
   }

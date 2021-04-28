@@ -6,7 +6,7 @@ body
   }
   .box
   {
-   width:1270px;
+   width:1320px;
    padding:20px;
    background-color:#fff;
    border:1px solid #ccc;
@@ -54,6 +54,9 @@ body
 }
 .th2{
   width: 50px;
+}
+.th2{
+  width: 100px;
 }
 .cell1{
   font-size: 10cm;

@@ -65,7 +65,7 @@
  </head>
  <body>
   <div class="container box" style="margin-top:150px" id ="tablecombo">
-   <div class="table-responsive">
+   <div class="table">
     <div align="right">
     <button type="button" name="corbeille" id="corbeille" class="btn btn-danger">Corbeille</button>
      <button type="button" name="add" id="add" class="btn btn-info">Ajouter</button>
@@ -102,175 +102,175 @@
       <div class="modal-body">
         <div class="col-lg-7 col-md-4 col-sm-3">
           <label>
-            <input type="checkbox" value="" name="etape1" id="etape1">
+            <input type="checkbox" value="" name="etape[]" id="etape1">
             Premier acompte
           </label>
         </div>
         <div class="col-md">
           <label>
-            <input type="checkbox" value="" name="etape16" id="etape16">
+            <input type="checkbox" value="" name="etape[]" id="etape16">
             Deuxième acompte (50%) payé
           </label>
         </div>
         <div class="col-lg-7 col-md-4 col-sm-3">
           <label>
-            <input type="checkbox" value="" name="etape2" id="etape2">
+            <input type="checkbox" value="" name="etape[]" id="etape2">
             Template validé
           </label>
         </div>
         <div class="col-md">
           <label>
-            <input type="checkbox" value="" name="etape17" id="etape17">
+            <input type="checkbox" value="" name="etape[]" id="etape17">
             Création de texte
           </label>
         </div>
         <div class="col-lg-7 col-md-4 col-sm-3">
           <label>
-            <input type="checkbox" value="" name="etape3" id="etape3">
+            <input type="checkbox" value="" name="etape[]" id="etape3">
             Logo
           </label>
         </div>
         <div class="col-md">
           <label>
-            <input type="checkbox" value="" name="etape18" id="etape18">
+            <input type="checkbox" value="" name="etape[]" id="etape18">
             Validation du contenu par le client
           </label>
         </div>
         <div class="col-lg-7 col-md-4 col-sm-3">
           <label>
-            <input type="checkbox" value="" name="etape4" id="etape4">
+            <input type="checkbox" value="" name="etape[]" id="etape4">
             Couleurs
           </label>
         </div>
         <div class="col-md">
           <label>
-            <input type="checkbox" value="" name="etape19" id="etape19">
+            <input type="checkbox" value="" name="etape[]" id="etape19">
             Toutes les matières reçues
           </label>
         </div>
         <div class="col-lg-7 col-md-4 col-sm-3">
           <label>
-            <input type="checkbox" value="" name="etape5" id="etape5">
+            <input type="checkbox" value="" name="etape[]" id="etape5">
             Structure
           </label>
         </div>
         <div class="col-md">
           <label>
-            <input type="checkbox" value="" name="etape20" id="etape20">
+            <input type="checkbox" value="" name="etape[]" id="etape20">
             Réalisation du E2/3
           </label>
         </div>
         <div class="col-lg-7 col-md-4 col-sm-3">
           <label>
-            <input type="checkbox" value="" name="etape6" id="etape6">
+            <input type="checkbox" value="" name="etape[]" id="etape6">
             Informations de contact
           </label>
         </div>
         <div class="col-md">
           <label>
-            <input type="checkbox" value="" name="etape21" id="etape21">
+            <input type="checkbox" value="" name="etape[]" id="etape21">
             Checkup interne du E2/3
           </label>
         </div>
         <div class="col-lg-7 col-md-4 col-sm-3">
           <label>
-            <input type="checkbox" value="" name="etape7" id="etape7">
+            <input type="checkbox" value="" name="etape[]" id="etape7">
             Texte de la page d'accueil validé
           </label>
         </div>
         <div class="col-md">
           <label>
-            <input type="checkbox" value="" name="etape22" id="etape22">
+            <input type="checkbox" value="" name="etape[]" id="etape22">
             Corrections internes pour E2/3 
           </label>
         </div>
         <div class="col-lg-7 col-md-4 col-sm-3">
           <label>
-            <input type="checkbox" value="" name="etape8" id="etape8">
+            <input type="checkbox" value="" name="etape[]" id="etape8">
             Photos pour E1/3
           </label>
         </div>
         <div class="col-md">
           <label>
-            <input type="checkbox" value="" name="etape23" id="etape23">
+            <input type="checkbox" value="" name="etape[]" id="etape23">
             Présentation au client 
           </label>
         </div>
         <div class="col-lg-7 col-md-4 col-sm-3">
           <label>
-            <input type="checkbox" value="" name="etape9" id="etape9">
+            <input type="checkbox" value="" name="etape[]" id="etape9">
             Personnalisation du Template
           </label>
         </div>
         <div class="col-md">
           <label>
-            <input type="checkbox" value="" name="etape24" id="etape24">
+            <input type="checkbox" value="" name="etape[]" id="etape24">
             Troisième acompte (75%) payé 
           </label>
         </div>
         <div class="col-lg-7 col-md-4 col-sm-3">
           <label>
-            <input type="checkbox" value="" name="etape10" id="etape10">
+            <input type="checkbox" value="" name="etape[]" id="etape10">
             Création de page d'accueil
           </label>
         </div>
         <div class="col-md">
           <label>
-            <input type="checkbox" value="" name="etape25" id="etape25">
+            <input type="checkbox" value="" name="etape[]" id="etape25">
             Deuxième tour de corrections 
           </label>
         </div>
         <div class="col-lg-7 col-md-4 col-sm-3">
           <label>
-            <input type="checkbox" value="" name="etape11" id="etape11">
+            <input type="checkbox" value="" name="etape[]" id="etape11">
             Création d'une page intérieure
           </label>
         </div>
         <div class="col-md">
           <label>
-            <input type="checkbox" value="" name="etape26" id="etape26">
+            <input type="checkbox" value="" name="etape[]" id="etape26">
             Validation finale par le client 
           </label>
         </div>
         <div class="col-lg-7 col-md-4 col-sm-3">
           <label>
-            <input type="checkbox" value="" name="etape12" id="etape12">
+            <input type="checkbox" value="" name="etape[]" id="etape12">
             E1/3 Validation interne
           </label>
         </div>
         <div class="col-md">
           <label>
-            <input type="checkbox" value="" name="etape27" id="etape27">
+            <input type="checkbox" value="" name="etape[]" id="etape27">
             Migration et SSL 
           </label>
         </div>
         <div class="col-lg-7 col-md-4 col-sm-3">
           <label>
-            <input type="checkbox" value="" name="etape13" id="etape13">
+            <input type="checkbox" value="" name="etape[]" id="etape13">
             E1/3 Corrections internes
         </div>
         <div class="col-md">
           <label>
-            <input type="checkbox" value="" name="etape28" id="etape28">
+            <input type="checkbox" value="" name="etape[]" id="etape28">
             Vérification finale -> migration
           </label>
         </div>
         <div class="col-lg-7 col-md-4 col-sm-3">
           <label>
-            <input type="checkbox" value="" name="etape14" id="etape14">
+            <input type="checkbox" value="" name="etape[]" id="etape14">
             E1/3 Corrections du client
           </label>
         </div>
         <div class="col-lg-7 col-md-4 col-sm-3">
           <label>
-            <input type="checkbox" value="" name="etape15" id="etape15">
+            <input type="checkbox" value="" name="etape[]" id="etape15">
             E1/3 Validation par client
           </label>
         </div>   
       </div>
       <div class="modal-footer">
-        <button type="button" name="close" id="close" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" name="close" id="close" class="btn btn-primary" data-dismiss="modal">Save Changes</button>
+        <button type="button" name="bb" id="bb" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" name="bb" id="bb" class="btn btn-primary" data-dismiss="modal">Save Changes</button>
       </div>
     </div>
   </div>
@@ -280,7 +280,7 @@
 
 <script type="text/javascript" language="javascript" >
 $('#myModal').on('hidden.bs.modal', function(e) {
-  $("#myModal .modal-body").find('input:radio, input:checkbox').prop('checked', false);
+  $("#myModal .modal-body").find('input:radio, input:checkbox').prop('checked', true);
 })
  $(document).ready(function(){
   
@@ -349,7 +349,7 @@ $('#myModal').on('hidden.bs.modal', function(e) {
    html += '<td contenteditable id="data2"></td>';
    html += '<td contenteditable id="data3"></td>';
    html += '<td contenteditable id="data4"></td>';
-  html += '<td><select size="1" id="data5" name="liste"><option value="0" selected="selected">0%</option><option value="25%">25%</option><option value="50">50%</option><option value="75">75% </option><option value="100">100%</option> </select></td>'
+  html += '<td><select size="1" id="data5" name="liste"><option value="0">0%</option</select></td>'
    html += '<td contenteditable id="data6"></td>';
    html += '<td contenteditable id="data7"></td>';
    html += '<td contenteditable id="data8"></td>';

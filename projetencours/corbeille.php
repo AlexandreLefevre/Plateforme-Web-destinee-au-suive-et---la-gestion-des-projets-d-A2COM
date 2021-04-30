@@ -5,6 +5,18 @@
                 else{
                     header('Location: login.php');
                 }
+
+$connect = mysqli_connect("localhost", "root", "", "adeuxcom");
+
+$query = "SELECT id FROM projetencours";
+
+$result = mysqli_query($connect, $query);
+
+$data = array();
+
+while($row = mysqli_fetch_array($result)){
+  $data[]=$row;
+}
             ?>
 <html>
  <head>
@@ -66,19 +78,17 @@
  <body>
   <div class="container box" style="margin-top:150px" id ="tablecombo">
    <div class="table">
-    <div align="right">
-    </div>
     <table id="user_data" class="table table-bordered">
      <thead>
       <tr>
                       <th class = "th1">Vente</th>
                       <th class = "th2">Projet</th>
-                      <th class = "th2">Text</th>
-                      <th  class = "th3">Type de site</th>
+                      <th>Text</th>
+                      <th >Type de site</th>
                       <th class = "th1">Facturation</th>
-                      <th class = "th4">Graphisme</th>
-                      <th class = "th4">Contenu</th>
-                      <th class = "th4">Correction</th>
+                      <th class = "th1">Graphisme</th>
+                      <th class = "th1">Contenu</th>
+                      <th class = "th1">Correction</th>
        <th></th>
        <th></th>
       </tr>
@@ -86,10 +96,9 @@
     </table>
   </div>
 </div>
-<!-- <a data-target="#myModal" role="button" class="btn btn-primary" data-toggle="modal">
-  Launch demo modal</a> -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
+<?php foreach ($data as $row):?>
+<div class="modal fade" id="myModal<?php echo $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document"> 
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -98,186 +107,204 @@
       <div class="modal-body">
         <div class="col-lg-7 col-md-4 col-sm-3">
           <label>
-            <input type="checkbox" value="" name="etape1" id="etape1">
+            <input type="checkbox" value="etape1" name="etape[]" id="etape1">
             Premier acompte
           </label>
         </div>
         <div class="col-md">
           <label>
-            <input type="checkbox" value="" name="etape16" id="etape16">
+            <input type="checkbox" value="etape16" name="etape[]" id="etape16">
             Deuxième acompte (50%) payé
           </label>
         </div>
         <div class="col-lg-7 col-md-4 col-sm-3">
           <label>
-            <input type="checkbox" value="" name="etape2" id="etape2">
+            <input type="checkbox" value="etape2" name="etape[]" id="etape2">
             Template validé
           </label>
         </div>
         <div class="col-md">
           <label>
-            <input type="checkbox" value="" name="etape17" id="etape17">
+            <input type="checkbox" value="etape17" name="etape[]" id="etape17">
             Création de texte
           </label>
         </div>
         <div class="col-lg-7 col-md-4 col-sm-3">
           <label>
-            <input type="checkbox" value="" name="etape3" id="etape3">
+            <input type="checkbox" value="etape3" name="etape[]" id="etape3">
             Logo
           </label>
         </div>
         <div class="col-md">
           <label>
-            <input type="checkbox" value="" name="etape18" id="etape18">
+            <input type="checkbox" value="etape18" name="etape[]" id="etape18">
             Validation du contenu par le client
           </label>
         </div>
         <div class="col-lg-7 col-md-4 col-sm-3">
           <label>
-            <input type="checkbox" value="" name="etape4" id="etape4">
+            <input type="checkbox" value="etape4" name="etape[]" id="etape4">
             Couleurs
           </label>
         </div>
         <div class="col-md">
           <label>
-            <input type="checkbox" value="" name="etape19" id="etape19">
+            <input type="checkbox" value="etape19" name="etape[]" id="etape19">
             Toutes les matières reçues
           </label>
         </div>
         <div class="col-lg-7 col-md-4 col-sm-3">
           <label>
-            <input type="checkbox" value="" name="etape5" id="etape5">
+            <input type="checkbox" value="etape5" name="etape[]" id="etape5">
             Structure
           </label>
         </div>
         <div class="col-md">
           <label>
-            <input type="checkbox" value="" name="etape20" id="etape20">
+            <input type="checkbox" value="etape20" name="etape[]" id="etape20">
             Réalisation du E2/3
           </label>
         </div>
         <div class="col-lg-7 col-md-4 col-sm-3">
           <label>
-            <input type="checkbox" value="" name="etape6" id="etape6">
+            <input type="checkbox" value="etape6" name="etape[]" id="etape6">
             Informations de contact
           </label>
         </div>
         <div class="col-md">
           <label>
-            <input type="checkbox" value="" name="etape21" id="etape21">
+            <input type="checkbox" value="etape21" name="etape[]" id="etape21">
             Checkup interne du E2/3
           </label>
         </div>
         <div class="col-lg-7 col-md-4 col-sm-3">
           <label>
-            <input type="checkbox" value="" name="etape7" id="etape7">
+            <input type="checkbox" value="etape7" name="etape[]" id="etape7">
             Texte de la page d'accueil validé
           </label>
         </div>
         <div class="col-md">
           <label>
-            <input type="checkbox" value="" name="etape22" id="etape22">
+            <input type="checkbox" value="etape22" name="etape[]" id="etape22">
             Corrections internes pour E2/3 
           </label>
         </div>
         <div class="col-lg-7 col-md-4 col-sm-3">
           <label>
-            <input type="checkbox" value="" name="etape8" id="etape8">
+            <input type="checkbox" value="etape8" name="etape[]" id="etape8">
             Photos pour E1/3
           </label>
         </div>
         <div class="col-md">
           <label>
-            <input type="checkbox" value="" name="etape23" id="etape23">
+            <input type="checkbox" value="etape23" name="etape[]" id="etape23">
             Présentation au client 
           </label>
         </div>
         <div class="col-lg-7 col-md-4 col-sm-3">
           <label>
-            <input type="checkbox" value="" name="etape9" id="etape9">
+            <input type="checkbox" value="etape9" name="etape[]" id="etape9">
             Personnalisation du Template
           </label>
         </div>
         <div class="col-md">
           <label>
-            <input type="checkbox" value="" name="etape24" id="etape24">
+            <input type="checkbox" value="etape24" name="etape[]" id="etape24">
             Troisième acompte (75%) payé 
           </label>
         </div>
         <div class="col-lg-7 col-md-4 col-sm-3">
           <label>
-            <input type="checkbox" value="" name="etape10" id="etape10">
+            <input type="checkbox" value="etape10" name="etape[]" id="etape10">
             Création de page d'accueil
           </label>
         </div>
         <div class="col-md">
           <label>
-            <input type="checkbox" value="" name="etape25" id="etape25">
+            <input type="checkbox" value="etape25" name="etape[]" id="etape25">
             Deuxième tour de corrections 
           </label>
         </div>
         <div class="col-lg-7 col-md-4 col-sm-3">
           <label>
-            <input type="checkbox" value="" name="etape11" id="etape11">
+            <input type="checkbox" value="etape11" name="etape[]" id="etape11">
             Création d'une page intérieure
           </label>
         </div>
         <div class="col-md">
           <label>
-            <input type="checkbox" value="" name="etape26" id="etape26">
+            <input type="checkbox" value="etape26" name="etape[]" id="etape26">
             Validation finale par le client 
           </label>
         </div>
         <div class="col-lg-7 col-md-4 col-sm-3">
           <label>
-            <input type="checkbox" value="" name="etape12" id="etape12">
+            <input type="checkbox" value="etape12" name="etape[]" id="etape12">
             E1/3 Validation interne
           </label>
         </div>
         <div class="col-md">
           <label>
-            <input type="checkbox" value="" name="etape27" id="etape27">
+            <input type="checkbox" value="etape27" name="etape[]" id="etape27">
             Migration et SSL 
           </label>
         </div>
         <div class="col-lg-7 col-md-4 col-sm-3">
           <label>
-            <input type="checkbox" value="" name="etape13" id="etape13">
+            <input type="checkbox" value="etape13" name="etape[]" id="etape13">
             E1/3 Corrections internes
         </div>
         <div class="col-md">
           <label>
-            <input type="checkbox" value="" name="etape28" id="etape28">
+            <input type="checkbox" value="etape28" name="etape[]" id="etape28">
             Vérification finale -> migration
           </label>
         </div>
         <div class="col-lg-7 col-md-4 col-sm-3">
           <label>
-            <input type="checkbox" value="" name="etape14" id="etape14">
+            <input type="checkbox" value="etape14" name="etape[]" id="etape14">
             E1/3 Corrections du client
           </label>
         </div>
         <div class="col-lg-7 col-md-4 col-sm-3">
           <label>
-            <input type="checkbox" value="" name="etape15" id="etape15">
+            <input type="checkbox" value="etape15" name="etape[]" id="etape15">
             E1/3 Validation par client
           </label>
-        </div>   
+        </div>  
+        <div class="form-group">
+            <label for="message-text" class="col-lg-7 col-md-4 col-sm-3">Commentaires:</label>
+            <textarea class="form-control" id="etape29" name="etape[]" value="etape29"></textarea>
+          </div> 
       </div>
       <div class="modal-footer">
-        <button type="button" name="close" id="close" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" name="close" id="close" class="btn btn-primary" data-dismiss="modal">Save Changes</button>
+        <button type="button" id="savemodal" class="btn btn-primary" data-dismiss="modal" onclick="saveModal('<?php echo $row['id'] ?>')">Save Changes</button>
       </div>
     </div>
   </div>
 </div>
+
+<?php endforeach; ?>
+
  </body>
 </html>
 
 <script type="text/javascript" language="javascript" >
+function saveModal(modalid){
+  var $test = "#myModal" + modalid + " input[name='etape[]']";
+  $($test).each( function () {
+    if($(this).is(':checked'))
+    {
+      console.log($(this).val());
+      if($(this).val()=="etape1"){
+        console.log($(this).val());
+      }
+    }
+    });
+}
 $('#myModal').on('hidden.bs.modal', function(e) {
-  $("#myModal .modal-body").find('input:radio, input:checkbox').prop('checked', false);
-})
+  $("#myModal .modal-body").find('input:radio, input:checkbox');
+});
  $(document).ready(function(){
   
   fetch_data();
@@ -338,12 +365,30 @@ $('#myModal').on('hidden.bs.modal', function(e) {
    }
    update_data(id, column_name, value);
   });
+
+  
   $(document).on('click', '.delete', function(){
    var id = $(this).attr("id");
-   if(confirm("Etes vous sur de vouloir supprimer définitivement ce projet ?"))
+   if(confirm("Etes vous sur de vouloir placer dans la corbeille ce projet ?"))
    {
     $.ajax({
      url:"delete.php",
+     method:"POST",
+     data:{id:id},
+     success:function(data){
+      $('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
+      $('#user_data').DataTable().destroy();
+      fetch_data();
+     }
+    });
+   }
+  });
+  $(document).on('click', '.archiver', function(){
+   var id = $(this).attr("id");
+   if(confirm("Etes-vous sur de vouloir archiver ce projet ?"))
+   {
+    $.ajax({
+     url:"archiver.php",
      method:"POST",
      data:{id:id},
      success:function(data){

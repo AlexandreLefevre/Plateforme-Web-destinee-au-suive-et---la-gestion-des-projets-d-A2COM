@@ -14,6 +14,10 @@ body
    margin-top:25px;
    box-sizing:border-box;
   }
+
+  .date{
+    width: 20px;
+  }
 /* Dropdown button on hover & focus */
 .dropbtn:hover, .dropbtn:focus {
   background-color: #2980B9;

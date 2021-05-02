@@ -100,7 +100,7 @@ while($row = mysqli_fetch_array($result)){
                       <th class = "th1">Correction</th>
                       <th class = "th1">100%</th>
                       <th></th>
-       <th></th>
+       <th id="th1"></th>
        <th></th>
        <th></th>
        <th></th>
@@ -309,30 +309,34 @@ while($row = mysqli_fetch_array($result)){
 <script type="text/javascript" language="javascript" >
 function saveModal(modalid){
   var $test = "#myModal" + modalid + " input[name='etape[]']";
+  var $data = [];
+  $("#myModal" + modalid + " textarea").each(function(){
+    $data[$(this).attr('value')] = $(this).val();
+  });
+
   $($test).each( function () {
-    if($(this).is(':checked'))
-    {
-      console.log($(this).val());
-      if($(this).val()=="etape1"){
-        console.log($(this).val());
+    if($(this).val() == 'etape29' || $(this).val() == 'etape30'){
+      $data[$(this).val()] = $(this).value;
+    }
+    else{
+      if($(this).is(':checked'))
+      {
+        $data[$(this).val()] = true;
+      }
+      else{
+        $data[$(this).val()] = false;
       }
     }
-    });
+  });
+  console.log(modalid);
+  console.table($data);
+  $.ajax({
+    url:"updateModal.php",
+    method:"POST",
+    data:{modalid:modalid, data:$data}
+   });
 }
-// $('#savemodal').click(function(){
-//   $("input[name='etape[]']").each( function () {
-//     if($(this).is(':checked'))
-//     {
-//       if($(this).val()=="etape1"){
-//         console.log($(this).val());
-//       }
-//         // put this value in an array
-//     }
-//     });
-//     if($('#etape29').val()){
-//       console.log($('#etape29').val());
-//     }
-// });
+
 $('#myModal').on('hidden.bs.modal', function(e) {
   $("#myModal .modal-body").find('input:radio, input:checkbox');
 });
@@ -359,6 +363,11 @@ $('#myModal').on('hidden.bs.modal', function(e) {
         infoFiltered: "",
         info:"Affichage de projet _START_ &agrave; _END_ sur _TOTAL_",
         infoEmpty:      "Affichage de projet; 0 sur 0",
+        "order": [],
+        "columnDefs": [ {
+          "targets": 'th1',
+          "orderable": false,
+    } ],
         paginate: {
             first:      "Premier",
             previous:   "Pr&eacute;c&eacute;dent",
@@ -393,9 +402,39 @@ $('#myModal').on('hidden.bs.modal', function(e) {
    var value = $(this).text();
     if(column_name == 'valide25'){
     var value = $(this).val();
+    if($(this).is(":checked")){
+    var value = 1;
+    }
+    else{
+      var value = 0;
+    }
     }
     if(column_name == 'valide50'){
     var value = $(this).val();
+      if($(this).is(":checked")){
+    var value = 1;
+    }
+    else{
+      var value = 0;
+    }
+    }
+    if(column_name == 'valide75'){
+      var value = $(this).val();
+      if($(this).is(":checked")){
+    var value = 1;
+    }
+    else{
+      var value = 0;
+    }
+    }
+    if(column_name == 'valide100'){
+      var value = $(this).val();
+      if($(this).is(":checked")){
+    var value = 1;
+    }
+    else{
+      var value = 0;
+    }
     }
    update_data(id, column_name, value);
   });

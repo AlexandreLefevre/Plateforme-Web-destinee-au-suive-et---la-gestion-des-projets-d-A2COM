@@ -1,7 +1,7 @@
 <?php
 //fetch.php
 $connect = mysqli_connect("localhost", "root", "", "adeuxcom");
-$columns = array('vente', 'projet','nom_utilisateur','type_de_site','facturation','valide25','graphisme');
+$columns = array('vente', 'projet','nom_utilisateur','type_de_site','facturation','valide25','graphisme','facturation2','valide50','contenu','facturation3','valide75','correction','facturation4','valide100');
 
 $query = "SELECT * FROM projetencours";
 
@@ -43,18 +43,16 @@ $data = array();
 
 while($row = mysqli_fetch_array($result))
 {
-  $styleprojet ='';
-  switch($row["projet"]){
-    case "BNI%" : 
-      $styleprojet = 'style="color:green"';
-      break;
-    case "En cours" : 
-      $styleprojet = 'style="color:orange"';
-      break;
-    default : 
-      $styleprojet = '';
-      break;
-  }
+  // $styleprojet ='';
+  // $pos = strpos($row['projet'],"BNI");
+  // if($pos === true){
+  //   $styleprojet = 'style="color:green"';
+  // }
+  // else{
+  //   $styleprojet = '';
+  // }
+
+
   $stylegraphisme ='';
   switch($row["graphisme"]){
     case "Fini" : 
@@ -91,6 +89,55 @@ while($row = mysqli_fetch_array($result))
       $stylecorrection  = '';
       break;
   }
+  $valide25 ='';
+  switch($row["valide25"]){
+    case 0 : 
+      $valide25  = '';
+      break;
+    case 1 : 
+      $valide25  = 'style="color:green" checked';
+      break;
+    default : 
+      $valide25  = '';
+      break;
+  }
+  $valide50 ='';
+  switch($row["valide50"]){
+    case 0 : 
+      $valide50  = '';
+      break;
+    case 1 : 
+      $valide50 = 'style="color:green" checked';
+      break;
+    default : 
+      $valide50  = '';
+      break;
+  }
+  $valide75 ='';
+  switch($row["valide75"]){
+    case 0 : 
+      $valide75  = '';
+      break;
+    case 1 : 
+      $valide75  = 'style="color:green" checked';
+      break;
+    default : 
+      $valide75  = '';
+      break;
+  }
+  $valide100 ='';
+  switch($row["valide100"]){
+    case 0 : 
+      $valide100  = '';
+      break;
+    case 1 : 
+      $valide100  = 'style="color:green" checked';
+      break;
+    default : 
+      $valide100  = '';
+      break;
+  }
+
 
   // $selectfacturation ='';
   // switch($row["facturation"]){
@@ -113,22 +160,23 @@ while($row = mysqli_fetch_array($result))
   //     $selectfacturation = '';
   //     break;
   // }
+  
  $sub_array = array();
   $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="vente">' . $row["vente"] . '</div>';
-  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="projet" '.$styleprojet.' >' . $row["projet"] . '</div>';
+  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="projet">' . $row["projet"] . '</div>';
  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="nom_utilisateur">' . $row["nom_utilisateur"] . '</div>';
  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="type_de_site">' . $row["type_de_site"] . '</div>';
- $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="facturation">' . $row["facturation"] . '</div>';
- $sub_array[] = '<input class="update" type="checkbox" data-id="'.$row["id"].'" data-column="valide25">';
+ $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="facturation" '.$valide25.'>' . $row["facturation"] . '</div>';
+ $sub_array[] = '<input class="update" type="checkbox" '.$valide25.' data-id="'.$row["id"].'" data-column="valide25">';
  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="graphisme" '.$stylegraphisme.' >' . $row["graphisme"] . '</div>';
- $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="facturation2">' . $row["facturation2"] . '</div>';
- $sub_array[] = '<input class="update" type="checkbox" data-id="'.$row["id"].'" data-column="valide50">';
+ $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="facturation2" '.$valide50.'>' . $row["facturation2"] . '</div>';
+ $sub_array[] = '<input class="update" type="checkbox" '.$valide50.' data-id="'.$row["id"].'" data-column="valide50">';
   $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="contenu" '.$stylecontenu.' >' . $row["contenu"] . '</div>';
-  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="facturation3">' . $row["facturation3"] . '</div>';
-  $sub_array[] = '<input class="update" type="checkbox" data-id="'.$row["id"].'" data-column="valide75">';
+  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="facturation3" '.$valide75.'>' . $row["facturation3"] . '</div>';
+  $sub_array[] = '<input class="update" type="checkbox" '.$valide75.' data-id="'.$row["id"].'" data-column="valide75">';
   $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="correction" '.$stylecorrection.' >' . $row["correction"] . '</div>';
-  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="facturation4">' . $row["facturation4"] . '</div>';
-  $sub_array[] = '<input class="update" type="checkbox" data-id="'.$row["id"].'" data-column="valide100">';
+  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="facturation4" '.$valide100.'>' . $row["facturation4"] . '</div>';
+  $sub_array[] = '<input class="update" type="checkbox" '.$valide100.' data-id="'.$row["id"].'" data-column="valide100">';
   
  $sub_array[] = '<button type="button" data-target="#myModal'.$row["id"].'" role="button" data-toggle="modal" name="details" class="btn btn-success btn-xs success" id="'.$row["id"].'">Details</button>';
  $sub_array[] = '<button type="button" name="suspendre" class="btn btn-danger btn-xs suspendre" id="'.$row["id"].'">Suspendre</button>';

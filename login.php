@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="Connectez-vous à votre compte client afin de visualiser toutes vos données sur vos appels entrants, directement sur votre dashboard">
 		<meta name="author" content="">
-					<title>A2speak</title>
+					<title>A2Com</title>
 		        <link href="https://www.a2speak.com/console/assets/css/theme/plugins/toastr/toastr.min.css" rel="stylesheet">
 		<link href="https://www.a2speak.com/console/assets/css/theme/bootstrap.min.css" rel="stylesheet">
 		<link href="https://www.a2speak.com/console/assets/css/font-awesome/css/font-awesome.css" rel="stylesheet">

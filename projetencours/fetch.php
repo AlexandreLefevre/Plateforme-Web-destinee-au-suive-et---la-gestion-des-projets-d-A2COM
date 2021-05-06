@@ -3,7 +3,7 @@
 $connect = mysqli_connect("localhost", "root", "", "adeuxcom");
 $columns = array('vente', 'projet','nom_utilisateur','type_de_site','facturation','valide25','graphisme','facturation2','valide50','contenu','facturation3','valide75','correction','facturation4','valide100');
 
-$query = "SELECT * FROM projetencours";
+$query = "SELECT projetencours.id,nom_utilisateur, type_de_site, vente, facturation, graphisme, projet, contenu, correction, facturation2, facturation3, facturation4, valide25, valide50, valide75, valide100, fiche_detailees.etape30 FROM projetencours JOIN fiche_detailees ON projetencours.id = fiche_detailees.projetencours_id";
 
 if(isset($_POST["search"]["value"]))
 {
@@ -61,6 +61,9 @@ while($row = mysqli_fetch_array($result))
     case "En cours" : 
       $stylegraphisme = 'style="color:orange"';
       break;
+    case "En attente" : 
+      $stylegraphisme = 'style="color:red"';
+      break;
     default : 
       $stylegraphisme = '';
       break;
@@ -72,6 +75,9 @@ while($row = mysqli_fetch_array($result))
       break;
     case "En cours" : 
       $stylecontenu  = 'style="color:orange"';
+      break;
+    case "En attente" : 
+      $stylecontenu = 'style="color:red"';
       break;
     default : 
       $stylecontenu  = '';
@@ -85,6 +91,9 @@ while($row = mysqli_fetch_array($result))
     case "En cours" : 
       $stylecorrection  = 'style="color:orange"';
       break;
+    case "En attente" : 
+      $stylecorrection= 'style="color:red"';
+      break;
     default : 
       $stylecorrection  = '';
       break;
@@ -92,49 +101,49 @@ while($row = mysqli_fetch_array($result))
   $valide25 ='';
   switch($row["valide25"]){
     case 0 : 
-      $valide25  = '';
+      $valide25  = 'style="color:red"';
       break;
     case 1 : 
       $valide25  = 'style="color:green" checked';
       break;
     default : 
-      $valide25  = '';
+      $valide25  = 'style="color:red"';
       break;
   }
   $valide50 ='';
   switch($row["valide50"]){
     case 0 : 
-      $valide50  = '';
+      $valide50  = 'style="color:red"';
       break;
     case 1 : 
       $valide50 = 'style="color:green" checked';
       break;
     default : 
-      $valide50  = '';
+      $valide50  = 'style="color:red"';
       break;
   }
   $valide75 ='';
   switch($row["valide75"]){
     case 0 : 
-      $valide75  = '';
+      $valide75  = 'style="color:red"';
       break;
     case 1 : 
       $valide75  = 'style="color:green" checked';
       break;
     default : 
-      $valide75  = '';
+      $valide75  = 'style="color:red"';
       break;
   }
   $valide100 ='';
   switch($row["valide100"]){
     case 0 : 
-      $valide100  = '';
+      $valide100  = 'style="color:red"';
       break;
     case 1 : 
       $valide100  = 'style="color:green" checked';
       break;
     default : 
-      $valide100  = '';
+      $valide100  = 'style="color:red"';
       break;
   }
 
@@ -162,7 +171,7 @@ while($row = mysqli_fetch_array($result))
   // }
   
  $sub_array = array();
-  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="vente">' . $row["vente"] . '</div>';
+  $sub_array[] = '<input class="update" type="date" data-id="'.$row["id"].'" data-column="vente" value="'.$row["vente"].'">';
   $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="projet">' . $row["projet"] . '</div>';
  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="nom_utilisateur">' . $row["nom_utilisateur"] . '</div>';
  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="type_de_site">' . $row["type_de_site"] . '</div>';
@@ -178,10 +187,11 @@ while($row = mysqli_fetch_array($result))
   $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="facturation4" '.$valide100.'>' . $row["facturation4"] . '</div>';
   $sub_array[] = '<input class="update" type="checkbox" '.$valide100.' data-id="'.$row["id"].'" data-column="valide100">';
   
- $sub_array[] = '<button type="button" data-target="#myModal'.$row["id"].'" role="button" data-toggle="modal" name="details" class="btn btn-success btn-xs success" id="'.$row["id"].'">Details</button>';
- $sub_array[] = '<button type="button" name="suspendre" class="btn btn-danger btn-xs suspendre" id="'.$row["id"].'">Suspendre</button>';
- $sub_array[] = '<button type="button" name="archiver" class="btn btn-warning btn-xs archiver" id="'.$row["id"].'">Archiver</button>';
- $sub_array[] = '<button type="button" name="delete" class="btn btn-danger btn-xs delete" id="'.$row["id"].'">Delete</button>';
+ $sub_array[] = '<button type="button" data-target="#myModal'.$row["id"].'" role="button" data-toggle="modal" name="details" class="btn btn-success btn-xs success" id="'.$row["id"].'"><i class="fa fa-list-alt" style="font-size:19px"></i></button>';
+ $sub_array[] = '<a class="btn btn-primary btn-xs lien" id="'.$row["id"].'" target="_blank" href="'.$row['etape30'].'"><i class="fa fa-external-link" style="font-size:19px"></i></a>';
+ $sub_array[] = '<button type="button" name="suspendre" class="btn btn-danger btn-xs suspendre" id="'.$row["id"].'"><i class="fa fa-lock" style="font-size:19px"></i></button>';
+ $sub_array[] = '<button type="button" name="archiver" class="btn btn-warning btn-xs archiver" id="'.$row["id"].'"><i class="fa fa-archive" style="font-size:19px"></i></button>';
+ $sub_array[] = '<button type="button" name="delete" class="btn btn-danger btn-xs delete" id="'.$row["id"].'"><i class="fa fa-trash" style="font-size:19px"></i></button>';
  $data[] = $sub_array;
 }
 function get_all_data($connect)

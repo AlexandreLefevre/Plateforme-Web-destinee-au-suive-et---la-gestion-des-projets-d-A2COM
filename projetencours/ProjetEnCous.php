@@ -29,6 +29,19 @@ while($row = mysqli_fetch_array($result)){
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
+  <script src="https://cdn.datatables.net/datetime/1.0.3/js/dataTables.dateTime.min.js"></script>
+  <script src="https://cdn.datatables.net/rowreorder/1.2.7/js/dataTables.rowReorder.min.js"></script>
+  <script src="https://editor.datatables.net/extensions/Editor/js/dataTables.editor.min.js"></script>
+
+  <script src="../package/dist/sweetalert2.min.js"></script>
+  <script src="../package/dist/sweetalert2.all.min.js"></script>
+  <link rel="stylesheet" href="../package/dist/sweetalert2.min.css">
+
   <link rel="stylesheet" href="css/tableauprojet.css"/>
   <link rel="stylesheet" href="css/header.css">
   <link rel="icon" href="../images/Favicon-A2com.ico">
@@ -314,6 +327,7 @@ function saveModal($modalid){
   var $data = {};
   $("#myModal" + $modalid + " textarea").each(function(){
     $data[$(this).attr('value')] = $(this).val();
+    document.location.reload();
   });
 
   $($test).each( function () {
@@ -330,8 +344,6 @@ function saveModal($modalid){
       }
   });
   var $data2 = JSON.stringify($data);
-  console.log($data);
-  console.log($data2);
   $.ajax({
     url:"updateModal.php",
     method:"POST",
@@ -342,18 +354,31 @@ function saveModal($modalid){
 $('#myModal').on('hidden.bs.modal', function(e) {
   $("#myModal .modal-body").find('input:radio, input:checkbox');
 });
+// var editor;
  $(document).ready(function(){
   
   fetch_data();
 
   function fetch_data()
   {
+    // editor = new $.fn.dataTable.Editor( {
+    //     ajax: {
+    //  url:"fetch.php",
+    //  type:"POST"
+    //          },
+
+    //     table: '#user_data',
+    // } );
   var dragSrc = null;  //Globally track source cell
   var cells = null;  // All cells in table
    var dataTable = $('#user_data').DataTable({
-    "lengthMenu": [[10, 20, -1], [10, 20, "Tout"]],
-    "processing" : true,
-    "serverSide" : true,
+    lengthMenu: [[10, 20, -1], [10, 20, "Tout"]],
+    processing : true,
+    serverSide : true,
+    // rowReorder: {
+    //         dataSrc: 'readingOrder',
+    //         editor:  editor
+    //     },
     language: {
       lengthMenu:    "Afficher _MENU_ projets",
         search: "Rechercher:",
@@ -371,13 +396,28 @@ $('#myModal').on('hidden.bs.modal', function(e) {
             last:       "Dernier"
         },
       },
-    "ajax" : {
+    ajax : {
      url:"fetch.php",
      type:"POST"
     },
 
    });
+  //  editor
+  //       .on( 'postCreate postRemove', function () {
+  //           // After create or edit, a number of other rows might have been effected -
+  //           // so we need to reload the table, keeping the paging in the current position
+  //           table.ajax.reload( null, false );
+  //       } )
+  //       .on( 'initCreate', function () {
+  //           // Enable order for create
+  //           editor.field( 'readingOrder' ).enable();
+  //       } )
+  //       .on( 'initEdit', function () {
+  //           // Disable for edit (re-ordering is performed by click and drag)
+  //           editor.field( 'readingOrder' ).disable();
+  //       } );
   }
+
   function update_data(id, column_name, value)
   {
    $.ajax({

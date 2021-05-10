@@ -6,13 +6,18 @@ body
   }
   .box
   {
-   width:1270px;
+   width:1650px;
+   max-width: 1650px;
    padding:20px;
    background-color:#fff;
    border:1px solid #ccc;
    border-radius:5px;
    margin-top:25px;
    box-sizing:border-box;
+  }
+
+  .date{
+    width: 20px;
   }
 /* Dropdown button on hover & focus */
 .dropbtn:hover, .dropbtn:focus {
@@ -54,6 +59,9 @@ body
 }
 .th2{
   width: 50px;
+}
+.th2{
+  width: 100px;
 }
 .cell1{
   font-size: 10cm;

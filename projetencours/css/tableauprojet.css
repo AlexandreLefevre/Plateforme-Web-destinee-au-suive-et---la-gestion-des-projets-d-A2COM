@@ -53,16 +53,3 @@ body
 
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {display:block;}
-
-.th1{
-  width: 10px;
-}
-.th2{
-  width: 50px;
-}
-.th2{
-  width: 100px;
-}
-.cell1{
-  font-size: 10cm;
-}

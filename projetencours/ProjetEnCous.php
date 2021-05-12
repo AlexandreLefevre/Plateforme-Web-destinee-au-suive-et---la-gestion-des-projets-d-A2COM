@@ -22,6 +22,7 @@ while($row = mysqli_fetch_array($result)){
  <head>
   <title>Projet en Cours</title>
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
   <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
@@ -37,6 +38,8 @@ while($row = mysqli_fetch_array($result)){
   <script src="https://cdn.datatables.net/datetime/1.0.3/js/dataTables.dateTime.min.js"></script>
   <script src="https://cdn.datatables.net/rowreorder/1.2.7/js/dataTables.rowReorder.min.js"></script>
   <script src="https://editor.datatables.net/extensions/Editor/js/dataTables.editor.min.js"></script>
+
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
   <script src="../package/dist/sweetalert2.min.js"></script>
   <script src="../package/dist/sweetalert2.all.min.js"></script>
@@ -99,20 +102,20 @@ while($row = mysqli_fetch_array($result)){
     <table id="user_data" class="table table-bordered">
      <thead>
       <tr>
-                      <th class = "th1">Vente</th>
-                      <th class = "th2">Projet</th>
+                      <th>Vente</th>
+                      <th>Projet</th>
                       <th>Text</th>
                       <th >Type de site</th>
-                      <th class = "th1" data-orderable="false">25%</th>
+                      <th data-orderable="false">25%</th>
                       <th></th>
-                      <th class = "th1">Graphisme</th>
-                      <th class = "th1" data-orderable="false">50%</th>
+                      <th>Graphisme</th>
+                      <th data-orderable="false">50%</th>
                       <th></th>
-                      <th class = "th1">Contenu</th>
-                      <th class = "th1" data-orderable="false">75%</th>
+                      <th >Contenu</th>
+                      <th data-orderable="false">75%</th>
                       <th></th>
-                      <th class = "th1">Correction</th>
-                      <th class = "th1" data-orderable="false">100%</th>
+                      <th>Correction</th>
+                      <th data-orderable="false">100%</th>
                       <th></th>
        <th id="th1" data-orderable="false"></th>
        <th data-orderable="false"></th>
@@ -334,13 +337,9 @@ function saveModal($modalid){
       if($(this).is(':checked'))
       {
         $data[$(this).val()] = true;
-        // var $der = $(this).val();
-        // $data.push({$der:"1"});
       }
       else{
         $data[$(this).val()] = false;
-        // var $der = $(this).val();
-        // $data.push({$der:"0"});
       }
   });
   var $data2 = JSON.stringify($data);
@@ -354,34 +353,24 @@ function saveModal($modalid){
 $('#myModal').on('hidden.bs.modal', function(e) {
   $("#myModal .modal-body").find('input:radio, input:checkbox');
 });
-// var editor;
+
  $(document).ready(function(){
   
   fetch_data();
 
   function fetch_data()
   {
-    // editor = new $.fn.dataTable.Editor( {
-    //     ajax: {
-    //  url:"fetch.php",
-    //  type:"POST"
-    //          },
-
-    //     table: '#user_data',
-    // } );
   var dragSrc = null;  //Globally track source cell
   var cells = null;  // All cells in table
    var dataTable = $('#user_data').DataTable({
     lengthMenu: [[10, 20, -1], [10, 20, "Tout"]],
     processing : true,
+    order: [],
     serverSide : true,
-    // rowReorder: {
-    //         dataSrc: 'readingOrder',
-    //         editor:  editor
-    //     },
     language: {
       lengthMenu:    "Afficher _MENU_ projets",
         search: "Rechercher:",
+        
         processing:     "Traitement en cours...",
         emptyTable:     "Aucune donnée disponible dans le tableau",
         loadingRecords: "Chargement en cours...",
@@ -402,20 +391,6 @@ $('#myModal').on('hidden.bs.modal', function(e) {
     },
 
    });
-  //  editor
-  //       .on( 'postCreate postRemove', function () {
-  //           // After create or edit, a number of other rows might have been effected -
-  //           // so we need to reload the table, keeping the paging in the current position
-  //           table.ajax.reload( null, false );
-  //       } )
-  //       .on( 'initCreate', function () {
-  //           // Enable order for create
-  //           editor.field( 'readingOrder' ).enable();
-  //       } )
-  //       .on( 'initEdit', function () {
-  //           // Disable for edit (re-ordering is performed by click and drag)
-  //           editor.field( 'readingOrder' ).disable();
-  //       } );
   }
 
   function update_data(id, column_name, value)
@@ -479,7 +454,7 @@ $('#myModal').on('hidden.bs.modal', function(e) {
   });
 
   $('#add').click(function(){
-   var html = '<tr>';
+   var html = '<tr data-unsortable>';
    html += '<td id="data1"><input type="date" id="start" name="trip-start" style="font-size: 1.7rem"></td>';
    html += '<td contenteditable id="data2"></td>';
    html += '<td contenteditable id="data3"></td>';
@@ -505,7 +480,6 @@ $('#myModal').on('hidden.bs.modal', function(e) {
   });
   $(document).on('click', '#insert', function(){
    var vente = $('#data1 input').val();
-   console.log(vente);
    var projet = $('#data2').text();
    var nom_utilisateur = $('#data3').text();
 
@@ -541,22 +515,35 @@ var valide100 = $('#data15 input').is(":checked")==true?true:false;
     alert("Tout les champs doivent être remplis");
    }
   });
-  $(document).on('click', '.delete', function(){
-   var id = $(this).attr("id");
-   if(confirm("Etes vous sur de vouloir placer dans la corbeille ce projet ?"))
-   {
-    $.ajax({
-     url:"delete_corbeille.php",
-     method:"POST",
-     data:{id:id},
-     success:function(data){
-      $('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
-      $('#user_data').DataTable().destroy();
-      fetch_data();
-     }
-    });
-   }
-  });
+  $(document).on('click', '.delete', function(e){
+    e.preventDefault();
+    var id = $(this).attr("id");
+
+    Swal.fire({
+      title: 'Voulez-vous placer ce projet en corbeille ?',
+      showDenyButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+            $.ajax({
+            url:"delete_corbeille.php",
+            method:"POST",
+            data:{id:id},
+            success:function(data){
+              $('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
+              $('#user_data').DataTable().destroy();
+              fetch_data();
+              Swal.fire('Le projet à été déplacé en corbeille', '', 'success')
+            }
+        });
+        
+      } else if (result.isDenied) {
+        Swal.fire('Le projet n a pas été mis en corbeille', '', 'info')
+      }
+    })
+   }  
+  );
+
+
   $(document).on('click', '.archiver', function(){
    var id = $(this).attr("id");
    if(confirm("Etes-vous sur de vouloir archiver ce projet ?"))
@@ -611,4 +598,36 @@ window.onclick = function(event) {
     }
   }
 }
+</script>
+
+
+<script>
+(function($){
+
+  $(document).ready(function(){
+    initSortable()
+  });
+
+  function initSortable(){
+    $('tbody').sortable({
+        placeholder : "ui-state-highlight",
+        items: 'tr:not([data-unsortable])',
+        update : function(event, ui){
+          var order = [];
+          $('tbody tr').each(function(){
+            var id = $(this).find('[data-id]').data('id');
+            order.push(id);       
+          });         
+          $.ajax({
+            url:"reorder.php",
+            method:"POST",
+            data:{
+              projects_order: order
+            }
+          }); 
+        }
+    });
+  }
+})(jQuery)
+
 </script>

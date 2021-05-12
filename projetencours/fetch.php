@@ -25,7 +25,7 @@ if(isset($_POST["order"]))
 }
 else
 {
- $query .= 'ORDER BY id DESC ';
+ $query .= 'ORDER BY order_id ASC ';
 }
 
 $query1 = '';
@@ -43,16 +43,6 @@ $data = array();
 
 while($row = mysqli_fetch_array($result))
 {
-  // $styleprojet ='';
-  // $pos = strpos($row['projet'],"BNI");
-  // if($pos === true){
-  //   $styleprojet = 'style="color:green"';
-  // }
-  // else{
-  //   $styleprojet = '';
-  // }
-
-
   $stylegraphisme ='';
   switch($row["graphisme"]){
     case "Fini" : 

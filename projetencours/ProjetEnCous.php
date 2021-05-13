@@ -93,7 +93,7 @@ while($row = mysqli_fetch_array($result)){
 
  </head>
  <body>
-  <div class="container box" style="margin-top:150px" id ="tablecombo">
+  <div class="container box" style="margin-top:150px">
    <div class="table">
     <div align="right">
     <button type="button" name="corbeille" id="corbeille" class="btn btn-danger">Corbeille</button>
@@ -127,6 +127,38 @@ while($row = mysqli_fetch_array($result)){
     </table>
   </div>
 </div>
+
+<div class="container box">
+   <div class="table">
+    <table id="user_data2" class="table table-bordered">
+     <thead>
+      <tr>
+                      <th>Vente</th>
+                      <th>Projet</th>
+                      <th>Text</th>
+                      <th >Type de site</th>
+                      <th data-orderable="false">25%</th>
+                      <th></th>
+                      <th>Graphisme</th>
+                      <th data-orderable="false">50%</th>
+                      <th></th>
+                      <th >Contenu</th>
+                      <th data-orderable="false">75%</th>
+                      <th></th>
+                      <th>Correction</th>
+                      <th data-orderable="false">100%</th>
+                      <th></th>
+       <th id="th1" data-orderable="false"></th>
+       <th data-orderable="false"></th>
+       <th data-orderable="false"></th>
+       <!-- <th data-orderable="false"></th>
+       <th data-orderable="false"></th> -->
+      </tr>
+     </thead>
+    </table>
+  </div>
+</div>
+
 <?php foreach ($data as $row):?>
 <div class="modal fade" id="myModal<?php echo $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document"> 
@@ -515,6 +547,7 @@ var valide100 = $('#data15 input').is(":checked")==true?true:false;
     alert("Tout les champs doivent être remplis");
    }
   });
+
   $(document).on('click', '.delete', function(e){
     e.preventDefault();
     var id = $(this).attr("id");
@@ -544,38 +577,191 @@ var valide100 = $('#data15 input').is(":checked")==true?true:false;
   );
 
 
-  $(document).on('click', '.archiver', function(){
+  $(document).on('click', '.archiver', function(e){
+    e.preventDefault();
+    var id = $(this).attr("id");
+
+    Swal.fire({
+      title: 'Voulez-vous archiver ce projet ?',
+      showDenyButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+            $.ajax({
+            url:"archiver.php",
+            method:"POST",
+            data:{id:id},
+            success:function(data){
+              $('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
+              $('#user_data').DataTable().destroy();
+              fetch_data();
+              Swal.fire('Le projet à été archivé', '', 'success')
+            }
+        });
+        
+      } else if (result.isDenied) {
+        Swal.fire('Le projet n a pas été mis archivé', '', 'info')
+      }
+    })
+   }  
+  );
+
+  $(document).on('click', '.suspendre', function(e){
+  e.preventDefault();
    var id = $(this).attr("id");
-   if(confirm("Etes-vous sur de vouloir archiver ce projet ?"))
-   {
-    $.ajax({
-     url:"archiver.php",
-     method:"POST",
-     data:{id:id},
-     success:function(data){
-      $('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
-      $('#user_data').DataTable().destroy();
-      fetch_data();
-     }
-    });
-   }
+   Swal.fire({
+      title: 'Voulez-vous suspendre ce projet ?',
+      showDenyButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+            $.ajax({
+            url:"suspendre.php",
+            method:"POST",
+            data:{id:id},
+            success:function(data){
+              $('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
+              $('#user_data').DataTable().destroy();
+              fetch_data();
+            }
+        });
+        document.location.reload();
+        
+      } else if (result.isDenied) {
+        Swal.fire('Le projet n a pas été suspendu', '', 'info')
+      }
+    })
+   }  
+  );
+
+
+});
+
+// Tableau des projets suspendu
+
+$(document).ready(function(){
+  
+  fetch_data();
+
+  function fetch_data()
+  {
+  var dragSrc = null;
+  var cells = null;
+   var dataTable = $('#user_data2').DataTable({
+    lengthMenu: [[10, 20, -1], [10, 20, "Tout"]],
+    processing : true,
+    order: [],
+    serverSide : true,
+    language: {
+      lengthMenu:    "Afficher _MENU_ projets",
+        search: "Rechercher:",
+        
+        processing:     "Traitement en cours...",
+        emptyTable:     "Aucune donnée disponible dans le tableau",
+        loadingRecords: "Chargement en cours...",
+        zeroRecords: "Aucune données trouvée",
+        infoFiltered: "",
+        info:"Affichage de projet _START_ &agrave; _END_ sur _TOTAL_",
+        infoEmpty:      "Affichage de projet; 0 sur 0",
+        paginate: {
+            first:      "Premier",
+            previous:   "Pr&eacute;c&eacute;dent",
+            next:       "Suivant",
+            last:       "Dernier"
+        },
+      },
+    ajax : {
+     url:"fetch_suspendu.php",
+     type:"POST"
+    },
+
+   });
+  }
+
+  function update_data(id, column_name, value)
+  {
+   $.ajax({
+    url:"update.php",
+    method:"POST",
+    data:{id:id, column_name:column_name, value:value},
+    success:function(data)
+    {
+     $('#user_data2').DataTable().destroy();
+     fetch_data();
+    }
+   });
+  }
+
+  $(document).on('blur', '.update', function(){
+   var id = $(this).data("id");
+   var column_name = $(this).data("column");
+   var value = $(this).text();
+    if(column_name == 'valide25'){
+    var value = $(this).val();
+    if($(this).is(":checked")){
+    var value = 1;
+    }
+    else{
+      var value = 0;
+    }
+    }
+    if(column_name == 'valide50'){
+    var value = $(this).val();
+      if($(this).is(":checked")){
+    var value = 1;
+    }
+    else{
+      var value = 0;
+    }
+    }
+    if(column_name == 'valide75'){
+      var value = $(this).val();
+      if($(this).is(":checked")){
+    var value = 1;
+    }
+    else{
+      var value = 0;
+    }
+    }
+    if(column_name == 'valide100'){
+      var value = $(this).val();
+      if($(this).is(":checked")){
+    var value = 1;
+    }
+    else{
+      var value = 0;
+    }
+    }
+    if(column_name == 'vente'){
+      var value = $(this).val();
+    }
+   update_data(id, column_name, value);
   });
-  $(document).on('click', '.suspendre', function(){
+
+  $(document).on('click', '.unsuspendre', function(e){
+  e.preventDefault();
    var id = $(this).attr("id");
-   if(confirm("Etes-vous sur de vouloir suspendre ce projet ?"))
-   {
-    $.ajax({
-     url:"suspendre.php",
-     method:"POST",
-     data:{id:id},
-     success:function(data){
-      $('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
-      $('#user_data').DataTable().destroy();
-      fetch_data();
-     }
-    });
-   }
-  });
+   Swal.fire({
+      title: 'Voulez-vous débloquer ce projet ?',
+      showDenyButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+            $.ajax({
+            url:"unsuspendre.php",
+            method:"POST",
+            data:{id:id},
+            success:function(data){
+              $('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
+              $('#user_data2').DataTable().destroy();
+              fetch_data();
+            }
+        });
+        document.location.reload();
+        
+      } else if (result.isDenied) {
+        Swal.fire('Le projet n a pas été débloqué', '', 'info')
+      }
+    })
+   }  
+  );
 });
 
  /* When the user clicks on the button,

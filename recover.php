@@ -12,7 +12,7 @@
 
         if($row){
             
-            $get = $bdd->prepare('SELECT token FROM utilisateur WHERE token = ?');
+            $get = $bdd->prepare('SELECT token FROM user WHERE token = ?');
             $get->execute(array($u));
             $data_u = $get->fetch();
 

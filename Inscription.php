@@ -125,30 +125,6 @@
              }, false);
            })();
 
-
-        //    $('#test').on('click', (function(){
-        //     $.post("verificationinscription.php",function(data){
-        //         console.log(data);
-        //         if(data['error']){
-        //             Swal.fire({
-        //             title: 'Error!',
-        //             text: 'Do you want to continue',
-        //             icon: 'error',
-        //             confirmButtonText: 'Cool'
-        //             })
-        //         }
-        //         else{
-        //             Swal.fire({
-        //             title: 'Succes!',
-        //             text: 'Do you want to continue',
-        //             icon: 'success',
-        //             confirmButtonText: 'Cool'
-        //             })
-        //         }
-        //     })
-        //  }));
-
-
          </script>
 </body>
 </html>

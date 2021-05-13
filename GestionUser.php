@@ -77,7 +77,7 @@
 					<form action="verificationinscription.php" method="POST">
 					<?php 
 					//user data
-					$sQuery = "SELECT * FROM utilisateur where Admin='user'";
+					$sQuery = "SELECT * FROM user where Admin='user'";
 				    $result = $dbcon->query($sQuery);
 					
 					while($row = $result->fetch_assoc()): ?>

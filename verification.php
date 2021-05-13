@@ -20,7 +20,7 @@ if(isset($_POST['username']) && isset($_POST['password']))
     {
         $hash = password_hash($password,PASSWORD_DEFAULT);
 
-        $requete_1 = $bdd->query("SELECT * FROM utilisateur where nom_utilisateur = '".$username."'");
+        $requete_1 = $bdd->query("SELECT * FROM user where nom_utilisateur = '".$username."'");
         $user = array();
 
       while ($donnees = $requete_1->fetch()) {

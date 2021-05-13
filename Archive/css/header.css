@@ -5,6 +5,7 @@ body {
     margin: 0;
     font-size: 15px;
     background-color: #f1f1f1;
+    width: auto;
 }
 
 a.meanmenu-reveal {

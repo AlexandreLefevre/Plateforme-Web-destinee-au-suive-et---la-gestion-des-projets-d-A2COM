@@ -130,6 +130,7 @@ while($row = mysqli_fetch_array($result)){
 
 <div class="container box">
    <div class="table">
+   <h3 style="text-align: center;">Projet Suspendu</h3>
     <table id="user_data2" class="table table-bordered">
      <thead>
       <tr>
@@ -544,7 +545,7 @@ var valide100 = $('#data15 input').is(":checked")==true?true:false;
  }
    else
    {
-    alert("Tout les champs doivent être remplis");
+    alert("Il faut un nom de projet !");
    }
   });
 
@@ -599,7 +600,7 @@ var valide100 = $('#data15 input').is(":checked")==true?true:false;
         });
         
       } else if (result.isDenied) {
-        Swal.fire('Le projet n a pas été mis archivé', '', 'info')
+        Swal.fire('Le projet n a pas été archivé', '', 'info')
       }
     })
    }  
@@ -797,7 +798,7 @@ window.onclick = function(event) {
   function initSortable(){
     $('tbody').sortable({
         placeholder : "ui-state-highlight",
-        items: 'tr:not([data-unsortable])',
+        handle: ".sortable-handle",
         update : function(event, ui){
           var order = [];
           $('tbody tr').each(function(){

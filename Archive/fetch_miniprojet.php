@@ -8,7 +8,7 @@ $query = "SELECT * FROM miniprojet";
 if(isset($_POST["search"]["value"]))
 {
  $query .= '
- WHERE etatminiprojet = "corbeille"
+ WHERE etatminiprojet = "archiver"
  AND (client LIKE "%'.$_POST["search"]["value"].'%" 
  OR tache LIKE "%'.$_POST["search"]["value"].'%" 
  OR statut LIKE "%'.$_POST["search"]["value"].'%"
@@ -58,7 +58,7 @@ while($row = mysqli_fetch_array($result))
   } 
 
  $sub_array = array();
-  $sub_array[] = '<span class="sortable-handle">X </span><input class="update" type="date" data-id="'.$row["id"].'" data-column="date_de_fin" value="'.$row["date_de_fin"].'">';
+  $sub_array[] = '<input class="update" type="date" data-id="'.$row["id"].'" data-column="date_de_fin" value="'.$row["date_de_fin"].'">';
   $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="client">' . $row["client"] . '</div>';
   $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="tache">' . $row["tache"] . '</div>';
   $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="statut" '.$stylestatut.' >' . $row["statut"] . '</div>';

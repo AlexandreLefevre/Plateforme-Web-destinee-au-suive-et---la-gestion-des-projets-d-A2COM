@@ -64,7 +64,7 @@ while($row = mysqli_fetch_array($result)){
 							<a href="../index.php" class="nav-link">Dashboard</a>
 						</li>
 						<li class="nav-item">
-							<a href="ProjetEnCous.php" class="nav-link">Projet en cours</a>
+							<a href="../projetencours/ProjetEnCous.php" class="nav-link">Projet en cours</a>
 						</li>
 						<li class="nav-item">
 							<a href="../MiniProjet/MiniProjet.php" class="nav-link">Mini-Projet</a>
@@ -98,25 +98,13 @@ while($row = mysqli_fetch_array($result)){
     <table id="user_data" class="table table-bordered">
      <thead>
       <tr>
-                      <th>Vente</th>
-                      <th>Projet</th>
-                      <th>Text</th>
-                      <th >Type de site</th>
-                      <th data-orderable="false">25%</th>
-                      <th></th>
-                      <th>Graphisme</th>
-                      <th data-orderable="false">50%</th>
-                      <th></th>
-                      <th >Contenu</th>
-                      <th data-orderable="false">75%</th>
-                      <th></th>
-                      <th>Correction</th>
-                      <th data-orderable="false">100%</th>
-                      <th></th>
-       <th id="th1" data-orderable="false"></th>
+                      <th>Deadline</th>
+                      <th>Client</th>
+                      <th>Résumé</th>
+                      <th>Statut</th>
+                      <th >Qui va faire ?</th>
+                      <th>Notes complémentaires</th>
        <th data-orderable="false"></th>
-       <th data-orderable="false"></th>
-       <!-- <th data-orderable="false"></th> -->
        <th data-orderable="false"></th>
       </tr>
      </thead>
@@ -124,232 +112,10 @@ while($row = mysqli_fetch_array($result)){
   </div>
 </div>
 
-<?php foreach ($data as $row):?>
-<div class="modal fade" id="myModal<?php echo $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document"> 
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Fiche Détaillées</h4>
-      </div>
-      <div class="modal-body">
-        <div class="col-lg-7 col-md-4 col-sm-3">
-          <label>
-            <input type="checkbox" value="etape1" name="etape[]" id="etape1" <?php if($row['etape1']){echo("checked");}?>>
-            Premier acompte
-          </label>
-        </div>
-        <div class="col-md">
-          <label>
-            <input type="checkbox" value="etape16" name="etape[]" id="etape16" <?php if($row['etape16']){echo("checked");}?>>
-            Deuxième acompte (50%) payé
-          </label>
-        </div>
-        <div class="col-lg-7 col-md-4 col-sm-3">
-          <label>
-            <input type="checkbox" value="etape2" name="etape[]" id="etape2" <?php if($row['etape2']){echo("checked");}?>>
-            Template validé
-          </label>
-        </div>
-        <div class="col-md">
-          <label>
-            <input type="checkbox" value="etape17" name="etape[]" id="etape17" <?php if($row['etape17']){echo("checked");}?>>
-            Création de texte
-          </label>
-        </div>
-        <div class="col-lg-7 col-md-4 col-sm-3">
-          <label>
-            <input type="checkbox" value="etape3" name="etape[]" id="etape3" <?php if($row['etape3']){echo("checked");}?>>
-            Logo
-          </label>
-        </div>
-        <div class="col-md">
-          <label>
-            <input type="checkbox" value="etape18" name="etape[]" id="etape18" <?php if($row['etape18']){echo("checked");}?>>
-            Validation du contenu par le client
-          </label>
-        </div>
-        <div class="col-lg-7 col-md-4 col-sm-3">
-          <label>
-            <input type="checkbox" value="etape4" name="etape[]" id="etape4" <?php if($row['etape4']){echo("checked");}?>>
-            Couleurs
-          </label>
-        </div>
-        <div class="col-md">
-          <label>
-            <input type="checkbox" value="etape19" name="etape[]" id="etape19" <?php if($row['etape19']){echo("checked");}?>>
-            Toutes les matières reçues
-          </label>
-        </div>
-        <div class="col-lg-7 col-md-4 col-sm-3">
-          <label>
-            <input type="checkbox" value="etape5" name="etape[]" id="etape5" <?php if($row['etape5']){echo("checked");}?>>
-            Structure
-          </label>
-        </div>
-        <div class="col-md">
-          <label>
-            <input type="checkbox" value="etape20" name="etape[]" id="etape20" <?php if($row['etape20']){echo("checked");}?>>
-            Réalisation du E2/3
-          </label>
-        </div>
-        <div class="col-lg-7 col-md-4 col-sm-3">
-          <label>
-            <input type="checkbox" value="etape6" name="etape[]" id="etape6" <?php if($row['etape6']){echo("checked");}?>>
-            Informations de contact
-          </label>
-        </div>
-        <div class="col-md">
-          <label>
-            <input type="checkbox" value="etape21" name="etape[]" id="etape21" <?php if($row['etape21']){echo("checked");}?>>
-            Checkup interne du E2/3
-          </label>
-        </div>
-        <div class="col-lg-7 col-md-4 col-sm-3">
-          <label>
-            <input type="checkbox" value="etape7" name="etape[]" id="etape7" <?php if($row['etape7']){echo("checked");}?>>
-            Texte de la page d'accueil validé
-          </label>
-        </div>
-        <div class="col-md">
-          <label>
-            <input type="checkbox" value="etape22" name="etape[]" id="etape22" <?php if($row['etape22']){echo("checked");}?>>
-            Corrections internes pour E2/3 
-          </label>
-        </div>
-        <div class="col-lg-7 col-md-4 col-sm-3">
-          <label>
-            <input type="checkbox" value="etape8" name="etape[]" id="etape8" <?php if($row['etape8']){echo("checked");}?>>
-            Photos pour E1/3
-          </label>
-        </div>
-        <div class="col-md">
-          <label>
-            <input type="checkbox" value="etape23" name="etape[]" id="etape23" <?php if($row['etape23']){echo("checked");}?>>
-            Présentation au client 
-          </label>
-        </div>
-        <div class="col-lg-7 col-md-4 col-sm-3">
-          <label>
-            <input type="checkbox" value="etape9" name="etape[]" id="etape9" <?php if($row['etape9']){echo("checked");}?>>
-            Personnalisation du Template
-          </label>
-        </div>
-        <div class="col-md">
-          <label>
-            <input type="checkbox" value="etape24" name="etape[]" id="etape24" <?php if($row['etape24']){echo("checked");}?>>
-            Troisième acompte (75%) payé 
-          </label>
-        </div>
-        <div class="col-lg-7 col-md-4 col-sm-3">
-          <label>
-            <input type="checkbox" value="etape10" name="etape[]" id="etape10" <?php if($row['etape10']){echo("checked");}?>>
-            Création de page d'accueil
-          </label>
-        </div>
-        <div class="col-md">
-          <label>
-            <input type="checkbox" value="etape25" name="etape[]" id="etape25" <?php if($row['etape25']){echo("checked");}?>>
-            Deuxième tour de corrections 
-          </label>
-        </div>
-        <div class="col-lg-7 col-md-4 col-sm-3">
-          <label>
-            <input type="checkbox" value="etape11" name="etape[]" id="etape11" <?php if($row['etape11']){echo("checked");}?>>
-            Création d'une page intérieure
-          </label>
-        </div>
-        <div class="col-md">
-          <label>
-            <input type="checkbox" value="etape26" name="etape[]" id="etape26" <?php if($row['etape26']){echo("checked");}?>>
-            Validation finale par le client 
-          </label>
-        </div>
-        <div class="col-lg-7 col-md-4 col-sm-3">
-          <label>
-            <input type="checkbox" value="etape12" name="etape[]" id="etape12" <?php if($row['etape12']){echo("checked");}?>>
-            E1/3 Validation interne
-          </label>
-        </div>
-        <div class="col-md">
-          <label>
-            <input type="checkbox" value="etape27" name="etape[]" id="etape27" <?php if($row['etape27']){echo("checked");}?>>
-            Migration et SSL 
-          </label>
-        </div>
-        <div class="col-lg-7 col-md-4 col-sm-3">
-          <label>
-            <input type="checkbox" value="etape13" name="etape[]" id="etape13" <?php if($row['etape13']){echo("checked");}?>>
-            E1/3 Corrections internes
-        </div>
-        <div class="col-md">
-          <label>
-            <input type="checkbox" value="etape28" name="etape[]" id="etape28" <?php if($row['etape28']){echo("checked");}?>>
-            Vérification finale -> migration
-          </label>
-        </div>
-        <div class="col-lg-7 col-md-4 col-sm-3">
-          <label>
-            <input type="checkbox" value="etape14" name="etape[]" id="etape14" <?php if($row['etape14']){echo("checked");}?>>
-            E1/3 Corrections du client
-          </label>
-        </div>
-        <div class="col-lg-7 col-md-4 col-sm-3">
-          <label>
-            <input type="checkbox" value="etape15" name="etape[]" id="etape15" <?php if($row['etape15']){echo("checked");}?>>
-            E1/3 Validation par client
-          </label>
-        </div>  
-        <div class="form-group">
-            <label for="message-text" class="col-lg-7 col-md-4 col-sm-3">Commentaires:</label>
-            <textarea class="form-control" id="etape29" name="etape[]" value="etape29"><?php echo($row['etape29'])?></textarea>
-          </div> 
-          <div class="form-group">
-            <label for="message-text" class="col-lg-7 col-md-4 col-sm-3">Preview:</label>
-            <textarea class="form-control" id="etape30" name="etape[]" value="etape30"><?php echo($row['etape30'])?></textarea>
-          </div> 
-      </div>
-      <div class="modal-footer">
-        <button type="button" id="savemodal" class="btn btn-primary" data-dismiss="modal" onclick="saveModal('<?php echo $row['id'] ?>')">Save Changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<?php endforeach; ?>
-
  </body>
 </html>
 
 <script type="text/javascript" language="javascript" >
-function saveModal($modalid){
-  var $test = "#myModal" + $modalid + " input[name='etape[]']";
-  var $data = {};
-  $("#myModal" + $modalid + " textarea").each(function(){
-    $data[$(this).attr('value')] = $(this).val();
-    document.location.reload();
-  });
-
-  $($test).each( function () {
-      if($(this).is(':checked'))
-      {
-        $data[$(this).val()] = true;
-      }
-      else{
-        $data[$(this).val()] = false;
-      }
-  });
-  var $data2 = JSON.stringify($data);
-  $.ajax({
-    url:"updateModal.php",
-    method:"POST",
-    data:{modalid:$modalid, data:$data2}
-   });
-}
-
-$('#myModal').on('hidden.bs.modal', function(e) {
-  $("#myModal .modal-body").find('input:radio, input:checkbox');
-});
 
  $(document).ready(function(){
   
@@ -365,7 +131,7 @@ $('#myModal').on('hidden.bs.modal', function(e) {
     order: [],
     serverSide : true,
     language: {
-      lengthMenu:    "Afficher _MENU_ projets",
+      lengthMenu:    "Afficher _MENU_ Mini Projets",
         search: "Rechercher:",
         
         processing:     "Traitement en cours...",
@@ -373,8 +139,8 @@ $('#myModal').on('hidden.bs.modal', function(e) {
         loadingRecords: "Chargement en cours...",
         zeroRecords: "Aucune données trouvée",
         infoFiltered: "",
-        info:"Affichage de projet _START_ &agrave; _END_ sur _TOTAL_",
-        infoEmpty:      "Affichage de projet; 0 sur 0",
+        info:"Affichage de Mini Projet _START_ &agrave; _END_ sur _TOTAL_",
+        infoEmpty:      "Affichage de Mini Projet; 0 sur 0",
         paginate: {
             first:      "Premier",
             previous:   "Pr&eacute;c&eacute;dent",
@@ -408,109 +174,10 @@ $('#myModal').on('hidden.bs.modal', function(e) {
    var id = $(this).data("id");
    var column_name = $(this).data("column");
    var value = $(this).text();
-    if(column_name == 'valide25'){
-    var value = $(this).val();
-    if($(this).is(":checked")){
-    var value = 1;
-    }
-    else{
-      var value = 0;
-    }
-    }
-    if(column_name == 'valide50'){
-    var value = $(this).val();
-      if($(this).is(":checked")){
-    var value = 1;
-    }
-    else{
-      var value = 0;
-    }
-    }
-    if(column_name == 'valide75'){
-      var value = $(this).val();
-      if($(this).is(":checked")){
-    var value = 1;
-    }
-    else{
-      var value = 0;
-    }
-    }
-    if(column_name == 'valide100'){
-      var value = $(this).val();
-      if($(this).is(":checked")){
-    var value = 1;
-    }
-    else{
-      var value = 0;
-    }
-    }
-    if(column_name == 'vente'){
+    if(column_name == 'date_de_fin'){
       var value = $(this).val();
     }
    update_data(id, column_name, value);
-  });
-
-  $('#add').click(function(){
-   var html = '<tr data-unsortable>';
-   html += '<td id="data1"><input type="date" id="start" name="trip-start" style="font-size: 1.7rem"></td>';
-   html += '<td contenteditable id="data2"></td>';
-   html += '<td contenteditable id="data3"></td>';
-   html += '<td contenteditable id="data4"></td>';
-   html += '<td contenteditable id="data5"></td>';
-   html += '<td id="data6"><input type="checkbox" name="valide25"></td>';
-   html += '<td contenteditable id="data7"></td>';
-   html += '<td contenteditable id="data8"></td>';
-   html += '<td id="data9"><input type="checkbox" name="valide50"></td>';
-   html += '<td contenteditable id="data10"></td>';
-   html += '<td contenteditable id="data11"></td>';
-   html += '<td id="data12"><input type="checkbox" name="valide75"></td>';
-   html += '<td contenteditable id="data13"></td>';
-   html += '<td contenteditable id="data14"></td>';
-   html += '<td id="data15"><input type="checkbox" name="valide100"></td>';
-   html += '<td><button type="button" name="insert" id="insert" class="btn btn-success btn-xs">Insert</button></td>';
-   html += '</tr>';
-   $('#user_data tbody').prepend(html);
-  });
-  
-  $('#corbeille').click(function(){
-    document.location.href="corbeille.php"; 
-  });
-  $(document).on('click', '#insert', function(){
-   var vente = $('#data1 input').val();
-   var projet = $('#data2').text();
-   var nom_utilisateur = $('#data3').text();
-
-var type_de_site = $('#data4').text();
-var facturation25 = $('#data5').text();
-var valide25 = $('#data6 input').is(":checked")==true?true:false;
-var graphisme = $('#data7').text();
-var facturation50 = $('#data8').text();
-var valide50 = $('#data9 input').is(":checked")==true?true:false;
-var contenu = $('#data10').text();
-var facturation75 = $('#data11').text();
-var valide75 = $('#data12 input').is(":checked")==true?true:false;
-var correction = $('#data13').text();
-var facturation100 = $('#data14').text();
-var valide100 = $('#data15 input').is(":checked")==true?true:false;
-
-   if(projet != '')
-   {
-    $.ajax({
-     url:"insert.php",
-     method:"POST",
-     data:{nom_utilisateur:nom_utilisateur, type_de_site:type_de_site, vente:vente, projet:projet, facturation:facturation25, valide25:valide25, graphisme:graphisme, contenu:contenu, correction:correction, facturation2:facturation50, valide50:valide50, facturation3:facturation75, valide75:valide75, facturation4:facturation100, valide100:valide100},
-     success:function(data)
-     {
-      $('#user_data').DataTable().destroy();
-      fetch_data();
-      document.location.reload();
-     }
-    });
- }
-   else
-   {
-    alert("Tout les champs doivent être remplis");
-   }
   });
 
   $(document).on('click', '.delete', function(e){
@@ -518,7 +185,7 @@ var valide100 = $('#data15 input').is(":checked")==true?true:false;
     var id = $(this).attr("id");
 
     Swal.fire({
-      title: 'Voulez-vous supprimer définitivement ce projet ?',
+      title: 'Voulez-vous supprimer définitivement ce Mini Projet ?',
       showDenyButton: true
     }).then((result) => {
       if (result.isConfirmed) {
@@ -530,41 +197,23 @@ var valide100 = $('#data15 input').is(":checked")==true?true:false;
               $('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
               $('#user_data').DataTable().destroy();
               fetch_data();
-              Swal.fire('Le projet a été supprimé !', '', 'success')
+              Swal.fire('Le Mini Projet à été supprimé !', '', 'success')
             }
         });
         
       } else if (result.isDenied) {
-        Swal.fire('Le projet n a pas été supprimé !', '', 'info')
+        Swal.fire('Le Mini Projet n a pas été supprimé !', '', 'info')
       }
     })
    }  
   );
 
-
-  $(document).on('click', '.archiver', function(){
-   var id = $(this).attr("id");
-   if(confirm("Etes-vous sur de vouloir archiver ce projet ?"))
-   {
-    $.ajax({
-     url:"archiver.php",
-     method:"POST",
-     data:{id:id},
-     success:function(data){
-      $('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
-      $('#user_data').DataTable().destroy();
-      fetch_data();
-     }
-    });
-   }
-  });
-
-   $(document).on('click', '.unsuspendre', function(e){
+  $(document).on('click', '.unsuspendre', function(e){
     e.preventDefault();
     var id = $(this).attr("id");
 
     Swal.fire({
-      title: 'Voulez-vous sortir ce projet de la corbeille?',
+      title: 'Voulez-vous débloqué ce Mini Projet ?',
       showDenyButton: true
     }).then((result) => {
       if (result.isConfirmed) {
@@ -576,16 +225,17 @@ var valide100 = $('#data15 input').is(":checked")==true?true:false;
               $('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
               $('#user_data').DataTable().destroy();
               fetch_data();
-              Swal.fire('Le projet à été sorti de la corbeille !', '', 'success')
+              Swal.fire('Le Mini Projet à été débloqué !', '', 'success')
             }
         });
         
       } else if (result.isDenied) {
-        Swal.fire('Le projet n a pas été sorti de la corbeille !', '', 'info')
+        Swal.fire('Le Mini Projet n a pas été débloqué !', '', 'info')
       }
     })
    }  
   );
+
 
 });
 

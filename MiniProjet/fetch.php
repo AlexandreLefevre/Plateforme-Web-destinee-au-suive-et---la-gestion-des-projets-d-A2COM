@@ -41,11 +41,27 @@ $data = array();
 while($row = mysqli_fetch_array($result))
 {
  
+    $stylestatut ='';
+  switch($row["statut"]){
+    case "Fini" : 
+      $stylestatut = 'style="color:green"';
+      break;
+    case "En cours" : 
+      $stylestatut = 'style="color:orange"';
+      break;
+    case "En attente" : 
+      $stylestatut = 'style="color:red"';
+      break;
+    default : 
+      $stylestatut = '';
+      break;
+  } 
+
  $sub_array = array();
   $sub_array[] = '<span class="sortable-handle">X </span><input class="update" type="date" data-id="'.$row["id"].'" data-column="date_de_fin" value="'.$row["date_de_fin"].'">';
   $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="client">' . $row["client"] . '</div>';
   $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="tache">' . $row["tache"] . '</div>';
- $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="statut">' . $row["statut"] . '</div>';
+  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="statut" '.$stylestatut.' >' . $row["statut"] . '</div>';
  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="employe">' . $row["employe"] . '</div>';
  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="notes">' . $row["notes"] . '</div>';
 

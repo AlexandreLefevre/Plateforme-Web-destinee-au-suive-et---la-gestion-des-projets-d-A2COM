@@ -117,35 +117,24 @@ while($row = mysqli_fetch_array($result)){
   </div>
 </div>
 
-<!-- <div class="container box">
+<div class="container box">
    <div class="table">
-   <h3 style="text-align: center;">Projet Suspendu</h3>
+   <h3 style="text-align: center;">Mini Projet Suspendu</h3>
     <table id="user_data2" class="table table-bordered">
      <thead>
       <tr>
-                      <th>Vente</th>
-                      <th>Projet</th>
-                      <th>Text</th>
-                      <th >Type de site</th>
-                      <th data-orderable="false">25%</th>
-                      <th></th>
-                      <th>Graphisme</th>
-                      <th data-orderable="false">50%</th>
-                      <th></th>
-                      <th >Contenu</th>
-                      <th data-orderable="false">75%</th>
-                      <th></th>
-                      <th>Correction</th>
-                      <th data-orderable="false">100%</th>
-                      <th></th>
-       <th id="th1" data-orderable="false"></th>
-       <th data-orderable="false"></th>
+                      <th>Deadline</th>
+                      <th>Client</th>
+                      <th>Résumé</th>
+                      <th>Statut</th>
+                      <th >Qui va faire ?</th>
+                      <th>Notes complémentaires</th>
        <th data-orderable="false"></th>
       </tr>
      </thead>
     </table>
   </div>
-</div> -->
+</div>
 
  </body>
 </html>
@@ -351,132 +340,96 @@ var notes = $('#data6').text();
 
 // Tableau des minprojet suspendu
 
-// $(document).ready(function(){
+$(document).ready(function(){
   
-//   fetch_data();
+  fetch_data();
 
-//   function fetch_data()
-//   {
-//   var dragSrc = null;
-//   var cells = null;
-//    var dataTable = $('#user_data2').DataTable({
-//     lengthMenu: [[10, 20, -1], [10, 20, "Tout"]],
-//     processing : true,
-//     order: [],
-//     serverSide : true,
-//     language: {
-//       lengthMenu:    "Afficher _MENU_ projets",
-//         search: "Rechercher:",
+  function fetch_data()
+  {
+  var dragSrc = null;
+  var cells = null;
+   var dataTable = $('#user_data2').DataTable({
+    lengthMenu: [[10, 20, -1], [10, 20, "Tout"]],
+    processing : true,
+    order: [],
+    serverSide : true,
+    language: {
+      lengthMenu:    "Afficher _MENU_ projets",
+        search: "Rechercher:",
         
-//         processing:     "Traitement en cours...",
-//         emptyTable:     "Aucune donnée disponible dans le tableau",
-//         loadingRecords: "Chargement en cours...",
-//         zeroRecords: "Aucune données trouvée",
-//         infoFiltered: "",
-//         info:"Affichage de projet _START_ &agrave; _END_ sur _TOTAL_",
-//         infoEmpty:      "Affichage de projet; 0 sur 0",
-//         paginate: {
-//             first:      "Premier",
-//             previous:   "Pr&eacute;c&eacute;dent",
-//             next:       "Suivant",
-//             last:       "Dernier"
-//         },
-//       },
-//     ajax : {
-//      url:"fetch_suspendu.php",
-//      type:"POST"
-//     },
+        processing:     "Traitement en cours...",
+        emptyTable:     "Aucune donnée disponible dans le tableau",
+        loadingRecords: "Chargement en cours...",
+        zeroRecords: "Aucune données trouvée",
+        infoFiltered: "",
+        info:"Affichage de projet _START_ &agrave; _END_ sur _TOTAL_",
+        infoEmpty:      "Affichage de projet; 0 sur 0",
+        paginate: {
+            first:      "Premier",
+            previous:   "Pr&eacute;c&eacute;dent",
+            next:       "Suivant",
+            last:       "Dernier"
+        },
+      },
+    ajax : {
+     url:"fetch_suspendu.php",
+     type:"POST"
+    },
 
-//    });
-//   }
+   });
+  }
 
-//   function update_data(id, column_name, value)
-//   {
-//    $.ajax({
-//     url:"update.php",
-//     method:"POST",
-//     data:{id:id, column_name:column_name, value:value},
-//     success:function(data)
-//     {
-//      $('#user_data2').DataTable().destroy();
-//      fetch_data();
-//     }
-//    });
-//   }
+  function update_data(id, column_name, value)
+  {
+   $.ajax({
+    url:"update.php",
+    method:"POST",
+    data:{id:id, column_name:column_name, value:value},
+    success:function(data)
+    {
+     $('#user_data2').DataTable().destroy();
+     fetch_data();
+    }
+   });
+  }
 
-//   $(document).on('blur', '.update', function(){
-//    var id = $(this).data("id");
-//    var column_name = $(this).data("column");
-//    var value = $(this).text();
-//     if(column_name == 'valide25'){
-//     var value = $(this).val();
-//     if($(this).is(":checked")){
-//     var value = 1;
-//     }
-//     else{
-//       var value = 0;
-//     }
-//     }
-//     if(column_name == 'valide50'){
-//     var value = $(this).val();
-//       if($(this).is(":checked")){
-//     var value = 1;
-//     }
-//     else{
-//       var value = 0;
-//     }
-//     }
-//     if(column_name == 'valide75'){
-//       var value = $(this).val();
-//       if($(this).is(":checked")){
-//     var value = 1;
-//     }
-//     else{
-//       var value = 0;
-//     }
-//     }
-//     if(column_name == 'valide100'){
-//       var value = $(this).val();
-//       if($(this).is(":checked")){
-//     var value = 1;
-//     }
-//     else{
-//       var value = 0;
-//     }
-//     }
-//     if(column_name == 'vente'){
-//       var value = $(this).val();
-//     }
-//    update_data(id, column_name, value);
-//   });
+  $(document).on('blur', '.update', function(){
+   var id = $(this).data("id");
+   var column_name = $(this).data("column");
+   var value = $(this).text();
+    if(column_name == 'date_de_fin'){
+      var value = $(this).val();
+    }
+   update_data(id, column_name, value);
+  });
 
-//   $(document).on('click', '.unsuspendre', function(e){
-//   e.preventDefault();
-//    var id = $(this).attr("id");
-//    Swal.fire({
-//       title: 'Voulez-vous débloquer ce projet ?',
-//       showDenyButton: true
-//     }).then((result) => {
-//       if (result.isConfirmed) {
-//             $.ajax({
-//             url:"unsuspendre.php",
-//             method:"POST",
-//             data:{id:id},
-//             success:function(data){
-//               $('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
-//               $('#user_data2').DataTable().destroy();
-//               fetch_data();
-//             }
-//         });
-//         document.location.reload();
+  $(document).on('click', '.unsuspendre', function(e){
+  e.preventDefault();
+   var id = $(this).attr("id");
+   Swal.fire({
+      title: 'Voulez-vous débloquer ce Mini Projet  ?',
+      showDenyButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+            $.ajax({
+            url:"unsuspendre.php",
+            method:"POST",
+            data:{id:id},
+            success:function(data){
+              $('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
+              $('#user_data2').DataTable().destroy();
+              fetch_data();
+            }
+        });
+        document.location.reload();
         
-//       } else if (result.isDenied) {
-//         Swal.fire('Le projet n a pas été débloqué', '', 'info')
-//       }
-//     })
-//    }  
-//   );
-// });
+      } else if (result.isDenied) {
+        Swal.fire('Le Mini Projet n a pas été débloqué', '', 'info')
+      }
+    })
+   }  
+  );
+});
 
  /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */

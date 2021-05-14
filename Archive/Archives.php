@@ -124,6 +124,26 @@ while($row = mysqli_fetch_array($result)){
   </div>
 </div>
 
+<div class="container box">
+   <div class="table">
+   <h3 style="text-align: center;">Mini Projet Archivé</h3>
+    <table id="user_data2" class="table table-bordered">
+     <thead>
+      <tr>
+                      <th>Deadline</th>
+                      <th>Client</th>
+                      <th>Résumé</th>
+                      <th>Statut</th>
+                      <th >Qui va faire ?</th>
+                      <th>Notes complémentaires</th>
+       <th data-orderable="false"></th>
+       <th data-orderable="false"></th>
+      </tr>
+     </thead>
+    </table>
+  </div>
+</div>
+
 <?php foreach ($data as $row):?>
 <div class="modal fade" id="myModal<?php echo $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document"> 
@@ -450,70 +470,7 @@ $('#myModal').on('hidden.bs.modal', function(e) {
    update_data(id, column_name, value);
   });
 
-  $('#add').click(function(){
-   var html = '<tr data-unsortable>';
-   html += '<td id="data1"><input type="date" id="start" name="trip-start" style="font-size: 1.7rem"></td>';
-   html += '<td contenteditable id="data2"></td>';
-   html += '<td contenteditable id="data3"></td>';
-   html += '<td contenteditable id="data4"></td>';
-   html += '<td contenteditable id="data5"></td>';
-   html += '<td id="data6"><input type="checkbox" name="valide25"></td>';
-   html += '<td contenteditable id="data7"></td>';
-   html += '<td contenteditable id="data8"></td>';
-   html += '<td id="data9"><input type="checkbox" name="valide50"></td>';
-   html += '<td contenteditable id="data10"></td>';
-   html += '<td contenteditable id="data11"></td>';
-   html += '<td id="data12"><input type="checkbox" name="valide75"></td>';
-   html += '<td contenteditable id="data13"></td>';
-   html += '<td contenteditable id="data14"></td>';
-   html += '<td id="data15"><input type="checkbox" name="valide100"></td>';
-   html += '<td><button type="button" name="insert" id="insert" class="btn btn-success btn-xs">Insert</button></td>';
-   html += '</tr>';
-   $('#user_data tbody').prepend(html);
-  });
-  
-  $('#corbeille').click(function(){
-    document.location.href="corbeille.php"; 
-  });
-  $(document).on('click', '#insert', function(){
-   var vente = $('#data1 input').val();
-   var projet = $('#data2').text();
-   var nom_utilisateur = $('#data3').text();
-
-var type_de_site = $('#data4').text();
-var facturation25 = $('#data5').text();
-var valide25 = $('#data6 input').is(":checked")==true?true:false;
-var graphisme = $('#data7').text();
-var facturation50 = $('#data8').text();
-var valide50 = $('#data9 input').is(":checked")==true?true:false;
-var contenu = $('#data10').text();
-var facturation75 = $('#data11').text();
-var valide75 = $('#data12 input').is(":checked")==true?true:false;
-var correction = $('#data13').text();
-var facturation100 = $('#data14').text();
-var valide100 = $('#data15 input').is(":checked")==true?true:false;
-
-   if(projet != '')
-   {
-    $.ajax({
-     url:"insert.php",
-     method:"POST",
-     data:{nom_utilisateur:nom_utilisateur, type_de_site:type_de_site, vente:vente, projet:projet, facturation:facturation25, valide25:valide25, graphisme:graphisme, contenu:contenu, correction:correction, facturation2:facturation50, valide50:valide50, facturation3:facturation75, valide75:valide75, facturation4:facturation100, valide100:valide100},
-     success:function(data)
-     {
-      $('#user_data').DataTable().destroy();
-      fetch_data();
-      document.location.reload();
-     }
-    });
- }
-   else
-   {
-    alert("Tout les champs doivent être remplis");
-   }
-  });
-
-  $(document).on('click', '.delete', function(e){
+  $(document).on('click', '.deleteprojet', function(e){
     e.preventDefault();
     var id = $(this).attr("id");
 
@@ -541,7 +498,7 @@ var valide100 = $('#data15 input').is(":checked")==true?true:false;
    }  
   );
 
-  $(document).on('click', '.unsuspendre', function(e){
+  $(document).on('click', '.unsuspendreprojet', function(e){
     e.preventDefault();
     var id = $(this).attr("id");
 
@@ -572,6 +529,128 @@ var valide100 = $('#data15 input').is(":checked")==true?true:false;
 
 });
 
+// Mini Projet archivé
+
+$(document).ready(function(){
+  
+  fetch_data();
+
+  function fetch_data()
+  {
+  var dragSrc = null;
+  var cells = null;
+   var dataTable = $('#user_data2').DataTable({
+    lengthMenu: [[10, 20, -1], [10, 20, "Tout"]],
+    processing : true,
+    order: [],
+    serverSide : true,
+    language: {
+      lengthMenu:    "Afficher _MENU_ projets",
+        search: "Rechercher:",
+        
+        processing:     "Traitement en cours...",
+        emptyTable:     "Aucune donnée disponible dans le tableau",
+        loadingRecords: "Chargement en cours...",
+        zeroRecords: "Aucune données trouvée",
+        infoFiltered: "",
+        info:"Affichage de projet _START_ &agrave; _END_ sur _TOTAL_",
+        infoEmpty:      "Affichage de projet; 0 sur 0",
+        paginate: {
+            first:      "Premier",
+            previous:   "Pr&eacute;c&eacute;dent",
+            next:       "Suivant",
+            last:       "Dernier"
+        },
+      },
+    ajax : {
+     url:"fetch_miniprojet.php",
+     type:"POST"
+    },
+
+   });
+  }
+
+  function update_data(id, column_name, value)
+  {
+   $.ajax({
+    url:"update_miniprojet.php",
+    method:"POST",
+    data:{id:id, column_name:column_name, value:value},
+    success:function(data)
+    {
+     $('#user_data2').DataTable().destroy();
+     fetch_data();
+    }
+   });
+  }
+
+  $(document).on('blur', '.update', function(){
+   var id = $(this).data("id");
+   var column_name = $(this).data("column");
+   var value = $(this).text();
+    if(column_name == 'date_de_fin'){
+      var value = $(this).val();
+    }
+   update_data(id, column_name, value);
+  });
+
+  $(document).on('click', '.unsuspendre', function(e){
+    e.preventDefault();
+    var id = $(this).attr("id");
+
+    Swal.fire({
+      title: 'Voulez-vous désarchiver ce Mini Projet ?',
+      showDenyButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+            $.ajax({
+            url:"unsuspendre_miniprojet.php",
+            method:"POST",
+            data:{id:id},
+            success:function(data){
+              $('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
+              $('#user_data2').DataTable().destroy();
+              fetch_data();
+              Swal.fire('Le Mini Projet à été désarchiver', '', 'success')
+            }
+        });
+        
+      } else if (result.isDenied) {
+        Swal.fire('Le Mini Projet n a pas été désarchiver', '', 'info')
+      }
+    })
+   }  
+  );
+
+  $(document).on('click', '.delete', function(e){
+    e.preventDefault();
+    var id = $(this).attr("id");
+
+    Swal.fire({
+      title: 'Voulez-vous supprimer définitivement ce Mini Projet ?',
+      showDenyButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+            $.ajax({
+            url:"delete_miniprojet.php",
+            method:"POST",
+            data:{id:id},
+            success:function(data){
+              $('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
+              $('#user_data2').DataTable().destroy();
+              fetch_data();
+              Swal.fire('Le Mini Projet à été supprimé !', '', 'success')
+            }
+        });
+        
+      } else if (result.isDenied) {
+        Swal.fire('Le Mini Projet n a pas été supprimé !', '', 'info')
+      }
+    })
+   }  
+  );
+});
+
  /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
 function myFunction() {
@@ -592,36 +671,4 @@ window.onclick = function(event) {
     }
   }
 }
-</script>
-
-
-<script>
-(function($){
-
-  $(document).ready(function(){
-    initSortable()
-  });
-
-  function initSortable(){
-    $('tbody').sortable({
-        placeholder : "ui-state-highlight",
-        handle: ".sortable-handle",
-        update : function(event, ui){
-          var order = [];
-          $('tbody tr').each(function(){
-            var id = $(this).find('[data-id]').data('id');
-            order.push(id);       
-          });         
-          $.ajax({
-            url:"reorder.php",
-            method:"POST",
-            data:{
-              projects_order: order
-            }
-          }); 
-        }
-    });
-  }
-})(jQuery)
-
 </script>

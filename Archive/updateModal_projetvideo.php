@@ -9,7 +9,7 @@ if(isset($_POST["modalid"]))
  $boo = true;
 
 
- foreach(json_decode($_POST['data']) as $key => $value){
+ foreach(json_decode($_POST['data2']) as $key => $value){
      if($boo){
         $query.= "SET ".$key."='".$value."'";
         $boo=false;

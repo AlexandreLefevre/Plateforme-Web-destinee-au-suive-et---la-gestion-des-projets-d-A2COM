@@ -8,7 +8,7 @@
 
 $connect = mysqli_connect("localhost", "root", "", "adeuxcom");
 
-$query = "SELECT projetencours.id,etape1,etape2,etape3,etape4,etape5,etape6,etape7,etape8,etape9,etape10,etape11,etape12,etape13,etape14,etape15,etape16,etape17,etape18,etape19,etape20,etape21,etape22,etape23,etape24,etape25,etape26,etape27,etape28,etape29,etape30 FROM projetencours JOIN fiche_detailees ON projetencours.id=fiche_detailees.projetencours_id";
+$query = "SELECT projetvideo.id, nom, prenom, telephone, email, lien FROM projetvideo JOIN fiche_contact ON projetvideo.id=fiche_contact.projetvideo_id";
 
 $result = mysqli_query($connect, $query);
 
@@ -110,7 +110,28 @@ while($row = mysqli_fetch_array($result)){
        <th id="th1" data-orderable="false"></th>
        <th data-orderable="false"></th>
 	   <th data-orderable="false"></th>
+     <th data-orderable="false"></th>
        <th data-orderable="false"></th>
+      </tr>
+     </thead>
+    </table>
+  </div>
+</div>
+
+<div class="container box">
+   <div class="table">
+   <h3 style="text-align: center;">Projet vidéo Suspendu</h3>
+    <table id="user_data2" class="table table-bordered">
+     <thead>
+      <tr>
+	                  <th>Deadline</th>
+                      <th>Client</th>
+                      <th>Tache</th>
+                      <th>Chef de projet</th>
+                      <th >Type</th>
+       <th id="th1" data-orderable="false"></th>
+       <th data-orderable="false"></th>
+	   <th data-orderable="false"></th>
       </tr>
      </thead>
     </table>
@@ -128,23 +149,23 @@ while($row = mysqli_fetch_array($result)){
       <div class="modal-body">
         <div class="form-group">
             <label for="message-text" class="col-lg-7 col-md-4 col-sm-3">Nom:</label>
-            <textarea class="form-control" id="etape1" name="etape[]" value="etape1"><?php echo($row['nom'])?></textarea>
+            <textarea class="form-control" id="nom" name="etape[]" value="nom"><?php echo($row['nom'])?></textarea>
           </div> 
           <div class="form-group">
             <label for="message-text" class="col-lg-7 col-md-4 col-sm-3">Prénom:</label>
-            <textarea class="form-control" id="etape2" name="etape[]" value="etape2"><?php echo($row['prenom'])?></textarea>
+            <textarea class="form-control" id="prenom" name="etape[]" value="prenom"><?php echo($row['prenom'])?></textarea>
           </div> 
 		  <div class="form-group">
             <label for="message-text" class="col-lg-7 col-md-4 col-sm-3">Téléphone:</label>
-            <textarea class="form-control" id="etape3" name="etape[]" value="etape3"><?php echo($row['telephone'])?></textarea>
+            <textarea class="form-control" id="telephone" name="etape[]" value="telephone"><?php echo($row['telephone'])?></textarea>
           </div> 
 		  <div class="form-group">
             <label for="message-text" class="col-lg-7 col-md-4 col-sm-3">Email:</label>
-            <textarea class="form-control" id="etape4" name="etape[]" value="etape4"><?php echo($row['email'])?></textarea>
+            <textarea class="form-control" id="email" name="etape[]" value="email"><?php echo($row['email'])?></textarea>
           </div> 
 		  <div class="form-group">
             <label for="message-text" class="col-lg-7 col-md-4 col-sm-3">Lien:</label>
-            <textarea class="form-control" id="etape5" name="etape[]" value="etape5"><?php echo($row['lien'])?></textarea>
+            <textarea class="form-control" id="lien" name="etape[]" value="lien"><?php echo($row['lien'])?></textarea>
           </div> 
       </div>
       <div class="modal-footer">
@@ -162,7 +183,6 @@ while($row = mysqli_fetch_array($result)){
 <script type="text/javascript" language="javascript" >
 
 function saveModal($modalid){
-  var $test = "#myModal" + $modalid + " input[name='etape[]']";
   var $data = {};
   $("#myModal" + $modalid + " textarea").each(function(){
     $data[$(this).attr('value')] = $(this).val();
@@ -172,7 +192,7 @@ function saveModal($modalid){
   $.ajax({
     url:"updateModal.php",
     method:"POST",
-    data:{modalid:$modalid, data:$data2}
+    data:{modalid:$modalid, data:$data2} 
    });
 }
 
@@ -292,7 +312,7 @@ $('#myModal').on('hidden.bs.modal', function(e) {
     var id = $(this).attr("id");
 
     Swal.fire({
-      title: 'Voulez-vous placer ce projet en corbeille ?',
+      title: 'Voulez-vous placer ce projet vidéo en corbeille ?',
       showDenyButton: true
     }).then((result) => {
       if (result.isConfirmed) {
@@ -304,12 +324,12 @@ $('#myModal').on('hidden.bs.modal', function(e) {
               $('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
               $('#user_data').DataTable().destroy();
               fetch_data();
-              Swal.fire('Le projet à été déplacé en corbeille', '', 'success')
+              Swal.fire('Le projet vidéo à été déplacé en corbeille', '', 'success')
             }
         });
         
       } else if (result.isDenied) {
-        Swal.fire('Le projet n a pas été mis en corbeille', '', 'info')
+        Swal.fire('Le projet vidéo n a pas été mis en corbeille', '', 'info')
       }
     })
    }  
@@ -333,12 +353,12 @@ $('#myModal').on('hidden.bs.modal', function(e) {
               $('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
               $('#user_data').DataTable().destroy();
               fetch_data();
-              Swal.fire('Le projet à été archivé', '', 'success')
+              Swal.fire('Le projet vidéo à été archivé', '', 'success')
             }
         });
         
       } else if (result.isDenied) {
-        Swal.fire('Le projet n a pas été archivé', '', 'info')
+        Swal.fire('Le projet vidéo n a pas été archivé', '', 'info')
       }
     })
    }  
@@ -348,7 +368,7 @@ $('#myModal').on('hidden.bs.modal', function(e) {
   e.preventDefault();
    var id = $(this).attr("id");
    Swal.fire({
-      title: 'Voulez-vous suspendre ce projet ?',
+      title: 'Voulez-vous suspendre ce projet vidéo ?',
       showDenyButton: true
     }).then((result) => {
       if (result.isConfirmed) {
@@ -365,7 +385,7 @@ $('#myModal').on('hidden.bs.modal', function(e) {
         document.location.reload();
         
       } else if (result.isDenied) {
-        Swal.fire('Le projet n a pas été suspendu', '', 'info')
+        Swal.fire('Le projet vidéo n a pas été suspendu', '', 'info')
       }
     })
    }  
@@ -374,7 +394,100 @@ $('#myModal').on('hidden.bs.modal', function(e) {
 
 });
 
+//Tableau suspendu
 
+$(document).ready(function(){
+  
+  fetch_data();
+
+  function fetch_data()
+  {
+  var dragSrc = null;  //Globally track source cell
+  var cells = null;  // All cells in table
+   var dataTable = $('#user_data2').DataTable({
+    lengthMenu: [[10, 20, -1], [10, 20, "Tout"]],
+    processing : true,
+    order: [],
+    serverSide : true,
+    language: {
+      lengthMenu:    "Afficher _MENU_ projets vidéo",
+        search: "Rechercher:",
+        
+        processing:     "Traitement en cours...",
+        emptyTable:     "Aucune donnée disponible dans le tableau",
+        loadingRecords: "Chargement en cours...",
+        zeroRecords: "Aucune données trouvée",
+        infoFiltered: "",
+        info:"Affichage de projet vidéo _START_ &agrave; _END_ sur _TOTAL_",
+        infoEmpty:      "Affichage de projet vidéo; 0 sur 0",
+        paginate: {
+            first:      "Premier",
+            previous:   "Pr&eacute;c&eacute;dent",
+            next:       "Suivant",
+            last:       "Dernier"
+        },
+      },
+    ajax : {
+     url:"fetch_Suspendu.php",
+     type:"POST"
+    },
+
+   });
+  }
+
+  function update_data(id, column_name, value)
+  {
+   $.ajax({
+    url:"update.php",
+    method:"POST",
+    data:{id:id, column_name:column_name, value:value},
+    success:function(data)
+    {
+     $('#user_data2').DataTable().destroy();
+     fetch_data();
+    }
+   });
+  }
+
+  $(document).on('blur', '.update', function(){
+   var id = $(this).data("id");
+   var column_name = $(this).data("column");
+   var value = $(this).text();
+   if(column_name == 'delai'){
+      var value = $(this).val();
+    }
+   update_data(id, column_name, value);
+  });
+
+  $(document).on('click', '.unsuspendre', function(e){
+  e.preventDefault();
+   var id = $(this).attr("id");
+   Swal.fire({
+      title: 'Voulez-vous débloquer ce projet vidéo ?',
+      showDenyButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+            $.ajax({
+            url:"unsuspendre.php",
+            method:"POST",
+            data:{id:id},
+            success:function(data){
+              $('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
+              $('#user_data2').DataTable().destroy();
+              fetch_data();
+            }
+        });
+        document.location.reload();
+        
+      } else if (result.isDenied) {
+        Swal.fire('Le projet vidéo n a pas été débloqué', '', 'info')
+      }
+    })
+   }  
+  );
+
+
+});
  /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
 function myFunction() {

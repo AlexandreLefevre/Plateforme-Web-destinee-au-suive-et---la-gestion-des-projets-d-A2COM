@@ -1,20 +1,20 @@
 <?php
 //fetch.php
 $connect = mysqli_connect("localhost", "root", "", "adeuxcom");
-$columns = array('vente', 'projet','nom_utilisateur','type_de_site','facturation','valide25','graphisme','facturation2','valide50','contenu','facturation3','valide75','correction','facturation4','valide100');
+$columns = array('delai', 'client','tache','chef_de_projet','type_de_projet');
 
-$query = "SELECT projetencours.id,nom_utilisateur, type_de_site, vente, facturation, graphisme, projet, contenu, correction, facturation2, facturation3, facturation4, valide25, valide50, valide75, valide100, fiche_detailees.etape30 FROM projetencours JOIN fiche_detailees ON projetencours.id = fiche_detailees.projetencours_id";
+$query = "SELECT projetvideo.id, delai, client, tache, chef_de_projet, type_de_projet, fiche_contact.lien FROM projetvideo JOIN fiche_contact ON projetvideo.id = fiche_contact.projetvideo_id";
+
+// $query = "SELECT projetvideo.id, delai, client, tache, chef_de_projet, type_de_projet FROM projetvideo";
 
 if(isset($_POST["search"]["value"]))
 {
  $query .= '
- WHERE etatprojet = "suspendu"
- AND (projet LIKE "%'.$_POST["search"]["value"].'%" 
- OR type_de_site LIKE "%'.$_POST["search"]["value"].'%" 
- OR graphisme LIKE "%'.$_POST["search"]["value"].'%"
- OR contenu LIKE "%'.$_POST["search"]["value"].'%"
- OR correction LIKE "%'.$_POST["search"]["value"].'%"
- OR nom_utilisateur LIKE "%'.$_POST["search"]["value"].'%"    
+ WHERE etatprojetvideo = "suspendu"
+ AND (client LIKE "%'.$_POST["search"]["value"].'%" 
+ OR tache LIKE "%'.$_POST["search"]["value"].'%" 
+ OR chef_de_projet LIKE "%'.$_POST["search"]["value"].'%"
+ OR type_de_projet LIKE "%'.$_POST["search"]["value"].'%"   
  )';
 }
 
@@ -43,150 +43,22 @@ $data = array();
 
 while($row = mysqli_fetch_array($result))
 {
-  $stylegraphisme ='';
-  switch($row["graphisme"]){
-    case "Fini" : 
-      $stylegraphisme = 'style="color:green"';
-      break;
-    case "En cours" : 
-      $stylegraphisme = 'style="color:orange"';
-      break;
-    case "En attente" : 
-      $stylegraphisme = 'style="color:red"';
-      break;
-    default : 
-      $stylegraphisme = '';
-      break;
-  }
-  $stylecontenu ='';
-  switch($row["contenu"]){
-    case "Fini" : 
-      $stylecontenu  = 'style="color:green"';
-      break;
-    case "En cours" : 
-      $stylecontenu  = 'style="color:orange"';
-      break;
-    case "En attente" : 
-      $stylecontenu = 'style="color:red"';
-      break;
-    default : 
-      $stylecontenu  = '';
-      break;
-  }
-  $stylecorrection ='';
-  switch($row["correction"]){
-    case "Fini" : 
-      $stylecorrection  = 'style="color:green"';
-      break;
-    case "En cours" : 
-      $stylecorrection  = 'style="color:orange"';
-      break;
-    case "En attente" : 
-      $stylecorrection= 'style="color:red"';
-      break;
-    default : 
-      $stylecorrection  = '';
-      break;
-  }
-  $valide25 ='';
-  switch($row["valide25"]){
-    case 0 : 
-      $valide25  = 'style="color:red"';
-      break;
-    case 1 : 
-      $valide25  = 'style="color:green" checked';
-      break;
-    default : 
-      $valide25  = 'style="color:red"';
-      break;
-  }
-  $valide50 ='';
-  switch($row["valide50"]){
-    case 0 : 
-      $valide50  = 'style="color:red"';
-      break;
-    case 1 : 
-      $valide50 = 'style="color:green" checked';
-      break;
-    default : 
-      $valide50  = 'style="color:red"';
-      break;
-  }
-  $valide75 ='';
-  switch($row["valide75"]){
-    case 0 : 
-      $valide75  = 'style="color:red"';
-      break;
-    case 1 : 
-      $valide75  = 'style="color:green" checked';
-      break;
-    default : 
-      $valide75  = 'style="color:red"';
-      break;
-  }
-  $valide100 ='';
-  switch($row["valide100"]){
-    case 0 : 
-      $valide100  = 'style="color:red"';
-      break;
-    case 1 : 
-      $valide100  = 'style="color:green" checked';
-      break;
-    default : 
-      $valide100  = 'style="color:red"';
-      break;
-  }
-
-
-  // $selectfacturation ='';
-  // switch($row["facturation"]){
-  //   case "0" : 
-  //     $selectfacturation = '<select size="1" class="update" id="data5" data-id="'.$row["id"].'" data-column="facturation"><option value="0" selected>0%</option><option value="25">25%</option><option value="50">50%</option><option value="75">75% </option><option value="100">100%</option> </select>';
-  //     break;
-  //   case "25" : 
-  //     $selectfacturation = '<select size="1"  class="update" id="data5" data-id="'.$row["id"].'" data-column="facturation"><option value="0">0%</option><option value="25" selected>25%</option><option value="50">50%</option><option value="75">75% </option><option value="100">100%</option> </select>';
-  //     break;
-  //   case "50" : 
-  //     $selectfacturation = '<select size="1"  class="update" id="data5" data-id="'.$row["id"].'" data-column="facturation"><option value="0">0%</option><option value="25">25%</option><option value="50" selected>50%</option><option value="75">75% </option><option value="100">100%</option> </select>';
-  //     break;
-  //   case "75" : 
-  //     $selectfacturation = '<select size="1" class="update" id="data5" data-id="'.$row["id"].'" data-column="facturation"><option value="0">0%</option><option value="25">25%</option><option value="50">50%</option><option value="75" selected>75% </option><option value="100">100%</option> </select>';
-  //     break;
-  //   case "100" : 
-  //     $selectfacturation = '<select size="1" class="update" id="data5" data-id="'.$row["id"].'" data-column="facturation"><option value="0">0%</option><option value="25">25%</option><option value="50">50%</option><option value="75">75% </option><option value="100" selected>100%</option> </select>';
-  //     break;
-  //   default : 
-  //     $selectfacturation = '';
-  //     break;
-  // }
   
  $sub_array = array();
-  $sub_array[] = '<span class="sortable-handle">X </span><input class="update" type="date" data-id="'.$row["id"].'" data-column="vente" value="'.$row["vente"].'">';
-  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="projet">' . $row["projet"] . '</div>';
- $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="nom_utilisateur">' . $row["nom_utilisateur"] . '</div>';
- $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="type_de_site">' . $row["type_de_site"] . '</div>';
- $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="facturation" '.$valide25.'>' . $row["facturation"] . '</div>';
- $sub_array[] = '<input class="update" type="checkbox" '.$valide25.' data-id="'.$row["id"].'" data-column="valide25">';
- $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="graphisme" '.$stylegraphisme.' >' . $row["graphisme"] . '</div>';
- $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="facturation2" '.$valide50.'>' . $row["facturation2"] . '</div>';
- $sub_array[] = '<input class="update" type="checkbox" '.$valide50.' data-id="'.$row["id"].'" data-column="valide50">';
-  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="contenu" '.$stylecontenu.' >' . $row["contenu"] . '</div>';
-  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="facturation3" '.$valide75.'>' . $row["facturation3"] . '</div>';
-  $sub_array[] = '<input class="update" type="checkbox" '.$valide75.' data-id="'.$row["id"].'" data-column="valide75">';
-  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="correction" '.$stylecorrection.' >' . $row["correction"] . '</div>';
-  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="facturation4" '.$valide100.'>' . $row["facturation4"] . '</div>';
-  $sub_array[] = '<input class="update" type="checkbox" '.$valide100.' data-id="'.$row["id"].'" data-column="valide100">';
-  
- $sub_array[] = '<button type="button" data-target="#myModal'.$row["id"].'" role="button" data-toggle="modal" name="details" class="btn btn-success btn-xs success" id="'.$row["id"].'"><i class="fa fa-list-alt" style="font-size:19px"></i></button>';
- $sub_array[] = '<a class="btn btn-primary btn-xs lien" id="'.$row["id"].'" target="_blank" href="'.$row['etape30'].'"><i class="fa fa-external-link" style="font-size:19px"></i></a>';
+  $sub_array[] = '<span class="sortable-handle">X </span><input class="update" type="date" data-id="'.$row["id"].'" data-column="delai" value="'.$row["delai"].'">';
+  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="client">' . $row["client"] . '</div>';
+ $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="tache">' . $row["tache"] . '</div>';
+ $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="chef_de_projet">' . $row["chef_de_projet"] . '</div>';
+ $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="type_de_projet">' . $row["type_de_projet"] . '</div>';
+
+$sub_array[] = '<button type="button" data-target="#myModal'.$row["id"].'" role="button" data-toggle="modal" name="details" class="btn btn-success btn-xs success" id="'.$row["id"].'"><i class="fa fa-list-alt" style="font-size:19px"></i></button>';
+$sub_array[] = '<a class="btn btn-primary btn-xs lien" id="'.$row["id"].'" target="_blank" href="'.$row['lien'].'"><i class="fa fa-external-link" style="font-size:19px"></i></a>';
  $sub_array[] = '<button type="button" name="unsuspendre" class="btn btn-danger btn-xs unsuspendre" id="'.$row["id"].'"><i class="fa fa-unlock" style="font-size:19px"></i></button>';
-//  $sub_array[] = '<button type="button" name="archiver" class="btn btn-warning btn-xs archiver" id="'.$row["id"].'"><i class="fa fa-archive" style="font-size:19px"></i></button>';
-//  $sub_array[] = '<button type="button" name="delete" class="btn btn-danger btn-xs delete" id="'.$row["id"].'"><i class="fa fa-trash" style="font-size:19px"></i></button>';
  $data[] = $sub_array;
 }
 function get_all_data($connect)
 {
- $query = "SELECT * FROM projetencours where etatprojet = 'corbeille'";
+ $query = "SELECT * FROM projetvideo where etatprojetvideo = 'corbeille'";
  $result = mysqli_query($connect, $query);
  return mysqli_num_rows($result);
 }

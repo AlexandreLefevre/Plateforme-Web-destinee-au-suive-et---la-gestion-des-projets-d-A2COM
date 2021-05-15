@@ -3,7 +3,7 @@
 $connect = mysqli_connect("localhost", "root", "", "adeuxcom");
 $columns = array('delai', 'client','tache','chef_de_projet','type_de_projet');
 
-$query = "SELECT projetvideo.id, delai, client, tache, chef_de_projet, type_de_projet FROM projetvideo JOIN fiche_contact ON projetvideo.id = fiche_contact.projetvideo_id";
+$query = "SELECT projetvideo.id, delai, client, tache, chef_de_projet, type_de_projet, fiche_contact.lien FROM projetvideo JOIN fiche_contact ON projetvideo.id = fiche_contact.projetvideo_id";
 
 // $query = "SELECT projetvideo.id, delai, client, tache, chef_de_projet, type_de_projet FROM projetvideo";
 
@@ -52,7 +52,7 @@ while($row = mysqli_fetch_array($result))
  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="type_de_projet">' . $row["type_de_projet"] . '</div>';
 
 $sub_array[] = '<button type="button" data-target="#myModal'.$row["id"].'" role="button" data-toggle="modal" name="details" class="btn btn-success btn-xs success" id="'.$row["id"].'"><i class="fa fa-list-alt" style="font-size:19px"></i></button>';
-// $sub_array[] = '<a class="btn btn-primary btn-xs lien" id="'.$row["id"].'" target="_blank" href="'.$row['lien'].'"><i class="fa fa-external-link" style="font-size:19px"></i></a>';
+$sub_array[] = '<a class="btn btn-primary btn-xs lien" id="'.$row["id"].'" target="_blank" href="'.$row['lien'].'"><i class="fa fa-external-link" style="font-size:19px"></i></a>';
  $sub_array[] = '<button type="button" name="suspendre" class="btn btn-danger btn-xs suspendre" id="'.$row["id"].'"><i class="fa fa-lock" style="font-size:19px"></i></button>';
  $sub_array[] = '<button type="button" name="archiver" class="btn btn-warning btn-xs archiver" id="'.$row["id"].'"><i class="fa fa-archive" style="font-size:19px"></i></button>';
  $sub_array[] = '<button type="button" name="delete" class="btn btn-danger btn-xs delete" id="'.$row["id"].'"><i class="fa fa-trash" style="font-size:19px"></i></button>';

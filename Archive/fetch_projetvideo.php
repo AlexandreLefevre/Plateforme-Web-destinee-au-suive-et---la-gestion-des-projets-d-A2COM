@@ -10,7 +10,7 @@ $query = "SELECT projetvideo.id, delai, client, tache, chef_de_projet, type_de_p
 if(isset($_POST["search"]["value"]))
 {
  $query .= '
- WHERE etatprojetvideo = "corbeille"
+ WHERE etatprojetvideo = "archiver"
  AND (client LIKE "%'.$_POST["search"]["value"].'%" 
  OR tache LIKE "%'.$_POST["search"]["value"].'%" 
  OR chef_de_projet LIKE "%'.$_POST["search"]["value"].'%"
@@ -45,16 +45,16 @@ while($row = mysqli_fetch_array($result))
 {
   
  $sub_array = array();
-  $sub_array[] = '<span class="sortable-handle">X </span><input class="update" type="date" data-id="'.$row["id"].'" data-column="delai" value="'.$row["delai"].'">';
+  $sub_array[] = '<input class="update" type="date" data-id="'.$row["id"].'" data-column="delai" value="'.$row["delai"].'">';
   $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="client">' . $row["client"] . '</div>';
  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="tache">' . $row["tache"] . '</div>';
  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="chef_de_projet">' . $row["chef_de_projet"] . '</div>';
  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="type_de_projet">' . $row["type_de_projet"] . '</div>';
 
-$sub_array[] = '<button type="button" data-target="#myModal'.$row["id"].'" role="button" data-toggle="modal" name="details" class="btn btn-success btn-xs success" id="'.$row["id"].'"><i class="fa fa-list-alt" style="font-size:19px"></i></button>';
+$sub_array[] = '<button type="button" data-target="#myModall'.$row["id"].'" role="button" data-toggle="modal" name="details" class="btn btn-success btn-xs success" id="'.$row["id"].'"><i class="fa fa-list-alt" style="font-size:19px"></i></button>';
 $sub_array[] = '<a class="btn btn-primary btn-xs lien" id="'.$row["id"].'" target="_blank" href="'.$row['lien'].'"><i class="fa fa-external-link" style="font-size:19px"></i></a>';
- $sub_array[] = '<button type="button" name="unsuspendre" class="btn btn-danger btn-xs unsuspendre" id="'.$row["id"].'"><i class="fa fa-unlock" style="font-size:19px"></i></button>';
- $sub_array[] = '<button type="button" name="delete" class="btn btn-danger btn-xs delete" id="'.$row["id"].'"><i class="fa fa-trash" style="font-size:19px"></i></button>';
+ $sub_array[] = '<button type="button" name="unsuspendreprojetvideo" class="btn btn-danger btn-xs unsuspendreprojetvideo" id="'.$row["id"].'"><i class="fa fa-unlock" style="font-size:19px"></i></button>';
+ $sub_array[] = '<button type="button" name="deleteprojetvideo" class="btn btn-danger btn-xs deleteprojetvideo" id="'.$row["id"].'"><i class="fa fa-trash" style="font-size:19px"></i></button>';
  $data[] = $sub_array;
 }
 function get_all_data($connect)

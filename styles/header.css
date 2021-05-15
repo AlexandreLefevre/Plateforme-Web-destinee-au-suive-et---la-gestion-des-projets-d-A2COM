@@ -303,10 +303,4 @@ a.meanmenu-reveal {
     .mean-container a.meanmenu-reveal {
         padding: 15px 15px 0 0;
     }
-    .mobile-nav nav .navbar-nav .nav-item a i {
-        display: none;
-    }
-    .main-nav {
-        display: none !important;
-    }
 }

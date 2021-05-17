@@ -1,7 +1,10 @@
 <?php 
     require_once 'config.php';
 
+    
+
     if(!empty($_POST['email'])){
+     
         $email = htmlspecialchars($_POST['email']);
 
         $check = $bdd->prepare('SELECT token FROM user WHERE email = ?');

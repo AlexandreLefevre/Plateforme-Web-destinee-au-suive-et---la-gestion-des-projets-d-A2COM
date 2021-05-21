@@ -38,7 +38,7 @@ if(isset($_POST['username']) && isset($_POST['password']))
             header('Location: login.php?erreur=1');
            }
            else{
-           header('Location: index.php');
+           header('Location: dashboard/dashboard.php');
            }
         }
         else

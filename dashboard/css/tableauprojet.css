@@ -12,8 +12,13 @@ body
    background-color:#fff;
    border:1px solid #ccc;
    border-radius:5px;
-   margin-top:25px;
+   margin-bottom: 30px;
    box-sizing:border-box;
+  }
+
+  .panneldiv{
+    height: 100px;
+    margin-top: 120px;
   }
 
   .date{

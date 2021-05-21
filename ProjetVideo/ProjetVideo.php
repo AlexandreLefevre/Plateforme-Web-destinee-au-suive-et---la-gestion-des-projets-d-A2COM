@@ -61,7 +61,7 @@ while($row = mysqli_fetch_array($result)){
           </li>
           <?php if($_SESSION['Admin']=='user'): ?>
 						<li class="nav-item">
-							<a href="../index.php" class="nav-link">Dashboard</a>
+							<a href="../dashboard/dashboard.php" class="nav-link">Dashboard</a>
 						</li>
 						<li class="nav-item">
 							<a href="../projetencours/ProjetEnCous.php" class="nav-link">Projet en cours</a>
@@ -169,7 +169,7 @@ while($row = mysqli_fetch_array($result)){
           </div> 
       </div>
       <div class="modal-footer">
-        <button type="button" id="savemodal" class="btn btn-primary" data-dismiss="modal" onclick="saveModal('<?php echo $row['id'] ?>')">Save Changes</button>
+        <button type="button" id="savemodal" class="btn btn-primary" data-dismiss="modal" onclick="saveModal('<?php echo $row['id'] ?>')">Sauvegarder</button>
       </div>
     </div>
   </div>

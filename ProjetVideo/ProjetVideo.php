@@ -95,6 +95,7 @@ while($row = mysqli_fetch_array($result)){
  <body>
   <div class="container box" style="margin-top:150px">
    <div class="table">
+   <h3 style="text-align: center;">Projet vidéo en cours</h3>
     <div align="right">
     <button type="button" name="corbeille" id="corbeille" class="btn btn-danger">Corbeille</button>
      <button type="button" name="add" id="add" class="btn btn-info">Ajouter</button>

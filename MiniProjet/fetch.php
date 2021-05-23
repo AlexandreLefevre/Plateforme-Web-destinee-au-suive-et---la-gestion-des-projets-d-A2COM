@@ -58,7 +58,7 @@ while($row = mysqli_fetch_array($result))
   } 
 
  $sub_array = array();
-  $sub_array[] = '<span class="sortable-handle">X </span><input class="update" type="date" data-id="'.$row["id"].'" data-column="date_de_fin" value="'.$row["date_de_fin"].'">';
+  $sub_array[] = '<span class="sortable-handle"> ↕ </span><input class="update" type="date" data-id="'.$row["id"].'" data-column="date_de_fin" value="'.$row["date_de_fin"].'">';
   $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="client">' . $row["client"] . '</div>';
   $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="tache">' . $row["tache"] . '</div>';
   $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="statut" '.$stylestatut.' >' . $row["statut"] . '</div>';

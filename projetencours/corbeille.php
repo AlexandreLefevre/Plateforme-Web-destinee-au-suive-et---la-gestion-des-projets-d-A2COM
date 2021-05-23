@@ -95,6 +95,7 @@ while($row = mysqli_fetch_array($result)){
  <body>
   <div class="container box" style="margin-top:150px">
    <div class="table">
+   <h3 style="text-align: center;">Corbeille des Projets</h3>
     <table id="user_data" class="table table-bordered">
      <thead>
       <tr>

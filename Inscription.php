@@ -76,22 +76,15 @@
                          <input type="text" class="form-control" name="nomutilisateur" placeholder="Nom d'utilisateur" required>
 						 <div class="valid-feedback">Ok !</div>
 						 <div class="invalid-feedback">Champ vide</div>
-						 <!-- <div class="invalid-feedback">Différent ?</div> -->
+
                      </div>
                      <div class="col-md-4 mb-3">
                          <label for="nom">Mot de passe</label>
                          <input type="text" class="form-control" name="mot_de_passe" placeholder="Mot de passe" required>
 						 <div class="valid-feedback">Ok !</div>
 						 <div class="invalid-feedback">Champ vide</div>
-						 <!-- <div class="invalid-feedback">Il faut minimum x charactère</div> -->
+
                      </div>
-                     <!-- <div class="col-md-4 mb-3">
-                         <label for="pseudo">Confirmation mot de passe</label>
-                         <input type="text" class="form-control" name="mot_de_passe_confirm" placeholder="Confirmation mot de passe" required>
-						 <div class="valid-feedback">Ok !</div>
-						 <div class="invalid-feedback">Champ vide</div>
-						  <div class="invalid-feedback">Ce mot de passe ne correspond pas</div>
-                     </div> -->
                  </div>
                  <div class="form-row">
                      <div class="col-md-6 mb-3">
@@ -103,12 +96,11 @@
                  </div>>
                  <button class="btn btn-primary" type="submit" name="submit">Inscription</button>
              </form>
-                 <!-- <button class="btn btn-primary" id="test" name="test">test</button> -->
+
            </div>
 </div>
          <script>
-           /*La fonction principale de ce script est d'empêcher l'envoi du formulaire si un champ a été mal rempli
-            *et d'appliquer les styles de validation aux différents éléments de formulaire*/
+
            (function() {
              'use strict';
              window.addEventListener('load', function() {

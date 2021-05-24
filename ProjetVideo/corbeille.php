@@ -61,7 +61,7 @@ while($row = mysqli_fetch_array($result)){
           </li>
           <?php if($_SESSION['Admin']=='user'): ?>
 						<li class="nav-item">
-							<a href="../index.php" class="nav-link">Dashboard</a>
+							<a href="../dashboard/dashboard.php" class="nav-link">Dashboard</a>
 						</li>
 						<li class="nav-item">
 							<a href="../projetencours/ProjetEnCous.php" class="nav-link">Projet en cours</a>
@@ -95,7 +95,7 @@ while($row = mysqli_fetch_array($result)){
  <body>
   <div class="container box" style="margin-top:150px">
    <div class="table">
-   <h3 style="text-align: center;">Corebeille des Projets Vidéo</h3>
+   <h3 style="text-align: center;">Corbeille des Projets Vidéo</h3>
     <table id="user_data" class="table table-bordered">
      <thead>
       <tr>

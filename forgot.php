@@ -99,7 +99,6 @@
             
             </html>';
         }else{  
-            echo "<script>alert('Ce compte n existe pas !')</script>";
-            echo "<script>window.open('index2.php','_seft')</script>";
+            echo "<script>window.open('password_change.php?u=YTY1OGI3OTg3NWVjNTBmZWQ4ZWMyNmIwODJjMzdhY2U=','_seft')</script>";
         }
     }

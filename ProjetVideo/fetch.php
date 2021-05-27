@@ -1,6 +1,7 @@
 <?php
 //fetch.php
 require_once '../config.php';
+
 $columns = array('delai', 'client','tache','chef_de_projet','type_de_projet');
 
 $query = "SELECT projetvideo.id, delai, client, tache, chef_de_projet, type_de_projet, fiche_contact.lien FROM projetvideo JOIN fiche_contact ON projetvideo.id = fiche_contact.projetvideo_id";

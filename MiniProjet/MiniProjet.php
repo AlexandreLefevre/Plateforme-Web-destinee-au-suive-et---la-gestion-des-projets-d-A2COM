@@ -340,7 +340,7 @@ var notes = $('#data6').text();
 
 });
 
-// Tableau des minprojet suspendu
+// Tableau des miniprojet suspendu
 
 $(document).ready(function(){
   
@@ -374,7 +374,7 @@ $(document).ready(function(){
         },
       },
     ajax : {
-     url:"fetch_suspendu.php",
+     url:"fetch_Suspendu.php",
      type:"POST"
     },
 

@@ -1,4 +1,5 @@
 <?php
+require_once 'config.php';
                 session_start();
                 if(isset($_SESSION['username'])&&isset($_SESSION['Admin'])){
                 }
@@ -78,7 +79,7 @@
 					<?php 
 					//user data
 					$sQuery = "SELECT * FROM user where Admin='user'";
-				    $result = $dbcon->query($sQuery);
+				    $result = $db->query($sQuery);
 					
 					while($row = $result->fetch_assoc()): ?>
 					

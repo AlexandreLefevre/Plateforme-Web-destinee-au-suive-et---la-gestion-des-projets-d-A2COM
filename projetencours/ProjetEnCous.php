@@ -667,7 +667,7 @@ $(document).ready(function(){
         },
       },
     ajax : {
-     url:"fetch_suspendu.php",
+     url:"fetch_Suspendu.php",
      type:"POST"
     },
 

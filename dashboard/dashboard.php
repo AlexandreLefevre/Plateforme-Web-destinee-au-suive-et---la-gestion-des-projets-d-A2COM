@@ -1,4 +1,6 @@
 <?php
+                require_once '../config.php';
+
                 session_start();
                 if(isset($_SESSION['username'])){
                 }
@@ -6,14 +8,13 @@
                     header('Location: login.php');
                 }
 
-                $connect = mysqli_connect("localhost", "root", "", "adeuxcom");
                 $query1 = "SELECT COUNT(projet) as 'somme' FROM projetencours WHERE etatprojet = 'En cours'";
                 $query2 = "SELECT COUNT(client) as 'somme' FROM miniprojet WHERE etatminiprojet = 'En cours'";
                 $query3 = "SELECT COUNT(client) as 'somme' FROM projetvideo WHERE etatprojetvideo = 'En cours'";
 
-                $result = mysqli_query($connect, $query1);
-                $result2 = mysqli_query($connect, $query2);
-                $result3 = mysqli_query($connect, $query3);
+                $result = mysqli_query($db, $query1);
+                $result2 = mysqli_query($db, $query2);
+                $result3 = mysqli_query($db, $query3);
 
                 $data = array();
                 $data2 = array();
@@ -74,7 +75,7 @@
           </li>
           <?php if($_SESSION['Admin']=='user'): ?>
 						<li class="nav-item">
-							<a href="../dashboard.php" class="nav-link">Dashboard</a>
+							<a href="dashboard.php" class="nav-link">Dashboard</a>
 						</li>
 						<li class="nav-item">
 							<a href="../projetencours/ProjetEnCous.php" class="nav-link">Projet en cours</a>

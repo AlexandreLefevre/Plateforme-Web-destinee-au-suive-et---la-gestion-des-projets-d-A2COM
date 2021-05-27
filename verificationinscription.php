@@ -1,7 +1,7 @@
-
 <?php
-$bdd = new PDO('mysql:host=localhost;dbname=adeuxcom;charset=utf8', 'root', '');
-$dbcon = mysqli_connect("localhost","root","","adeuxcom");
+
+// 
+require_once 'config.php';
 
 if(isset($_POST['submit'])) {
 
@@ -25,7 +25,7 @@ if(isset($_POST['submit'])) {
       ('$nomutilisateur', '$mot_de_passe', '$email','$token')"
       ;
   
-      $run_inscription = mysqli_query($dbcon, $insert_inscription);
+      $run_inscription = mysqli_query($db, $insert_inscription);
       if($run_inscription){
       echo "<script>alert('L utilisateur à bien été enregistré !')</script>";
       echo "<script>window.open('Inscription.php','_seft')</script>";
@@ -47,7 +47,7 @@ if(isset($_POST['delete'])){
   $id = $_POST['delete'];
 
   $requete_1 = ("UPDATE user SET Admin='deleted' WHERE IdUser = '".$id."'");
-  $stmt = $dbcon->prepare($requete_1);
+  $stmt = $db->prepare($requete_1);
   $stmt->execute();
   
     header("location: GestionUser.php");

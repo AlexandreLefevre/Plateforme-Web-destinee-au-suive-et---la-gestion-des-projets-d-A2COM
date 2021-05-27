@@ -1,4 +1,6 @@
 <?php
+require_once '../config.php';
+
                 session_start();
                 if(isset($_SESSION['username'])){
                 }
@@ -6,15 +8,13 @@
                     header('Location: login.php');
                 }
 
-$connect = mysqli_connect("localhost", "root", "", "adeuxcom");
-
 $query = "SELECT projetencours.id,etape1,etape2,etape3,etape4,etape5,etape6,etape7,etape8,etape9,etape10,etape11,etape12,etape13,etape14,etape15,etape16,etape17,etape18,etape19,etape20,etape21,etape22,etape23,etape24,etape25,etape26,etape27,etape28,etape29,etape30 FROM projetencours JOIN fiche_detailees ON projetencours.id=fiche_detailees.projetencours_id";
 
 $query2 = "SELECT projetvideo.id, nom, prenom, telephone, email, lien FROM projetvideo JOIN fiche_contact ON projetvideo.id=fiche_contact.projetvideo_id";
 
-$result = mysqli_query($connect, $query);
+$result = mysqli_query($db, $query);
 
-$result2 = mysqli_query($connect, $query2);
+$result2 = mysqli_query($db, $query2);
 
 $data = array();
 
@@ -416,7 +416,6 @@ function saveModal($modalid){
   var $data = {};
   $("#myModal" + $modalid + " textarea").each(function(){
     $data[$(this).attr('value')] = $(this).val();
-    document.location.reload();
   });
 
   $($test).each( function () {

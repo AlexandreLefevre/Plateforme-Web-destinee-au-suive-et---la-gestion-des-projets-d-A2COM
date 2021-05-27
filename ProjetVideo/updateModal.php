@@ -1,5 +1,5 @@
 <?php
-$connect = mysqli_connect("localhost", "root", "", "adeuxcom");
+require_once '../config.php';
 
 if(isset($_POST["modalid"]))
 {
@@ -20,7 +20,7 @@ if(isset($_POST["modalid"]))
      }
  }
  $query.= " WHERE projetvideo_id = $id";
- if(mysqli_query($connect, $query))
+ if(mysqli_query($db, $query))
  {
   echo 'Data Updated';
  }

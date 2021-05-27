@@ -1,6 +1,7 @@
 <?php
 //fetch.php
-$connect = mysqli_connect("localhost", "root", "", "adeuxcom");
+require_once '../config.php';
+
 $columns = array('projet','commentaire_reunion');
 
 $query = "SELECT id, projet, commentaire_reunion, etatprojet FROM projetencours";
@@ -32,9 +33,9 @@ if($_POST["length"] != -1)
  $query1 = 'LIMIT ' . $_POST['start'] . ', ' . $_POST['length'];
 }
 
-$number_filter_row = mysqli_num_rows(mysqli_query($connect, $query));
+$number_filter_row = mysqli_num_rows(mysqli_query($db, $query));
 
-$result = mysqli_query($connect, $query . $query1);
+$result = mysqli_query($db, $query . $query1);
 
 $data = array();
 
@@ -48,16 +49,16 @@ while($row = mysqli_fetch_array($result))
 
  $data[] = $sub_array;
 }
-function get_all_data($connect)
+function get_all_data($db)
 {
  $query = "SELECT * FROM projetencours where etatprojet = 'corbeille'";
- $result = mysqli_query($connect, $query);
+ $result = mysqli_query($db, $query);
  return mysqli_num_rows($result);
 }
 
 $output = array(
  "draw"    => intval($_POST["draw"]),
- "recordsTotal"  =>  get_all_data($connect),
+ "recordsTotal"  =>  get_all_data($db),
  "recordsFiltered" => $number_filter_row,
  "data"    => $data
 );

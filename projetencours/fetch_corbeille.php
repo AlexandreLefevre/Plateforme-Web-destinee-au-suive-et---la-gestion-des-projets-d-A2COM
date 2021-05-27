@@ -1,6 +1,6 @@
 <?php
 //fetch.php
-$connect = mysqli_connect("localhost", "root", "", "adeuxcom");
+require_once '../config.php';
 $columns = array('vente', 'projet','nom_utilisateur','type_de_site','facturation','valide25','graphisme','facturation2','valide50','contenu','facturation3','valide75','correction','facturation4','valide100');
 
 $query = "SELECT projetencours.id,nom_utilisateur, type_de_site, vente, facturation, graphisme, projet, contenu, correction, facturation2, facturation3, facturation4, valide25, valide50, valide75, valide100, fiche_detailees.etape30 FROM projetencours JOIN fiche_detailees ON projetencours.id = fiche_detailees.projetencours_id";
@@ -35,9 +35,9 @@ if($_POST["length"] != -1)
  $query1 = 'LIMIT ' . $_POST['start'] . ', ' . $_POST['length'];
 }
 
-$number_filter_row = mysqli_num_rows(mysqli_query($connect, $query));
+$number_filter_row = mysqli_num_rows(mysqli_query($db, $query));
 
-$result = mysqli_query($connect, $query . $query1);
+$result = mysqli_query($db, $query . $query1);
 
 $data = array();
 
@@ -161,16 +161,16 @@ while($row = mysqli_fetch_array($result))
  $sub_array[] = '<button type="button" name="delete" class="btn btn-danger btn-xs delete" id="'.$row["id"].'"><i class="fa fa-trash" style="font-size:19px"></i></button>';
  $data[] = $sub_array;
 }
-function get_all_data($connect)
+function get_all_data($db)
 {
  $query = "SELECT * FROM projetencours where etatprojet = 'corbeille'";
- $result = mysqli_query($connect, $query);
+ $result = mysqli_query($db, $query);
  return mysqli_num_rows($result);
 }
 
 $output = array(
  "draw"    => intval($_POST["draw"]),
- "recordsTotal"  =>  get_all_data($connect),
+ "recordsTotal"  =>  get_all_data($db),
  "recordsFiltered" => $number_filter_row,
  "data"    => $data
 );

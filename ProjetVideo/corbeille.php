@@ -1,4 +1,5 @@
 <?php
+require_once '../config.php';
                 session_start();
                 if(isset($_SESSION['username'])){
                 }
@@ -6,11 +7,9 @@
                     header('Location: login.php');
                 }
 
-$connect = mysqli_connect("localhost", "root", "", "adeuxcom");
-
 $query = "SELECT projetvideo.id, nom, prenom, telephone, email, lien FROM projetvideo JOIN fiche_contact ON projetvideo.id=fiche_contact.projetvideo_id";
 
-$result = mysqli_query($connect, $query);
+$result = mysqli_query($db, $query);
 
 $data = array();
 

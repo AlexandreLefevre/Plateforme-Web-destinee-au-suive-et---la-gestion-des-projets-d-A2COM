@@ -1,6 +1,7 @@
 <?php
 //fetch.php
-$connect = mysqli_connect("localhost", "root", "", "adeuxcom");
+require_once '../config.php';
+
 $columns = array('client','tache','statut','employe','date_de_fin','notes');
 
 $query = "SELECT * FROM miniprojet";
@@ -32,9 +33,9 @@ if($_POST["length"] != -1)
  $query1 = 'LIMIT ' . $_POST['start'] . ', ' . $_POST['length'];
 }
 
-$number_filter_row = mysqli_num_rows(mysqli_query($connect, $query));
+$number_filter_row = mysqli_num_rows(mysqli_query($db, $query));
 
-$result = mysqli_query($connect, $query);
+$result = mysqli_query($db, $query);
 
 $data = array();
 
@@ -70,16 +71,16 @@ while($row = mysqli_fetch_array($result))
  $sub_array[] = '<button type="button" name="delete" class="btn btn-danger btn-xs delete" id="'.$row["id"].'"><i class="fa fa-trash" style="font-size:19px"></i></button>';
  $data[] = $sub_array;
 }
-function get_all_data($connect)
+function get_all_data($db)
 {
  $query = "SELECT * FROM miniprojet where etatminiprojet = 'corbeille'";
- $result = mysqli_query($connect, $query);
+ $result = mysqli_query($db, $query);
  return mysqli_num_rows($result);
 }
 
 $output = array(
  "draw"    => intval($_POST["draw"]),
- "recordsTotal"  =>  get_all_data($connect),
+ "recordsTotal"  =>  get_all_data($db),
  "recordsFiltered" => $number_filter_row,
  "data"    => $data
 );

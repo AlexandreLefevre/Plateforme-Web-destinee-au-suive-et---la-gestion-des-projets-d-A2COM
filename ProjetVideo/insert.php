@@ -9,8 +9,8 @@ if(isset($_POST["client"], $_POST["tache"]))
  $type_de_projet = mysqli_real_escape_string($db, $_POST["type_de_projet"]);
  
 
- $query = "INSERT INTO projetvideo (delai, client, tache, chef_de_projet, type_de_projet) 
- VALUES('$delai', '$client', '$tache', '$chef_de_projet', '$type_de_projet')";
+ $query = "INSERT INTO projetvideo (delai, client, tache, chef_de_projet, type_de_projet, order_id) 
+ VALUES('$delai', '$client', '$tache', '$chef_de_projet', '$type_de_projet',0)";
  echo($query);
  if(mysqli_query($db, $query))
  {

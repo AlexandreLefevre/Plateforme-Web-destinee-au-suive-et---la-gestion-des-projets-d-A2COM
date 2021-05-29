@@ -49,6 +49,7 @@ while($row = mysqli_fetch_array($result))
 
  $data[] = $sub_array;
 }
+
 function get_all_data($db)
 {
  $query = "SELECT * FROM projetencours where etatprojet = 'corbeille'";

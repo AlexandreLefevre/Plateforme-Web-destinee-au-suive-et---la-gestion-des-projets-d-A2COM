@@ -56,6 +56,7 @@ $sub_array[] = '<a class="btn btn-primary btn-xs lien" id="'.$row["id"].'" targe
  $sub_array[] = '<button type="button" name="unsuspendre" class="btn btn-danger btn-xs unsuspendre" id="'.$row["id"].'"><i class="fa fa-unlock" style="font-size:19px"></i></button>';
  $data[] = $sub_array;
 }
+
 function get_all_data($db)
 {
  $query = "SELECT * FROM projetvideo where etatprojetvideo = 'corbeille'";

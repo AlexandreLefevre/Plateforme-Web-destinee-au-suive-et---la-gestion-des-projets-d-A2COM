@@ -19,8 +19,8 @@ if(isset($_POST["nom_utilisateur"], $_POST["type_de_site"]))
  $valide100 = $_POST["valide100"];
 
 
- $query = "INSERT INTO projetencours (nom_utilisateur, type_de_site, vente, facturation, graphisme, projet, contenu, correction, facturation2, facturation3, facturation4, valide25, valide50, valide75, valide100) 
- VALUES('$nom_utilisateur', '$type_de_site', '$vente', '$facturation', '$graphisme', '$projet', '$contenu', '$correction', '$facturation2', '$facturation3', '$facturation4', $valide25, $valide50, $valide75, $valide100)";
+ $query = "INSERT INTO projetencours (nom_utilisateur, type_de_site, vente, facturation, graphisme, projet, contenu, correction, facturation2, facturation3, facturation4, valide25, valide50, valide75, valide100, order_id) 
+ VALUES('$nom_utilisateur', '$type_de_site', '$vente', '$facturation', '$graphisme', '$projet', '$contenu', '$correction', '$facturation2', '$facturation3', '$facturation4', $valide25, $valide50, $valide75, $valide100,0)";
  echo($query);
  if(mysqli_query($db, $query))
  {

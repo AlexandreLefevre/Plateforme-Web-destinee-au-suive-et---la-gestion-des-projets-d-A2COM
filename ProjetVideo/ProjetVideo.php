@@ -297,7 +297,6 @@ $('#myModal').on('hidden.bs.modal', function(e) {
      {
       $('#user_data').DataTable().destroy();
       fetch_data();
-      document.location.reload();
      }
     });
  }

@@ -243,7 +243,7 @@ var notes = $('#data6').text();
      {
       $('#user_data').DataTable().destroy();
       fetch_data();
-      document.location.reload();
+      // document.location.reload();
      }
     });
  }

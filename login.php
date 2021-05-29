@@ -63,7 +63,8 @@
 				</div>
 				<button type="submit" class="btn btn-primary block full-width m-b" id='submit' value='LOGIN'>Se connecter</button>
 				<hr>
-			</form>											<a href="index2.php" id='mdpforget'><small>Mot de passe oublié?</small></a>
+			</form>										
+				<a href="index2.php" id='mdpforget'><small>Mot de passe oublié?</small></a>
 			    							<p class="m-t"> <small>©2021 by A2Com.com</small> </p>
 								</div>
                                 <?php
@@ -82,6 +83,5 @@
 		<!-- iCheck -->
 		<script src="https://www.a2speak.com/console//assets/js/theme/plugins/iCheck/icheck.min.js"></script>
         <!-- Toastr script -->
-        <script src="https://www.a2speak.com/console/assets/js/theme/plugins/toastr/toastr.min.js"></script>
 	</body>
 </html>

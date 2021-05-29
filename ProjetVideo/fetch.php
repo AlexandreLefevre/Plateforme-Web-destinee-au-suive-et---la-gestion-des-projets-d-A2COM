@@ -44,7 +44,6 @@ $data = array();
 
 while($row = mysqli_fetch_array($result))
 {
-  
  $sub_array = array();
   $sub_array[] = '<span class="sortable-handle"> ↕ </span><input class="update" type="date" data-id="'.$row["id"].'" data-column="delai" value="'.$row["delai"].'">';
   $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="client">' . $row["client"] . '</div>';
@@ -59,6 +58,7 @@ $sub_array[] = '<a class="btn btn-primary btn-xs lien" id="'.$row["id"].'" targe
  $sub_array[] = '<button type="button" name="delete" class="btn btn-danger btn-xs delete" id="'.$row["id"].'"><i class="fa fa-trash" style="font-size:19px"></i></button>';
  $data[] = $sub_array;
 }
+
 function get_all_data($db)
 {
  $query = "SELECT * FROM projetvideo where etatprojetvideo = 'corbeille'";

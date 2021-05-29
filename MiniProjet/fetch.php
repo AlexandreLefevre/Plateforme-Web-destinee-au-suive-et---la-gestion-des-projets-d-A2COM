@@ -72,6 +72,7 @@ while($row = mysqli_fetch_array($result))
  $sub_array[] = '<button type="button" name="delete" class="btn btn-danger btn-xs delete" id="'.$row["id"].'"><i class="fa fa-trash" style="font-size:19px"></i></button>';
  $data[] = $sub_array;
 }
+
 function get_all_data($db)
 {
  $query = "SELECT * FROM miniprojet where etatminiprojet = 'corbeille'";

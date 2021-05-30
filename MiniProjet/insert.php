@@ -1,9 +1,9 @@
 <?php
-require_once "../config.php";
+require_once '../config.php';
 
 if(isset($_POST["client"], $_POST["tache"]))
 {
- $client = mysqli_real_escape_string($db $_POST["client"]);
+ $client = mysqli_real_escape_string($db, $_POST["client"]);
  $tache = mysqli_real_escape_string($db, $_POST["tache"]);
  $statut = mysqli_real_escape_string($db, $_POST["statut"]);
  $employe = mysqli_real_escape_string($db, $_POST["employe"]);

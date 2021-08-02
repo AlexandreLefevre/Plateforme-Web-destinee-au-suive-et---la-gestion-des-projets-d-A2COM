@@ -9,9 +9,20 @@ require_once '../config.php';
 
 $query = "SELECT projetencours.id,etape1,etape2,etape3,etape4,etape5,etape6,etape7,etape8,etape9,etape10,etape11,etape12,etape13,etape14,etape15,etape16,etape17,etape18,etape19,etape20,etape21,etape22,etape23,etape24,etape25,etape26,etape27,etape28,etape29,etape30 FROM projetencours JOIN fiche_detailees ON projetencours.id=fiche_detailees.projetencours_id";
 
+$query2 = "SELECT * FROM user WHERE user.Admin = 'user'";
+
 $result = mysqli_query($db, $query);
 
+$result2 = mysqli_query($db, $query2);
+
 $data = array();
+
+$users = array();
+
+while($row = mysqli_fetch_array($result2))
+{
+  $users[] = array("id"=>$row['IdUser'],"nom"=>$row["nom_utilisateur"]);
+}
 
 while($row = mysqli_fetch_array($result)){
   $data[]=$row;
@@ -480,6 +491,10 @@ $('#myModal').on('hidden.bs.modal', function(e) {
     if(column_name == 'vente'){
       var value = $(this).val();
     }
+    if(column_name == 'nom_utilisateur'){
+      var value = $(this).val();
+      column_name = "user_id";
+    }
    update_data(id, column_name, value);
   });
 
@@ -487,7 +502,15 @@ $('#myModal').on('hidden.bs.modal', function(e) {
    var html = '<tr data-unsortable>';
    html += '<td id="data1"><input type="date" id="start" name="trip-start" style="font-size: 1.7rem"></td>';
    html += '<td contenteditable id="data2"></td>';
-   html += '<td contenteditable id="data3"></td>';
+  //  html += '<td contenteditable id="data3"></td>';
+
+  html += '<td contenteditable><select size="1" id="data3">';
+  <?php foreach ($users as $user):?>
+  html += '<option value=<?php echo $user["id"] ?>><?php echo $user['nom']?></option>'; 
+  <?php endforeach; ?>
+
+html +="</select></td>";
+
    html += '<td contenteditable id="data4"></td>';
    html += '<td contenteditable id="data5"></td>';
    html += '<td id="data6"><input type="checkbox" name="valide25"></td>';
@@ -511,7 +534,7 @@ $('#myModal').on('hidden.bs.modal', function(e) {
   $(document).on('click', '#insert', function(){
    var vente = $('#data1 input').val();
    var projet = $('#data2').text();
-   var nom_utilisateur = $('#data3').text();
+   var nom_utilisateur = $('#data3').val();
 
 var type_de_site = $('#data4').text();
 var facturation25 = $('#data5').text();
@@ -730,6 +753,10 @@ $(document).ready(function(){
     }
     if(column_name == 'vente'){
       var value = $(this).val();
+    }
+    if(column_name == 'nom_utilisateur'){
+      var value = $(this).val();
+      column_name = "user_id";
     }
    update_data(id, column_name, value);
   });

@@ -11,9 +11,20 @@ require_once '../config.php';
 
 $query = "SELECT projetencours.id,etape1,etape2,etape3,etape4,etape5,etape6,etape7,etape8,etape9,etape10,etape11,etape12,etape13,etape14,etape15,etape16,etape17,etape18,etape19,etape20,etape21,etape22,etape23,etape24,etape25,etape26,etape27,etape28,etape29,etape30 FROM projetencours JOIN fiche_detailees ON projetencours.id=fiche_detailees.projetencours_id";
 
+$query2 = "SELECT * FROM user WHERE user.Admin = 'user'";
+
 $result = mysqli_query($db, $query);
 
+$result2 = mysqli_query($db, $query2);
+
 $data = array();
+
+$users = array();
+
+while($row = mysqli_fetch_array($result2))
+{
+  $users[] = array("id"=>$row['IdUser'],"nom"=>$row["nom_utilisateur"]);
+}
 
 while($row = mysqli_fetch_array($result)){
   $data[]=$row;
@@ -203,6 +214,10 @@ while($row = mysqli_fetch_array($result)){
     if(column_name == 'date_de_fin'){
       var value = $(this).val();
     }
+    if(column_name == 'employe'){
+      var value = $(this).val();
+      column_name = "user_id";
+    }
    update_data(id, column_name, value);
   });
 
@@ -212,7 +227,14 @@ while($row = mysqli_fetch_array($result)){
    html += '<td contenteditable id="data1"></td>';
    html += '<td contenteditable id="data2"></td>';
    html += '<td contenteditable id="data3"></td>';
-   html += '<td contenteditable id="data4"></td>';
+   
+   html += '<td contenteditable><select size="1" id="data3">';
+  <?php foreach ($users as $user):?>
+  html += '<option value=<?php echo $user["id"] ?>><?php echo $user['nom']?></option>'; 
+  <?php endforeach; ?>
+
+html +="</select></td>";
+
    html += '<td contenteditable id="data6"></td>';
    html += '<td><button type="button" name="insert" id="insert" class="btn btn-success btn-xs">Insert</button></td>';
    html += '</tr>';
@@ -229,7 +251,7 @@ while($row = mysqli_fetch_array($result)){
    var tache = $('#data2').text();
    var statut = $('#data3').text();
 
-var employe = $('#data4').text();
+var employe = $('#data4').val();
 var date_de_fin = $('#data5 input').val();
 var notes = $('#data6').text();
 
@@ -401,6 +423,10 @@ $(document).ready(function(){
    var value = $(this).text();
     if(column_name == 'date_de_fin'){
       var value = $(this).val();
+    }
+    if(column_name == 'employe'){
+      var value = $(this).val();
+      column_name = "user_id";
     }
    update_data(id, column_name, value);
   });

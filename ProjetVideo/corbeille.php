@@ -9,9 +9,20 @@ require_once '../config.php';
 
 $query = "SELECT projetvideo.id, nom, prenom, telephone, email, lien FROM projetvideo JOIN fiche_contact ON projetvideo.id=fiche_contact.projetvideo_id";
 
+$query2 = "SELECT * FROM user WHERE user.Admin = 'user'";
+
 $result = mysqli_query($db, $query);
 
+$result2 = mysqli_query($db, $query2);
+
 $data = array();
+
+$users = array();
+
+while($row = mysqli_fetch_array($result2))
+{
+  $users[] = array("id"=>$row['IdUser'],"nom"=>$row["nom_utilisateur"]);
+}
 
 while($row = mysqli_fetch_array($result)){
   $data[]=$row;
@@ -234,6 +245,10 @@ $('#myModal').on('hidden.bs.modal', function(e) {
    var value = $(this).text();
    if(column_name == 'delai'){
       var value = $(this).val();
+    }
+    if(column_name == 'chef_de_projet'){
+      var value = $(this).val();
+      column_name = "user_id";
     }
    update_data(id, column_name, value);
   });

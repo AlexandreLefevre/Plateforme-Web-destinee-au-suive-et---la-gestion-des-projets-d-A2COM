@@ -54,7 +54,7 @@
 						</center>
 									<form action="verification.php" class="m-t" method="post" accept-charset="utf-8">
 				<div class="form-group text-left">
-					<label for="login">Adresse email</label>
+					<label for="login">Utilisateur</label>
 					<input type="text" class="form-control" name="username" placeholder="Nom d'utilisateur" required="">
 				</div>
 				<div class="form-group text-left">

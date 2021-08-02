@@ -2,7 +2,7 @@
 require_once '../config.php';
 if(isset($_POST["nom_utilisateur"], $_POST["type_de_site"]))
 {
- $nom_utilisateur = mysqli_real_escape_string($db, $_POST["nom_utilisateur"]);
+ $nom_utilisateur = $_POST["nom_utilisateur"];
  $type_de_site = mysqli_real_escape_string($db, $_POST["type_de_site"]);
  $vente = $_POST["vente"];
  $projet = mysqli_real_escape_string($db, $_POST["projet"]);
@@ -19,7 +19,7 @@ if(isset($_POST["nom_utilisateur"], $_POST["type_de_site"]))
  $valide100 = $_POST["valide100"];
 
 
- $query = "INSERT INTO projetencours (nom_utilisateur, type_de_site, vente, facturation, graphisme, projet, contenu, correction, facturation2, facturation3, facturation4, valide25, valide50, valide75, valide100, order_id) 
+ $query = "INSERT INTO projetencours (projetencours.user_id, type_de_site, vente, facturation, graphisme, projet, contenu, correction, facturation2, facturation3, facturation4, valide25, valide50, valide75, valide100, order_id) 
  VALUES('$nom_utilisateur', '$type_de_site', '$vente', '$facturation', '$graphisme', '$projet', '$contenu', '$correction', '$facturation2', '$facturation3', '$facturation4', $valide25, $valide50, $valide75, $valide100,0)";
  echo($query);
  if(mysqli_query($db, $query))

@@ -9,9 +9,20 @@ require_once '../config.php';
 
 $query = "SELECT projetvideo.id, nom, prenom, telephone, email, lien FROM projetvideo JOIN fiche_contact ON projetvideo.id=fiche_contact.projetvideo_id";
 
+$query2 = "SELECT * FROM user WHERE user.Admin = 'user'";
+
 $result = mysqli_query($db, $query);
 
+$result2 = mysqli_query($db, $query2);
+
 $data = array();
+
+$users = array();
+
+while($row = mysqli_fetch_array($result2))
+{
+  $users[] = array("id"=>$row['IdUser'],"nom"=>$row["nom_utilisateur"]);
+}
 
 while($row = mysqli_fetch_array($result)){
   $data[]=$row;
@@ -260,6 +271,10 @@ $('#myModal').on('hidden.bs.modal', function(e) {
    if(column_name == 'delai'){
       var value = $(this).val();
     }
+    if(column_name == 'chef_de_projet'){
+      var value = $(this).val();
+      column_name = "user_id";
+    }
    update_data(id, column_name, value);
   });
 
@@ -268,7 +283,15 @@ $('#myModal').on('hidden.bs.modal', function(e) {
    html += '<td id="data1"><input type="date" id="start" name="trip-start" style="font-size: 1.7rem"></td>';
    html += '<td contenteditable id="data2"></td>';
    html += '<td contenteditable id="data3"></td>';
-   html += '<td contenteditable id="data4"></td>';
+  
+
+   html += '<td contenteditable><select size="1" id="data4">';
+  <?php foreach ($users as $user):?>
+  html += '<option value=<?php echo $user["id"] ?>><?php echo $user['nom']?></option>'; 
+  <?php endforeach; ?>
+
+html +="</select></td>";
+
    html += '<td contenteditable id="data5"></td>';
    html += '<td><button type="button" name="insert" id="insert" class="btn btn-success btn-xs">Insert</button></td>';
    html += '</tr>';
@@ -283,7 +306,7 @@ $('#myModal').on('hidden.bs.modal', function(e) {
    var delai = $('#data1 input').val();
    var client = $('#data2').text();
    var tache = $('#data3').text();
-   var chef_de_projet = $('#data4').text();
+   var chef_de_projet = $('#data4').val();
    var type_de_projet = $('#data5').text();
 
 
@@ -454,6 +477,10 @@ $(document).ready(function(){
    var value = $(this).text();
    if(column_name == 'delai'){
       var value = $(this).val();
+    }
+    if(column_name == 'chef_de_projet'){
+      var value = $(this).val();
+      column_name = "user_id";
     }
    update_data(id, column_name, value);
   });

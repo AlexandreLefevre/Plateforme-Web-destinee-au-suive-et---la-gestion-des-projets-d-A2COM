@@ -9,9 +9,20 @@ require_once '../config.php';
 
 $query = "SELECT projetencours.id,etape1,etape2,etape3,etape4,etape5,etape6,etape7,etape8,etape9,etape10,etape11,etape12,etape13,etape14,etape15,etape16,etape17,etape18,etape19,etape20,etape21,etape22,etape23,etape24,etape25,etape26,etape27,etape28,etape29,etape30 FROM projetencours JOIN fiche_detailees ON projetencours.id=fiche_detailees.projetencours_id";
 
+$query2 = "SELECT * FROM user WHERE user.Admin = 'user'";
+
 $result = mysqli_query($db, $query);
 
+$result2 = mysqli_query($db, $query2);
+
 $data = array();
+
+$users = array();
+
+while($row = mysqli_fetch_array($result2))
+{
+  $users[] = array("id"=>$row['IdUser'],"nom"=>$row["nom_utilisateur"]);
+}
 
 while($row = mysqli_fetch_array($result)){
   $data[]=$row;
@@ -447,70 +458,11 @@ $('#myModal').on('hidden.bs.modal', function(e) {
     if(column_name == 'vente'){
       var value = $(this).val();
     }
+    if(column_name == 'nom_utilisateur'){
+      var value = $(this).val();
+      column_name = "user_id";
+    }
    update_data(id, column_name, value);
-  });
-
-  $('#add').click(function(){
-   var html = '<tr data-unsortable>';
-   html += '<td id="data1"><input type="date" id="start" name="trip-start" style="font-size: 1.7rem"></td>';
-   html += '<td contenteditable id="data2"></td>';
-   html += '<td contenteditable id="data3"></td>';
-   html += '<td contenteditable id="data4"></td>';
-   html += '<td contenteditable id="data5"></td>';
-   html += '<td id="data6"><input type="checkbox" name="valide25"></td>';
-   html += '<td contenteditable id="data7"></td>';
-   html += '<td contenteditable id="data8"></td>';
-   html += '<td id="data9"><input type="checkbox" name="valide50"></td>';
-   html += '<td contenteditable id="data10"></td>';
-   html += '<td contenteditable id="data11"></td>';
-   html += '<td id="data12"><input type="checkbox" name="valide75"></td>';
-   html += '<td contenteditable id="data13"></td>';
-   html += '<td contenteditable id="data14"></td>';
-   html += '<td id="data15"><input type="checkbox" name="valide100"></td>';
-   html += '<td><button type="button" name="insert" id="insert" class="btn btn-success btn-xs">Insert</button></td>';
-   html += '</tr>';
-   $('#user_data tbody').prepend(html);
-  });
-  
-  $('#corbeille').click(function(){
-    document.location.href="corbeille.php"; 
-  });
-  $(document).on('click', '#insert', function(){
-   var vente = $('#data1 input').val();
-   var projet = $('#data2').text();
-   var nom_utilisateur = $('#data3').text();
-
-var type_de_site = $('#data4').text();
-var facturation25 = $('#data5').text();
-var valide25 = $('#data6 input').is(":checked")==true?true:false;
-var graphisme = $('#data7').text();
-var facturation50 = $('#data8').text();
-var valide50 = $('#data9 input').is(":checked")==true?true:false;
-var contenu = $('#data10').text();
-var facturation75 = $('#data11').text();
-var valide75 = $('#data12 input').is(":checked")==true?true:false;
-var correction = $('#data13').text();
-var facturation100 = $('#data14').text();
-var valide100 = $('#data15 input').is(":checked")==true?true:false;
-
-   if(projet != '')
-   {
-    $.ajax({
-     url:"insert.php",
-     method:"POST",
-     data:{nom_utilisateur:nom_utilisateur, type_de_site:type_de_site, vente:vente, projet:projet, facturation:facturation25, valide25:valide25, graphisme:graphisme, contenu:contenu, correction:correction, facturation2:facturation50, valide50:valide50, facturation3:facturation75, valide75:valide75, facturation4:facturation100, valide100:valide100},
-     success:function(data)
-     {
-      $('#user_data').DataTable().destroy();
-      fetch_data();
-      document.location.reload();
-     }
-    });
- }
-   else
-   {
-    alert("Tout les champs doivent être remplis");
-   }
   });
 
   $(document).on('click', '.delete', function(e){

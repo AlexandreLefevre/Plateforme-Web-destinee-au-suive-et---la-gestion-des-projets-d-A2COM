@@ -4,7 +4,9 @@ require_once '../config.php';
 
 $columns = array('client','tache','statut','employe','date_de_fin','notes');
 
-$query = "SELECT * FROM miniprojet";
+$query = "SELECT * FROM miniprojet JOIN user ON miniprojet.user_id = user.IdUser";
+
+$query2 = "SELECT * FROM user WHERE user.Admin = 'user'";
 
 if(isset($_POST["search"]["value"]))
 {
@@ -13,7 +15,7 @@ if(isset($_POST["search"]["value"]))
  AND (client LIKE "%'.$_POST["search"]["value"].'%" 
  OR tache LIKE "%'.$_POST["search"]["value"].'%" 
  OR statut LIKE "%'.$_POST["search"]["value"].'%"
- OR employe LIKE "%'.$_POST["search"]["value"].'%"
+ OR user.nom_utilisateur LIKE "%'.$_POST["search"]["value"].'%"
  OR notes LIKE "%'.$_POST["search"]["value"].'%"   
  )';
 }
@@ -37,7 +39,16 @@ $number_filter_row = mysqli_num_rows(mysqli_query($db, $query));
 
 $result = mysqli_query($db, $query);
 
+$result2 = mysqli_query($db, $query2);
+
 $data = array();
+
+$users = array();
+
+while($row = mysqli_fetch_array($result2))
+{
+  $users[] = array("id"=>$row['IdUser'],"nom"=>$row["nom_utilisateur"]);
+}
 
 while($row = mysqli_fetch_array($result))
 {
@@ -63,7 +74,22 @@ while($row = mysqli_fetch_array($result))
   $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="client">' . $row["client"] . '</div>';
   $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="tache">' . $row["tache"] . '</div>';
   $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="statut" '.$stylestatut.' >' . $row["statut"] . '</div>';
- $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="employe">' . $row["employe"] . '</div>';
+
+//  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="employe">' . $row["employe"] . '</div>';
+
+$select = '<select size="1" class="update" data-id="'.$row["id"].'" data-column="employe">';
+foreach($users as $user){
+  if($user["id"]==$row["user_id"]){
+    $select.= '<option value="'.$user["id"].'"selected>'.$user['nom'].'</option>';
+  }
+  else{
+    $select.= '<option value="'.$user["id"].'">'.$user['nom'].'</option>';
+  }
+}
+$select.="</select>";
+$sub_array[]= $select;
+
+
  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="notes">' . $row["notes"] . '</div>';
 
  

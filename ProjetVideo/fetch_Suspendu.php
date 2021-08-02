@@ -1,11 +1,12 @@
 <?php
 //fetch.php
 require_once '../config.php';
+
 $columns = array('delai', 'client','tache','chef_de_projet','type_de_projet');
 
-$query = "SELECT projetvideo.id, delai, client, tache, chef_de_projet, type_de_projet, fiche_contact.lien FROM projetvideo JOIN fiche_contact ON projetvideo.id = fiche_contact.projetvideo_id";
+$query = "SELECT projetvideo.id, delai, client, tache, projetvideo.user_id, type_de_projet, fiche_contact.lien FROM projetvideo JOIN fiche_contact ON projetvideo.id = fiche_contact.projetvideo_id JOIN user ON projetvideo.user_id = user.IdUser";
 
-// $query = "SELECT projetvideo.id, delai, client, tache, chef_de_projet, type_de_projet FROM projetvideo";
+$query2 = "SELECT * FROM user WHERE user.Admin = 'user'";
 
 if(isset($_POST["search"]["value"]))
 {
@@ -13,7 +14,7 @@ if(isset($_POST["search"]["value"]))
  WHERE etatprojetvideo = "suspendu"
  AND (client LIKE "%'.$_POST["search"]["value"].'%" 
  OR tache LIKE "%'.$_POST["search"]["value"].'%" 
- OR chef_de_projet LIKE "%'.$_POST["search"]["value"].'%"
+ OR user.nom_utilisateur LIKE "%'.$_POST["search"]["value"].'%"
  OR type_de_projet LIKE "%'.$_POST["search"]["value"].'%"   
  )';
 }
@@ -37,23 +38,47 @@ if($_POST["length"] != -1)
 
 $number_filter_row = mysqli_num_rows(mysqli_query($db, $query));
 
-$result = mysqli_query($db, $query . $query1);
+$result = mysqli_query($db, $query);
+
+$result2 = mysqli_query($db, $query2);
 
 $data = array();
 
+$users = array();
+
+while($row = mysqli_fetch_array($result2))
+{
+  $users[] = array("id"=>$row['IdUser'],"nom"=>$row["nom_utilisateur"]);
+}
+
 while($row = mysqli_fetch_array($result))
 {
-  
  $sub_array = array();
   $sub_array[] = '<span class="sortable-handle"> ↕ </span><input class="update" type="date" data-id="'.$row["id"].'" data-column="delai" value="'.$row["delai"].'">';
   $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="client">' . $row["client"] . '</div>';
  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="tache">' . $row["tache"] . '</div>';
- $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="chef_de_projet">' . $row["chef_de_projet"] . '</div>';
+
+ //$sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="chef_de_projet">' . $row["chef_de_projet"] . '</div>';
+
+ $select = '<select size="1" class="update" data-id="'.$row["id"].'" data-column="employe">';
+foreach($users as $user){
+  if($user["id"]==$row["user_id"]){
+    $select.= '<option value="'.$user["id"].'"selected>'.$user['nom'].'</option>';
+  }
+  else{
+    $select.= '<option value="'.$user["id"].'">'.$user['nom'].'</option>';
+  }
+}
+$select.="</select>";
+$sub_array[]= $select;
+
  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="type_de_projet">' . $row["type_de_projet"] . '</div>';
 
 $sub_array[] = '<button type="button" data-target="#myModal'.$row["id"].'" role="button" data-toggle="modal" name="details" class="btn btn-success btn-xs success" id="'.$row["id"].'"><i class="fa fa-list-alt" style="font-size:19px"></i></button>';
 $sub_array[] = '<a class="btn btn-primary btn-xs lien" id="'.$row["id"].'" target="_blank" href="'.$row['lien'].'"><i class="fa fa-external-link" style="font-size:19px"></i></a>';
- $sub_array[] = '<button type="button" name="unsuspendre" class="btn btn-danger btn-xs unsuspendre" id="'.$row["id"].'"><i class="fa fa-unlock" style="font-size:19px"></i></button>';
+ $sub_array[] = '<button type="button" name="suspendre" class="btn btn-danger btn-xs suspendre" id="'.$row["id"].'"><i class="fa fa-lock" style="font-size:19px"></i></button>';
+ $sub_array[] = '<button type="button" name="archiver" class="btn btn-warning btn-xs archiver" id="'.$row["id"].'"><i class="fa fa-archive" style="font-size:19px"></i></button>';
+ $sub_array[] = '<button type="button" name="delete" class="btn btn-danger btn-xs delete" id="'.$row["id"].'"><i class="fa fa-trash" style="font-size:19px"></i></button>';
  $data[] = $sub_array;
 }
 

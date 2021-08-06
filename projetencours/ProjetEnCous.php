@@ -11,13 +11,24 @@ $query = "SELECT projetencours.id,etape1,etape2,etape3,etape4,etape5,etape6,etap
 
 $query2 = "SELECT * FROM user WHERE user.Admin = 'user'";
 
+$query3 = "SELECT * FROM type_site";
+
 $result = mysqli_query($db, $query);
 
 $result2 = mysqli_query($db, $query2);
 
+$result3 = mysqli_query($db, $query3);
+
 $data = array();
 
 $users = array();
+
+$typesites = array();
+
+while($row = mysqli_fetch_array($result3))
+{
+  $typesites[] = array("id"=>$row['idTypeSite'],"libele"=>$row["libelle"]);
+}
 
 while($row = mysqli_fetch_array($result2))
 {
@@ -115,8 +126,8 @@ while($row = mysqli_fetch_array($result)){
       <tr>
                       <th>Vente</th>
                       <th>Projet</th>
-                      <th>Text</th>
-                      <th >Type de site</th>
+                      <th data-orderable="false">Text</th>
+                      <th data-orderable="false">Type de site</th>
                       <th data-orderable="false">25%</th>
                       <th></th>
                       <th>Graphisme</th>
@@ -147,8 +158,8 @@ while($row = mysqli_fetch_array($result)){
       <tr>
                       <th>Vente</th>
                       <th>Projet</th>
-                      <th>Text</th>
-                      <th >Type de site</th>
+                      <th data-orderable="false">Text</th>
+                      <th data-orderable="false">Type de site</th>
                       <th data-orderable="false">25%</th>
                       <th></th>
                       <th>Graphisme</th>
@@ -495,6 +506,10 @@ $('#myModal').on('hidden.bs.modal', function(e) {
       var value = $(this).val();
       column_name = "user_id";
     }
+    if(column_name == 'type_de_site'){
+      var value = $(this).val();
+      column_name = "typesite";
+    }
    update_data(id, column_name, value);
   });
 
@@ -511,7 +526,15 @@ $('#myModal').on('hidden.bs.modal', function(e) {
 
 html +="</select></td>";
 
-   html += '<td contenteditable id="data4"></td>';
+  // html += '<td contenteditable id="data4"></td>';
+
+  html += '<td contenteditable><select size="1" id="data4">';
+  <?php foreach ($typesites as $typesite):?>
+  html += '<option value=<?php echo $typesite["id"] ?>><?php echo $typesite['libele']?></option>'; 
+  <?php endforeach; ?>
+
+html +="</select></td>";
+
    html += '<td contenteditable id="data5"></td>';
    html += '<td id="data6"><input type="checkbox" name="valide25"></td>';
    html += '<td contenteditable id="data7"></td>';
@@ -536,7 +559,7 @@ html +="</select></td>";
    var projet = $('#data2').text();
    var nom_utilisateur = $('#data3').val();
 
-var type_de_site = $('#data4').text();
+var type_de_site = $('#data4').val();
 var facturation25 = $('#data5').text();
 var valide25 = $('#data6 input').is(":checked")==true?true:false;
 var graphisme = $('#data7').text();
@@ -757,6 +780,10 @@ $(document).ready(function(){
     if(column_name == 'nom_utilisateur'){
       var value = $(this).val();
       column_name = "user_id";
+    }
+    if(column_name == 'type_de_site'){
+      var value = $(this).val();
+      column_name = "typesite";
     }
    update_data(id, column_name, value);
   });

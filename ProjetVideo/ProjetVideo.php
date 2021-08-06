@@ -11,13 +11,24 @@ $query = "SELECT projetvideo.id, nom, prenom, telephone, email, lien FROM projet
 
 $query2 = "SELECT * FROM user WHERE user.Admin = 'user'";
 
+$query3 = "SELECT * FROM type_site";
+
 $result = mysqli_query($db, $query);
 
 $result2 = mysqli_query($db, $query2);
 
+$result3 = mysqli_query($db, $query3);
+
 $data = array();
 
 $users = array();
+
+$typesites = array();
+
+while($row = mysqli_fetch_array($result3))
+{
+  $typesites[] = array("id"=>$row['idTypeSite'],"libele"=>$row["libelle"]);
+}
 
 while($row = mysqli_fetch_array($result2))
 {
@@ -116,8 +127,8 @@ while($row = mysqli_fetch_array($result)){
 	                  <th>Deadline</th>
                       <th>Client</th>
                       <th>Tache</th>
-                      <th>Chef de projet</th>
-                      <th >Type</th>
+                      <th data-orderable="false">Chef de projet</th>
+                      <th data-orderable="false">Type</th>
        <th id="th1" data-orderable="false"></th>
        <th data-orderable="false"></th>
 	   <th data-orderable="false"></th>
@@ -138,8 +149,8 @@ while($row = mysqli_fetch_array($result)){
 	                  <th>Deadline</th>
                       <th>Client</th>
                       <th>Tache</th>
-                      <th>Chef de projet</th>
-                      <th >Type</th>
+                      <th data-orderable="false">Chef de projet</th>
+                      <th data-orderable="false">Type</th>
        <th id="th1" data-orderable="false"></th>
        <th data-orderable="false"></th>
 	   <th data-orderable="false"></th>
@@ -271,9 +282,13 @@ $('#myModal').on('hidden.bs.modal', function(e) {
    if(column_name == 'delai'){
       var value = $(this).val();
     }
-    if(column_name == 'chef_de_projet'){
+    if(column_name == 'employe'){
       var value = $(this).val();
       column_name = "user_id";
+    }
+    if(column_name == 'type_de_projet'){
+      var value = $(this).val();
+      column_name = "typesite";
     }
    update_data(id, column_name, value);
   });
@@ -292,7 +307,15 @@ $('#myModal').on('hidden.bs.modal', function(e) {
 
 html +="</select></td>";
 
-   html += '<td contenteditable id="data5"></td>';
+  // html += '<td contenteditable id="data5"></td>';
+
+  html += '<td contenteditable><select size="1" id="data5">';
+  <?php foreach ($typesites as $typesite):?>
+  html += '<option value=<?php echo $typesite["id"] ?>><?php echo $typesite['libele']?></option>'; 
+  <?php endforeach; ?>
+
+html +="</select></td>";
+
    html += '<td><button type="button" name="insert" id="insert" class="btn btn-success btn-xs">Insert</button></td>';
    html += '</tr>';
    $('#user_data tbody').prepend(html);
@@ -307,7 +330,7 @@ html +="</select></td>";
    var client = $('#data2').text();
    var tache = $('#data3').text();
    var chef_de_projet = $('#data4').val();
-   var type_de_projet = $('#data5').text();
+   var type_de_projet = $('#data5').val();
 
 
    if(client != '')
@@ -481,6 +504,10 @@ $(document).ready(function(){
     if(column_name == 'chef_de_projet'){
       var value = $(this).val();
       column_name = "user_id";
+    }
+    if(column_name == 'type_de_projet'){
+      var value = $(this).val();
+      column_name = "typesite";
     }
    update_data(id, column_name, value);
   });

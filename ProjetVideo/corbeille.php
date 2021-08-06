@@ -7,18 +7,28 @@ require_once '../config.php';
                     header('Location: login.php');
                 }
 
-$query = "SELECT projetvideo.id, nom, prenom, telephone, email, lien FROM projetvideo JOIN fiche_contact ON projetvideo.id=fiche_contact.projetvideo_id";
+                $query = "SELECT projetvideo.id, nom, prenom, telephone, email, lien FROM projetvideo JOIN fiche_contact ON projetvideo.id=fiche_contact.projetvideo_id";
 
-$query2 = "SELECT * FROM user WHERE user.Admin = 'user'";
-
-$result = mysqli_query($db, $query);
-
-$result2 = mysqli_query($db, $query2);
-
-$data = array();
-
-$users = array();
-
+                $query2 = "SELECT * FROM user WHERE user.Admin = 'user'";
+                
+                $query3 = "SELECT * FROM type_site";
+                
+                $result = mysqli_query($db, $query);
+                
+                $result2 = mysqli_query($db, $query2);
+                
+                $result3 = mysqli_query($db, $query3);
+                
+                $data = array();
+                
+                $users = array();
+                
+                $typesites = array();
+                
+                while($row = mysqli_fetch_array($result3))
+                {
+                  $typesites[] = array("id"=>$row['idTypeSite'],"libele"=>$row["libelle"]);
+                }
 while($row = mysqli_fetch_array($result2))
 {
   $users[] = array("id"=>$row['IdUser'],"nom"=>$row["nom_utilisateur"]);
@@ -112,8 +122,8 @@ while($row = mysqli_fetch_array($result)){
 	                  <th>Deadline</th>
                       <th>Client</th>
                       <th>Tache</th>
-                      <th>Chef de projet</th>
-                      <th >Type</th>
+                      <th data-orderable="false">Chef de projet</th>
+                      <th data-orderable="false">Type</th>
        <th id="th1" data-orderable="false"></th>
        <th data-orderable="false"></th>
 	   <th data-orderable="false"></th>
@@ -246,9 +256,13 @@ $('#myModal').on('hidden.bs.modal', function(e) {
    if(column_name == 'delai'){
       var value = $(this).val();
     }
-    if(column_name == 'chef_de_projet'){
+    if(column_name == 'employe'){
       var value = $(this).val();
       column_name = "user_id";
+    }
+    if(column_name == 'type_de_projet'){
+      var value = $(this).val();
+      column_name = "typesite";
     }
    update_data(id, column_name, value);
   });

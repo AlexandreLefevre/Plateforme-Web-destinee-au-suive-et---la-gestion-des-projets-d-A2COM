@@ -3,17 +3,20 @@
 require_once '../config.php';
 $columns = array('vente', 'projet','nom_utilisateur','type_de_site','facturation','valide25','graphisme','facturation2','valide50','contenu','facturation3','valide75','correction','facturation4','valide100');
 
-$query = "SELECT projetencours.id, projetencours.user_id, type_de_site, vente, facturation, graphisme, projet, contenu, correction, facturation2, facturation3, facturation4, valide25, valide50, 
-valide75, valide100, fiche_detailees.etape30, user.nom_utilisateur FROM projetencours JOIN fiche_detailees ON projetencours.id = fiche_detailees.projetencours_id JOIN user ON projetencours.user_id = user.IdUser";
+$query = "SELECT projetencours.id, projetencours.user_id, projetencours.typesite, vente, facturation, graphisme, projet, contenu, correction, facturation2, facturation3, facturation4, valide25, valide50, 
+valide75, valide100, fiche_detailees.etape30, user.nom_utilisateur FROM projetencours JOIN fiche_detailees ON projetencours.id = fiche_detailees.projetencours_id 
+JOIN user ON projetencours.user_id = user.IdUser JOIN type_site ON projetencours.typesite = type_site.idTypeSite ";
 
 $query2 = "SELECT * FROM user WHERE user.Admin = 'user'";
+
+$query3 = "SELECT * FROM type_site";
 
 if(isset($_POST["search"]["value"]))
 {
  $query .= '
  WHERE etatprojet = "En cours"
  AND (projet LIKE "%'.$_POST["search"]["value"].'%" 
- OR type_de_site LIKE "%'.$_POST["search"]["value"].'%" 
+ OR type_site.libelle LIKE "%'.$_POST["search"]["value"].'%" 
  OR graphisme LIKE "%'.$_POST["search"]["value"].'%"
  OR contenu LIKE "%'.$_POST["search"]["value"].'%"
  OR correction LIKE "%'.$_POST["search"]["value"].'%"
@@ -44,9 +47,18 @@ $result = mysqli_query($db, $query . $query1);
 
 $result2 = mysqli_query($db, $query2);
 
+$result3 = mysqli_query($db, $query3);
+
 $data = array();
 
 $users = array();
+
+$typesites = array();
+
+while($row = mysqli_fetch_array($result3))
+{
+  $typesites[] = array("id"=>$row['idTypeSite'],"libele"=>$row["libelle"]);
+}
 
 while($row = mysqli_fetch_array($result2))
 {
@@ -150,28 +162,6 @@ while($row = mysqli_fetch_array($result))
   }
 
 
-  // $selectfacturation ='';
-  // switch($row["facturation"]){
-  //   case "0" : 
-  //     $selectfacturation = '<select size="1" class="update" id="data5" data-id="'.$row["id"].'" data-column="facturation"><option value="0" selected>0%</option><option value="25">25%</option><option value="50">50%</option><option value="75">75% </option><option value="100">100%</option> </select>';
-  //     break;
-  //   case "25" : 
-  //     $selectfacturation = '<select size="1"  class="update" id="data5" data-id="'.$row["id"].'" data-column="facturation"><option value="0">0%</option><option value="25" selected>25%</option><option value="50">50%</option><option value="75">75% </option><option value="100">100%</option> </select>';
-  //     break;
-  //   case "50" : 
-  //     $selectfacturation = '<select size="1"  class="update" id="data5" data-id="'.$row["id"].'" data-column="facturation"><option value="0">0%</option><option value="25">25%</option><option value="50" selected>50%</option><option value="75">75% </option><option value="100">100%</option> </select>';
-  //     break;
-  //   case "75" : 
-  //     $selectfacturation = '<select size="1" class="update" id="data5" data-id="'.$row["id"].'" data-column="facturation"><option value="0">0%</option><option value="25">25%</option><option value="50">50%</option><option value="75" selected>75% </option><option value="100">100%</option> </select>';
-  //     break;
-  //   case "100" : 
-  //     $selectfacturation = '<select size="1" class="update" id="data5" data-id="'.$row["id"].'" data-column="facturation"><option value="0">0%</option><option value="25">25%</option><option value="50">50%</option><option value="75">75% </option><option value="100" selected>100%</option> </select>';
-  //     break;
-  //   default : 
-  //     $selectfacturation = '';
-  //     break;
-  // }
-  
  $sub_array = array();
   $sub_array[] = '<span class="sortable-handle"> ↕ </span><input class="update" type="date" data-id="'.$row["id"].'" data-column="vente" value="'.$row["vente"].'">';
   $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="projet">' . $row["projet"] . '</div>';
@@ -189,7 +179,20 @@ foreach($users as $user){
 $select.="</select>";
 $sub_array[]= $select;
 
- $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="type_de_site">' . $row["type_de_site"] . '</div>';
+ //$sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="type_de_site">' . $row["type_de_site"] . '</div>';
+
+ $select2 = '<select size="1" class="update" data-id="'.$row["id"].'" data-column="type_de_site">';
+ foreach($typesites as $typesite){
+   if($typesite["id"]==$row["typesite"]){
+     $select2.= '<option value="'.$typesite["id"].'"selected>'.$typesite['libele'].'</option>';
+   }
+   else{
+     $select2.= '<option value="'.$typesite["id"].'">'.$typesite['libele'].'</option>';
+   }
+ }
+ $select2.="</select>";
+ $sub_array[]= $select2;
+
  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="facturation" '.$valide25.'>' . $row["facturation"] . '</div>';
  $sub_array[] = '<input class="update" type="checkbox" '.$valide25.' data-id="'.$row["id"].'" data-column="valide25">';
  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="graphisme" '.$stylegraphisme.' >' . $row["graphisme"] . '</div>';

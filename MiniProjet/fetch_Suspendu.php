@@ -93,9 +93,7 @@ $sub_array[]= $select;
  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="notes">' . $row["notes"] . '</div>';
 
  
- $sub_array[] = '<button type="button" name="suspendre" class="btn btn-danger btn-xs suspendre" id="'.$row["id"].'"><i class="fa fa-lock" style="font-size:19px"></i></button>';
- $sub_array[] = '<button type="button" name="archiver" class="btn btn-warning btn-xs archiver" id="'.$row["id"].'"><i class="fa fa-archive" style="font-size:19px"></i></button>';
- $sub_array[] = '<button type="button" name="delete" class="btn btn-danger btn-xs delete" id="'.$row["id"].'"><i class="fa fa-trash" style="font-size:19px"></i></button>';
+ $sub_array[] = '<button type="button" name="unsuspendre" class="btn btn-danger btn-xs unsuspendre" id="'.$row["id"].'"><i class="fa fa-unlock" style="font-size:19px"></i></button>';
  $data[] = $sub_array;
 }
 

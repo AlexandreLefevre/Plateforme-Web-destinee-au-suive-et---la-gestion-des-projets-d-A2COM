@@ -11,13 +11,24 @@ $query = "SELECT projetencours.id,etape1,etape2,etape3,etape4,etape5,etape6,etap
 
 $query2 = "SELECT * FROM user WHERE user.Admin = 'user'";
 
+$query3 = "SELECT * FROM type_site";
+
 $result = mysqli_query($db, $query);
 
 $result2 = mysqli_query($db, $query2);
 
+$result3 = mysqli_query($db, $query3);
+
 $data = array();
 
 $users = array();
+
+$typesites = array();
+
+while($row = mysqli_fetch_array($result3))
+{
+  $typesites[] = array("id"=>$row['idTypeSite'],"libele"=>$row["libelle"]);
+}
 
 while($row = mysqli_fetch_array($result2))
 {
@@ -111,8 +122,8 @@ while($row = mysqli_fetch_array($result)){
       <tr>
                       <th>Vente</th>
                       <th>Projet</th>
-                      <th>Text</th>
-                      <th >Type de site</th>
+                      <th data-orderable="false">Text</th>
+                      <th data-orderable="false">Type de site</th>
                       <th data-orderable="false">25%</th>
                       <th></th>
                       <th>Graphisme</th>
@@ -461,6 +472,10 @@ $('#myModal').on('hidden.bs.modal', function(e) {
     if(column_name == 'nom_utilisateur'){
       var value = $(this).val();
       column_name = "user_id";
+    }
+    if(column_name == 'type_de_site'){
+      var value = $(this).val();
+      column_name = "typesite";
     }
    update_data(id, column_name, value);
   });

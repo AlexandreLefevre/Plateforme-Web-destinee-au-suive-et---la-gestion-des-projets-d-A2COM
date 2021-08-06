@@ -114,7 +114,7 @@ while($row = mysqli_fetch_array($result)){
                       <th>Client</th>
                       <th>Résumé</th>
                       <th>Statut</th>
-                      <th >Qui va faire ?</th>
+                      <th data-orderable="false">Qui va faire ?</th>
                       <th>Notes complémentaires</th>
        <th data-orderable="false"></th>
        <th data-orderable="false"></th>

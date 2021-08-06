@@ -119,7 +119,7 @@ while($row = mysqli_fetch_array($result)){
                       <th>Client</th>
                       <th>Résumé</th>
                       <th>Statut</th>
-                      <th >Qui va faire ?</th>
+                      <th data-orderable="false">Qui va faire ?</th>
                       <th>Notes complémentaires</th>
        <th data-orderable="false"></th>
        <th data-orderable="false"></th>
@@ -140,7 +140,7 @@ while($row = mysqli_fetch_array($result)){
                       <th>Client</th>
                       <th>Résumé</th>
                       <th>Statut</th>
-                      <th >Qui va faire ?</th>
+                      <th data-orderable="false">Qui va faire ?</th>
                       <th>Notes complémentaires</th>
        <th data-orderable="false"></th>
       </tr>
@@ -228,7 +228,7 @@ while($row = mysqli_fetch_array($result)){
    html += '<td contenteditable id="data2"></td>';
    html += '<td contenteditable id="data3"></td>';
    
-   html += '<td contenteditable><select size="1" id="data3">';
+   html += '<td contenteditable><select size="1" id="data4">';
   <?php foreach ($users as $user):?>
   html += '<option value=<?php echo $user["id"] ?>><?php echo $user['nom']?></option>'; 
   <?php endforeach; ?>

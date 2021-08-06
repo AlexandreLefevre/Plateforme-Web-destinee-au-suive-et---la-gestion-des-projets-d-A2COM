@@ -12,13 +12,35 @@ $query = "SELECT projetencours.id,etape1,etape2,etape3,etape4,etape5,etape6,etap
 
 $query2 = "SELECT projetvideo.id, nom, prenom, telephone, email, lien FROM projetvideo JOIN fiche_contact ON projetvideo.id=fiche_contact.projetvideo_id";
 
+$query3 = "SELECT * FROM user WHERE user.Admin = 'user'";
+
+$query4 = "SELECT * FROM type_site";
+
 $result = mysqli_query($db, $query);
 
 $result2 = mysqli_query($db, $query2);
 
+$result3 = mysqli_query($db, $query3);
+
+$result4 = mysqli_query($db, $query4);
+
 $data = array();
 
 $data2 = array();
+
+$users = array();
+
+$typesites = array();
+
+while($row = mysqli_fetch_array($result4))
+{
+  $typesites[] = array("id"=>$row['idTypeSite'],"libele"=>$row["libelle"]);
+}
+
+while($row = mysqli_fetch_array($result3))
+{
+  $users[] = array("id"=>$row['IdUser'],"nom"=>$row["nom_utilisateur"]);
+}
 
 while($row = mysqli_fetch_array($result)){
   $data[]=$row;
@@ -110,8 +132,8 @@ while($row2 = mysqli_fetch_array($result2)){
       <tr>
                       <th>Vente</th>
                       <th>Projet</th>
-                      <th>Text</th>
-                      <th >Type de site</th>
+                      <th data-orderable="false">Text</th>
+                      <th data-orderable="false">Type de site</th>
                       <th data-orderable="false">25%</th>
                       <th></th>
                       <th>Graphisme</th>
@@ -143,7 +165,7 @@ while($row2 = mysqli_fetch_array($result2)){
                       <th>Client</th>
                       <th>Résumé</th>
                       <th>Statut</th>
-                      <th >Qui va faire ?</th>
+                      <th data-orderable="false">Qui va faire ?</th>
                       <th>Notes complémentaires</th>
        <th data-orderable="false"></th>
        <th data-orderable="false"></th>
@@ -162,8 +184,8 @@ while($row2 = mysqli_fetch_array($result2)){
 	                  <th>Deadline</th>
                       <th>Client</th>
                       <th>Tache</th>
-                      <th>Chef de projet</th>
-                      <th >Type</th>
+                      <th data-orderable="false">Chef de projet</th>
+                      <th data-orderable="false">Type</th>
        <th id="th1" data-orderable="false"></th>
        <th data-orderable="false"></th>
 	   <th data-orderable="false"></th>
@@ -535,6 +557,14 @@ $('#myModal').on('hidden.bs.modal', function(e) {
     if(column_name == 'vente'){
       var value = $(this).val();
     }
+    if(column_name == 'nom_utilisateur'){
+      var value = $(this).val();
+      column_name = "user_id";
+    }
+    if(column_name == 'type_de_site'){
+      var value = $(this).val();
+      column_name = "typesite";
+    }
    update_data(id, column_name, value);
   });
 
@@ -658,6 +688,10 @@ $(document).ready(function(){
    var value = $(this).text();
     if(column_name == 'date_de_fin'){
       var value = $(this).val();
+    }
+    if(column_name == 'employe'){
+      var value = $(this).val();
+      column_name = "user_id";
     }
    update_data(id, column_name, value);
   });
@@ -797,6 +831,14 @@ $(document).ready(function(){
    var value = $(this).text();
    if(column_name == 'delai'){
       var value = $(this).val();
+    }
+    if(column_name == 'employe'){
+      var value = $(this).val();
+      column_name = "user_id";
+    }
+    if(column_name == 'type_de_projet'){
+      var value = $(this).val();
+      column_name = "typesite";
     }
    update_data(id, column_name, value);
   });

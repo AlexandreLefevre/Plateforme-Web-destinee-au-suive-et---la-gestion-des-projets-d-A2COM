@@ -3,9 +3,11 @@
 require_once '../config.php';
 $columns = array('delai', 'client','tache','chef_de_projet','type_de_projet');
 
-$query = "SELECT projetvideo.id, delai, client, tache, projetvideo.user_id, type_de_projet, fiche_contact.lien FROM projetvideo JOIN fiche_contact ON projetvideo.id = fiche_contact.projetvideo_id JOIN user ON projetvideo.user_id = user.IdUser";
+$query = "SELECT projetvideo.id, delai, client, tache, projetvideo.user_id, projetvideo.typesite, fiche_contact.lien FROM projetvideo JOIN fiche_contact ON projetvideo.id = fiche_contact.projetvideo_id JOIN user ON projetvideo.user_id = user.IdUser JOIN type_site ON projetvideo.typesite = type_site.idTypeSite";
 
 $query2 = "SELECT * FROM user WHERE user.Admin = 'user'";
+
+$query3 = "SELECT * FROM type_site";
 
 if(isset($_POST["search"]["value"]))
 {
@@ -14,7 +16,7 @@ if(isset($_POST["search"]["value"]))
  AND (client LIKE "%'.$_POST["search"]["value"].'%" 
  OR tache LIKE "%'.$_POST["search"]["value"].'%" 
  OR user.nom_utilisateur LIKE "%'.$_POST["search"]["value"].'%"
- OR type_de_projet LIKE "%'.$_POST["search"]["value"].'%"   
+ OR type_site.libelle LIKE "%'.$_POST["search"]["value"].'%"   
  )';
 }
 
@@ -41,10 +43,18 @@ $result = mysqli_query($db, $query);
 
 $result2 = mysqli_query($db, $query2);
 
+$result3 = mysqli_query($db, $query3);
+
 $data = array();
 
 $users = array();
 
+$typesites = array();
+
+while($row = mysqli_fetch_array($result3))
+{
+  $typesites[] = array("id"=>$row['idTypeSite'],"libele"=>$row["libelle"]);
+}
 while($row = mysqli_fetch_array($result2))
 {
   $users[] = array("id"=>$row['IdUser'],"nom"=>$row["nom_utilisateur"]);
@@ -72,7 +82,19 @@ while($row = mysqli_fetch_array($result))
  $select.="</select>";
  $sub_array[]= $select;
 
- $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="type_de_projet">' . $row["type_de_projet"] . '</div>';
+ //$sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="type_de_projet">' . $row["type_de_projet"] . '</div>';
+
+ $select2 = '<select size="1" class="update" data-id="'.$row["id"].'" data-column="type_de_projet">';
+ foreach($typesites as $typesite){
+   if($typesite["id"]==$row["typesite"]){
+     $select2.= '<option value="'.$typesite["id"].'"selected>'.$typesite['libele'].'</option>';
+   }
+   else{
+     $select2.= '<option value="'.$typesite["id"].'">'.$typesite['libele'].'</option>';
+   }
+ }
+ $select2.="</select>";
+ $sub_array[]= $select2;
 
 $sub_array[] = '<button type="button" data-target="#myModal'.$row["id"].'" role="button" data-toggle="modal" name="details" class="btn btn-success btn-xs success" id="'.$row["id"].'"><i class="fa fa-list-alt" style="font-size:19px"></i></button>';
 $sub_array[] = '<a class="btn btn-primary btn-xs lien" id="'.$row["id"].'" target="_blank" href="'.$row['lien'].'"><i class="fa fa-external-link" style="font-size:19px"></i></a>';

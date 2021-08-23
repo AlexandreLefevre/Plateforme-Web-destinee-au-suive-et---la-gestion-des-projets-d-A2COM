@@ -13,17 +13,50 @@ $query2 = "SELECT * FROM user WHERE user.Admin = 'user'";
 
 $query3 = "SELECT * FROM type_site";
 
+$query4 = "SELECT * FROM graphisme_projetencours";
+
+$query5 = "SELECT * FROM contenu_projetencours";
+
+$query6 = "SELECT * FROM correction_projetencours";
+
 $result = mysqli_query($db, $query);
 
 $result2 = mysqli_query($db, $query2);
 
 $result3 = mysqli_query($db, $query3);
 
+$result4 = mysqli_query($db, $query4);
+
+$result5 = mysqli_query($db, $query5);
+
+$result6 = mysqli_query($db, $query6);
+
 $data = array();
 
 $users = array();
 
 $typesites = array();
+
+$graphismes = array();
+
+$contenus = array();
+
+$corrections = array();
+
+while($row = mysqli_fetch_array($result6))
+{
+  $corrections[] = array("id"=>$row['idCorrection'],"libele"=>$row["libelle"]);
+}
+
+while($row = mysqli_fetch_array($result5))
+{
+  $contenus[] = array("id"=>$row['idContenu'],"libele"=>$row["libelle"]);
+}
+
+while($row = mysqli_fetch_array($result4))
+{
+  $graphismes[] = array("id"=>$row['idGraphisme'],"libele"=>$row["libelle"]);
+}
 
 while($row = mysqli_fetch_array($result3))
 {
@@ -126,13 +159,13 @@ while($row = mysqli_fetch_array($result)){
                       <th data-orderable="false">Type de site</th>
                       <th data-orderable="false">25%</th>
                       <th></th>
-                      <th>Graphisme</th>
+                      <th data-orderable="false">Graphisme</th>
                       <th data-orderable="false">50%</th>
                       <th></th>
-                      <th >Contenu</th>
+                      <th data-orderable="false">Contenu</th>
                       <th data-orderable="false">75%</th>
                       <th></th>
-                      <th>Correction</th>
+                      <th data-orderable="false">Correction</th>
                       <th data-orderable="false">100%</th>
                       <th></th>
        <th id="th1" data-orderable="false"></th>
@@ -476,6 +509,18 @@ $('#myModal').on('hidden.bs.modal', function(e) {
     if(column_name == 'type_de_site'){
       var value = $(this).val();
       column_name = "typesite";
+    }
+    if(column_name == 'graphisme'){
+      var value = $(this).val();
+      column_name = "etape_graphisme";
+    }
+    if(column_name == 'contenu'){
+      var value = $(this).val();
+      column_name = "etape_contenu";
+    }
+    if(column_name == 'correction'){
+      var value = $(this).val();
+      column_name = "etape_correction";
     }
    update_data(id, column_name, value);
   });

@@ -16,6 +16,12 @@ $query3 = "SELECT * FROM user WHERE user.Admin = 'user'";
 
 $query4 = "SELECT * FROM type_site";
 
+$query5 = "SELECT * FROM graphisme_projetencours";
+
+$query6 = "SELECT * FROM contenu_projetencours";
+
+$query7 = "SELECT * FROM correction_projetencours";
+
 $result = mysqli_query($db, $query);
 
 $result2 = mysqli_query($db, $query2);
@@ -24,6 +30,12 @@ $result3 = mysqli_query($db, $query3);
 
 $result4 = mysqli_query($db, $query4);
 
+$result5 = mysqli_query($db, $query5);
+
+$result6 = mysqli_query($db, $query6);
+
+$result7 = mysqli_query($db, $query7);
+
 $data = array();
 
 $data2 = array();
@@ -31,6 +43,27 @@ $data2 = array();
 $users = array();
 
 $typesites = array();
+
+$graphismes = array();
+
+$contenus = array();
+
+$corrections = array();
+
+while($row = mysqli_fetch_array($result7))
+{
+  $corrections[] = array("id"=>$row['idCorrection'],"libele"=>$row["libelle"]);
+}
+
+while($row = mysqli_fetch_array($result6))
+{
+  $contenus[] = array("id"=>$row['idContenu'],"libele"=>$row["libelle"]);
+}
+
+while($row = mysqli_fetch_array($result5))
+{
+  $graphismes[] = array("id"=>$row['idGraphisme'],"libele"=>$row["libelle"]);
+}
 
 while($row = mysqli_fetch_array($result4))
 {
@@ -136,13 +169,13 @@ while($row2 = mysqli_fetch_array($result2)){
                       <th data-orderable="false">Type de site</th>
                       <th data-orderable="false">25%</th>
                       <th></th>
-                      <th>Graphisme</th>
+                      <th data-orderable="false">Graphisme</th>
                       <th data-orderable="false">50%</th>
                       <th></th>
-                      <th >Contenu</th>
+                      <th data-orderable="false">Contenu</th>
                       <th data-orderable="false">75%</th>
                       <th></th>
-                      <th>Correction</th>
+                      <th data-orderable="false">Correction</th>
                       <th data-orderable="false">100%</th>
                       <th></th>
        <th id="th1" data-orderable="false"></th>
@@ -164,7 +197,7 @@ while($row2 = mysqli_fetch_array($result2)){
                       <th>Deadline</th>
                       <th>Client</th>
                       <th>Résumé</th>
-                      <th>Statut</th>
+                      <th data-orderable="false">Statut</th>
                       <th data-orderable="false">Qui va faire ?</th>
                       <th>Notes complémentaires</th>
        <th data-orderable="false"></th>
@@ -518,7 +551,7 @@ $('#myModal').on('hidden.bs.modal', function(e) {
    var id = $(this).data("id");
    var column_name = $(this).data("column");
    var value = $(this).text();
-    if(column_name == 'valide25'){
+    if(column_name == 'validation1'){
     var value = $(this).val();
     if($(this).is(":checked")){
     var value = 1;
@@ -527,7 +560,7 @@ $('#myModal').on('hidden.bs.modal', function(e) {
       var value = 0;
     }
     }
-    if(column_name == 'valide50'){
+    if(column_name == 'validation2'){
     var value = $(this).val();
       if($(this).is(":checked")){
     var value = 1;
@@ -536,7 +569,7 @@ $('#myModal').on('hidden.bs.modal', function(e) {
       var value = 0;
     }
     }
-    if(column_name == 'valide75'){
+    if(column_name == 'validation3'){
       var value = $(this).val();
       if($(this).is(":checked")){
     var value = 1;
@@ -545,7 +578,7 @@ $('#myModal').on('hidden.bs.modal', function(e) {
       var value = 0;
     }
     }
-    if(column_name == 'valide100'){
+    if(column_name == 'validation4'){
       var value = $(this).val();
       if($(this).is(":checked")){
     var value = 1;
@@ -564,6 +597,18 @@ $('#myModal').on('hidden.bs.modal', function(e) {
     if(column_name == 'type_de_site'){
       var value = $(this).val();
       column_name = "typesite";
+    }
+    if(column_name == 'graphisme'){
+      var value = $(this).val();
+      column_name = "etape_graphisme";
+    }
+    if(column_name == 'contenu'){
+      var value = $(this).val();
+      column_name = "etape_contenu";
+    }
+    if(column_name == 'correction'){
+      var value = $(this).val();
+      column_name = "etape_correction";
     }
    update_data(id, column_name, value);
   });
@@ -692,6 +737,10 @@ $(document).ready(function(){
     if(column_name == 'employe'){
       var value = $(this).val();
       column_name = "user_id";
+    }
+    if(column_name == 'statut'){
+      var value = $(this).val();
+      column_name = "etape_statut";
     }
    update_data(id, column_name, value);
   });

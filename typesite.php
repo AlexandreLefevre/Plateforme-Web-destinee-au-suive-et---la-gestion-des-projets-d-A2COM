@@ -58,7 +58,7 @@ header("Strict-Transport-Security:max-age=63072000");
                         <li class="nav-item">
 							<a href="GestionUser.php" class="nav-link">Gestion des utilisateurs</a>
 						</li>
-            <li class="nav-item">
+						<li class="nav-item">
 							<a href="typesite.php" class="nav-link">Ajouter type de site</a>
 						</li>
 						<li class="nav-item">
@@ -75,36 +75,50 @@ header("Strict-Transport-Security:max-age=63072000");
 	</div>
 
           <div class="container" style="margin-top:100px">
-             <h1>Inscription</h1>
-             <form class="needs-validation" novalidate method="post" action="verificationinscription.php">
+             <h1>Ajouter un type de site</h1>
+             <form class="needs-validation" novalidate method="post" action="ajouttypesite.php">
                  <div class="form-row">
                      <div class="col-md-4 mb-3">
-                         <label for="prenom">Nom d'utilisateur</label>
-                         <input type="text" class="form-control" name="nomutilisateur" placeholder="Nom d'utilisateur" required>
-						 <div class="valid-feedback">Ok !</div>
+                         <label for="prenom">Type de site</label>
+                         <input type="text" class="form-control" name="typesite" placeholder="Type de site" required>
 						 <div class="invalid-feedback">Champ vide</div>
 
-                     </div>
-                     <div class="col-md-4 mb-3">
-                         <label for="nom">Mot de passe</label>
-                         <input type="text" class="form-control" name="mot_de_passe" placeholder="Mot de passe" required>
-						 <div class="valid-feedback">Ok !</div>
-						 <div class="invalid-feedback">Champ vide</div>
-
-                     </div>
-                 </div>
-                 <div class="form-row">
-                     <div class="col-md-6 mb-3">
-					 <label for="pseudo">Email</label>
-                     <input type="email" class="form-control" placeholder="Email" name="email">
-					 <div class="valid-feedback">Ok !</div>
-					 <div class="invalid-feedback">Ce n'est pas une addresse mail valable</div>
-                     </div>
-                 </div>>
-                 <button class="btn btn-primary" type="submit" name="submit">Inscription</button>
+                     </div>               
+                 <button class="btn btn-primary" type="submit" name="submit"  style="margin-top:20px">Ajouter</button>
              </form>
 
            </div>
+
+           <?php require_once("ajouttypesite.php"); ?>
+		  <div class="container">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Type de site</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+					<form action="ajouttypesite.php" method="POST">
+					<?php 
+					//user data
+					$sQuery = "SELECT * FROM type_site";
+				    $result = $db->query($sQuery);
+					
+					while($row = $result->fetch_assoc()): ?>
+					
+					<tr>
+						<td><?= $row['libelle']; ?></td>
+						<td style="width: 15%">
+							<button type="submit" name="delete" value="<?= $row['idTypeSite']; ?>" class="btn btn-danger">Delete</button>
+						</td>
+					</tr>
+					
+					<?php endwhile; ?>
+					</form>
+					</tbody>
+				</table>
+		</div>
 </div>
          <script>
 

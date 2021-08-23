@@ -1,4 +1,7 @@
 <!doctype html>
+<?php
+header("Strict-Transport-Security:max-age=63072000");
+?>
 <html lang="fr">
   <head>
     <title>Mot de passe oublié ?</title>

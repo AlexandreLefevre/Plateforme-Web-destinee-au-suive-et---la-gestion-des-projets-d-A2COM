@@ -13,13 +13,24 @@ $query = "SELECT projetencours.id,etape1,etape2,etape3,etape4,etape5,etape6,etap
 
 $query2 = "SELECT * FROM user WHERE user.Admin = 'user'";
 
+$query3 = "SELECT * FROM statut_miniprojet";
+
 $result = mysqli_query($db, $query);
 
 $result2 = mysqli_query($db, $query2);
 
+$result3 = mysqli_query($db, $query3);
+
 $data = array();
 
 $users = array();
+
+$statuts = array();
+
+while($row = mysqli_fetch_array($result3))
+{
+  $statuts[] = array("id"=>$row['idStatut'],"libele"=>$row["libelle"]);
+}
 
 while($row = mysqli_fetch_array($result2))
 {
@@ -118,7 +129,7 @@ while($row = mysqli_fetch_array($result)){
                       <th>Deadline</th>
                       <th>Client</th>
                       <th>Résumé</th>
-                      <th>Statut</th>
+                      <th data-orderable="false">Statut</th>
                       <th data-orderable="false">Qui va faire ?</th>
                       <th>Notes complémentaires</th>
        <th data-orderable="false"></th>
@@ -139,7 +150,7 @@ while($row = mysqli_fetch_array($result)){
                       <th>Deadline</th>
                       <th>Client</th>
                       <th>Résumé</th>
-                      <th>Statut</th>
+                      <th data-orderable="false">Statut</th>
                       <th data-orderable="false">Qui va faire ?</th>
                       <th>Notes complémentaires</th>
        <th data-orderable="false"></th>
@@ -218,6 +229,10 @@ while($row = mysqli_fetch_array($result)){
       var value = $(this).val();
       column_name = "user_id";
     }
+    if(column_name == 'statut'){
+      var value = $(this).val();
+      column_name = "etape_statut";
+    }
    update_data(id, column_name, value);
   });
 
@@ -226,8 +241,15 @@ while($row = mysqli_fetch_array($result)){
    html += '<td id="data5"><input type="date" id="start" name="trip-start" style="font-size: 1.7rem"></td>';
    html += '<td contenteditable id="data1"></td>';
    html += '<td contenteditable id="data2"></td>';
-   html += '<td contenteditable id="data3"></td>';
+
+  // html += '<td contenteditable id="data3"></td>';
    
+  html += '<td contenteditable><select size="1" id="data3">';
+  <?php foreach ($statuts as $statut):?>
+  html += '<option value=<?php echo $statut["id"] ?>><?php echo $statut['libele']?></option>'; 
+  <?php endforeach; ?>
+
+
    html += '<td contenteditable><select size="1" id="data4">';
   <?php foreach ($users as $user):?>
   html += '<option value=<?php echo $user["id"] ?>><?php echo $user['nom']?></option>'; 
@@ -249,7 +271,7 @@ html +="</select></td>";
 
    var client = $('#data1').text();
    var tache = $('#data2').text();
-   var statut = $('#data3').text();
+   var statut = $('#data3').val();
 
 var employe = $('#data4').val();
 var date_de_fin = $('#data5 input').val();
@@ -427,6 +449,10 @@ $(document).ready(function(){
     if(column_name == 'employe'){
       var value = $(this).val();
       column_name = "user_id";
+    }
+    if(column_name == 'statut'){
+      var value = $(this).val();
+      column_name = "etape_statut";
     }
    update_data(id, column_name, value);
   });

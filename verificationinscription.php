@@ -1,5 +1,4 @@
 <?php
-
 // 
 require_once "config.php";
 
@@ -46,10 +45,23 @@ if(isset($_POST['submit'])) {
 if(isset($_POST['delete'])){
   $id = $_POST['delete'];
 
-  $requete_1 = ("UPDATE user SET Admin='deleted' WHERE IdUser = '".$id."'");
+  $requete_1 = ("UPDATE projetencours SET projetencours.user_id=70 WHERE projetencours.user_id = '".$id."'");
   $stmt = $db->prepare($requete_1);
   $stmt->execute();
-  
+
+  $requete_2 = ("UPDATE miniprojet SET miniprojet.user_id=70 WHERE miniprojet.user_id = '".$id."'");
+  $stmt = $db->prepare($requete_2);
+  $stmt->execute();
+
+  $requete_3 = ("UPDATE projetvideo SET projetvideo.user_id=70 WHERE projetvideo.user_id = '".$id."'");
+  $stmt = $db->prepare($requete_3);
+  $stmt->execute();
+
+  $requete_4 = ("DELETE FROM user WHERE user.IdUser = '".$id."'");
+  $stmt = $db->prepare($requete_4);
+  $stmt->execute();
+
+
     header("location: GestionUser.php");
 }
 

@@ -13,17 +13,50 @@ $query2 = "SELECT * FROM user WHERE user.Admin = 'user'";
 
 $query3 = "SELECT * FROM type_site";
 
+$query4 = "SELECT * FROM graphisme_projetencours";
+
+$query5 = "SELECT * FROM contenu_projetencours";
+
+$query6 = "SELECT * FROM correction_projetencours";
+
 $result = mysqli_query($db, $query);
 
 $result2 = mysqli_query($db, $query2);
 
 $result3 = mysqli_query($db, $query3);
 
+$result4 = mysqli_query($db, $query4);
+
+$result5 = mysqli_query($db, $query5);
+
+$result6 = mysqli_query($db, $query6);
+
 $data = array();
 
 $users = array();
 
 $typesites = array();
+
+$graphismes = array();
+
+$contenus = array();
+
+$corrections = array();
+
+while($row = mysqli_fetch_array($result6))
+{
+  $corrections[] = array("id"=>$row['idCorrection'],"libele"=>$row["libelle"]);
+}
+
+while($row = mysqli_fetch_array($result5))
+{
+  $contenus[] = array("id"=>$row['idContenu'],"libele"=>$row["libelle"]);
+}
+
+while($row = mysqli_fetch_array($result4))
+{
+  $graphismes[] = array("id"=>$row['idGraphisme'],"libele"=>$row["libelle"]);
+}
 
 while($row = mysqli_fetch_array($result3))
 {
@@ -130,13 +163,13 @@ while($row = mysqli_fetch_array($result)){
                       <th data-orderable="false">Type de site</th>
                       <th data-orderable="false">25%</th>
                       <th></th>
-                      <th>Graphisme</th>
+                      <th data-orderable="false">Graphisme</th>
                       <th data-orderable="false">50%</th>
                       <th></th>
-                      <th >Contenu</th>
+                      <th data-orderable="false">Contenu</th>
                       <th data-orderable="false">75%</th>
                       <th></th>
-                      <th>Correction</th>
+                      <th data-orderable="false">Correction</th>
                       <th data-orderable="false">100%</th>
                       <th></th>
        <th id="th1" data-orderable="false"></th>
@@ -162,13 +195,13 @@ while($row = mysqli_fetch_array($result)){
                       <th data-orderable="false">Type de site</th>
                       <th data-orderable="false">25%</th>
                       <th></th>
-                      <th>Graphisme</th>
+                      <th data-orderable="false">Graphisme</th>
                       <th data-orderable="false">50%</th>
                       <th></th>
-                      <th >Contenu</th>
+                      <th data-orderable="false">Contenu</th>
                       <th data-orderable="false">75%</th>
                       <th></th>
-                      <th>Correction</th>
+                      <th data-orderable="false">Correction</th>
                       <th data-orderable="false">100%</th>
                       <th></th>
        <th id="th1" data-orderable="false"></th>
@@ -463,7 +496,7 @@ $('#myModal').on('hidden.bs.modal', function(e) {
    var id = $(this).data("id");
    var column_name = $(this).data("column");
    var value = $(this).text();
-    if(column_name == 'valide25'){
+    if(column_name == 'validation1'){
     var value = $(this).val();
     if($(this).is(":checked")){
     var value = 1;
@@ -472,7 +505,7 @@ $('#myModal').on('hidden.bs.modal', function(e) {
       var value = 0;
     }
     }
-    if(column_name == 'valide50'){
+    if(column_name == 'validation2'){
     var value = $(this).val();
       if($(this).is(":checked")){
     var value = 1;
@@ -481,7 +514,7 @@ $('#myModal').on('hidden.bs.modal', function(e) {
       var value = 0;
     }
     }
-    if(column_name == 'valide75'){
+    if(column_name == 'validation3'){
       var value = $(this).val();
       if($(this).is(":checked")){
     var value = 1;
@@ -490,7 +523,7 @@ $('#myModal').on('hidden.bs.modal', function(e) {
       var value = 0;
     }
     }
-    if(column_name == 'valide100'){
+    if(column_name == 'validation4'){
       var value = $(this).val();
       if($(this).is(":checked")){
     var value = 1;
@@ -510,8 +543,25 @@ $('#myModal').on('hidden.bs.modal', function(e) {
       var value = $(this).val();
       column_name = "typesite";
     }
+    if(column_name == 'graphisme'){
+      var value = $(this).val();
+      column_name = "etape_graphisme";
+    }
+    if(column_name == 'contenu'){
+      var value = $(this).val();
+      column_name = "etape_contenu";
+    }
+    if(column_name == 'correction'){
+      var value = $(this).val();
+      column_name = "etape_correction";
+    }
    update_data(id, column_name, value);
   });
+
+$('select [data-column="graphisme"]').on('change',function(){
+  $('select [data-column="graphisme"]').addClass('red');
+  this.addClass('red');
+})
 
   $('#add').click(function(){
    var html = '<tr data-unsortable>';
@@ -537,13 +587,37 @@ html +="</select></td>";
 
    html += '<td contenteditable id="data5"></td>';
    html += '<td id="data6"><input type="checkbox" name="valide25"></td>';
-   html += '<td contenteditable id="data7"></td>';
+
+  // html += '<td contenteditable id="data7"></td>';
+
+  html += '<td contenteditable><select size="1" id="data7">';
+  <?php foreach ($graphismes as $graphisme):?>
+  html += '<option value=<?php echo $graphisme["id"] ?>><?php echo $graphisme['libele']?></option>'; 
+  <?php endforeach; ?>
+
+html +="</select></td>";
+
    html += '<td contenteditable id="data8"></td>';
    html += '<td id="data9"><input type="checkbox" name="valide50"></td>';
-   html += '<td contenteditable id="data10"></td>';
+
+  // html += '<td contenteditable id="data10"></td>';
+
+  html += '<td contenteditable><select size="1" id="data10">';
+  <?php foreach ($contenus as $contenu):?>
+  html += '<option value=<?php echo $contenu["id"] ?>><?php echo $contenu['libele']?></option>'; 
+  <?php endforeach; ?>
+
+
    html += '<td contenteditable id="data11"></td>';
    html += '<td id="data12"><input type="checkbox" name="valide75"></td>';
-   html += '<td contenteditable id="data13"></td>';
+
+ //  html += '<td contenteditable id="data13"></td>';
+
+ html += '<td contenteditable><select size="1" id="data13">';
+  <?php foreach ($corrections as $correction):?>
+  html += '<option value=<?php echo $correction["id"] ?>><?php echo $correction['libele']?></option>'; 
+  <?php endforeach; ?>
+
    html += '<td contenteditable id="data14"></td>';
    html += '<td id="data15"><input type="checkbox" name="valide100"></td>';
    html += '<td><button type="button" name="insert" id="insert" class="btn btn-success btn-xs">Insert</button></td>';
@@ -562,13 +636,13 @@ html +="</select></td>";
 var type_de_site = $('#data4').val();
 var facturation25 = $('#data5').text();
 var valide25 = $('#data6 input').is(":checked")==true?true:false;
-var graphisme = $('#data7').text();
+var graphisme = $('#data7').val();
 var facturation50 = $('#data8').text();
 var valide50 = $('#data9 input').is(":checked")==true?true:false;
-var contenu = $('#data10').text();
+var contenu = $('#data10').val();
 var facturation75 = $('#data11').text();
 var valide75 = $('#data12 input').is(":checked")==true?true:false;
-var correction = $('#data13').text();
+var correction = $('#data13').val();
 var facturation100 = $('#data14').text();
 var valide100 = $('#data15 input').is(":checked")==true?true:false;
 
@@ -582,7 +656,6 @@ var valide100 = $('#data15 input').is(":checked")==true?true:false;
      {
       $('#user_data').DataTable().destroy();
       fetch_data();
-      document.location.reload();
      }
     });
  }
@@ -784,6 +857,18 @@ $(document).ready(function(){
     if(column_name == 'type_de_site'){
       var value = $(this).val();
       column_name = "typesite";
+    }
+    if(column_name == 'graphisme'){
+      var value = $(this).val();
+      column_name = "etape_graphisme";
+    }
+    if(column_name == 'contenu'){
+      var value = $(this).val();
+      column_name = "etape_contenu";
+    }
+    if(column_name == 'correction'){
+      var value = $(this).val();
+      column_name = "etape_correction";
     }
    update_data(id, column_name, value);
   });

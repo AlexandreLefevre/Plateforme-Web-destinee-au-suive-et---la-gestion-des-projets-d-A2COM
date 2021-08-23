@@ -56,6 +56,12 @@ require_once 'config.php';
                         <li class="nav-item">
 							<a href="GestionUser.php" class="nav-link">Gestion des utilisateurs</a>
 						</li>
+						<li class="nav-item">
+							<a href="typesite.php" class="nav-link">Ajouter type de site</a>
+						</li>
+						<li class="nav-item">
+							<a href="etapegraphisme.php" class="nav-link">Ajouter un état d'étape</a>
+						</li>
                         <?php endif; ?>
                         <li class="nav-item">
                            <a href="logout.php">Déconnexion</a>
@@ -78,7 +84,7 @@ require_once 'config.php';
 					<form action="verificationinscription.php" method="POST">
 					<?php 
 					//user data
-					$sQuery = "SELECT * FROM user where Admin='user'";
+					$sQuery = "SELECT * FROM user where Admin='user' AND IdUser != 70";
 				    $result = $db->query($sQuery);
 					
 					while($row = $result->fetch_assoc()): ?>

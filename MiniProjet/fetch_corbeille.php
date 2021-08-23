@@ -4,9 +4,11 @@ require_once '../config.php';
 
 $columns = array('client','tache','statut','employe','date_de_fin','notes');
 
-$query = "SELECT * FROM miniprojet JOIN user ON miniprojet.user_id = user.IdUser";
+$query = "SELECT * FROM miniprojet JOIN user ON miniprojet.user_id = user.IdUser JOIN statut_miniprojet ON miniprojet.etape_statut = statut_miniprojet.idStatut";
 
 $query2 = "SELECT * FROM user WHERE user.Admin = 'user'";
+
+$query3 = "SELECT * FROM statut_miniprojet";
 
 if(isset($_POST["search"]["value"]))
 {
@@ -14,7 +16,7 @@ if(isset($_POST["search"]["value"]))
  WHERE etatminiprojet = "corbeille"
  AND (client LIKE "%'.$_POST["search"]["value"].'%" 
  OR tache LIKE "%'.$_POST["search"]["value"].'%" 
- OR statut LIKE "%'.$_POST["search"]["value"].'%"
+ OR statut_miniprojet.libelle LIKE "%'.$_POST["search"]["value"].'%"
  OR user.nom_utilisateur LIKE "%'.$_POST["search"]["value"].'%"
  OR notes LIKE "%'.$_POST["search"]["value"].'%"   
  )';
@@ -41,9 +43,18 @@ $result = mysqli_query($db, $query);
 
 $result2 = mysqli_query($db, $query2);
 
+$result3 = mysqli_query($db, $query3);
+
 $data = array();
 
 $users = array();
+
+$statuts = array();
+
+while($row = mysqli_fetch_array($result3))
+{
+  $statuts[] = array("id"=>$row['idStatut'],"libele"=>$row["libelle"]);
+}
 
 while($row = mysqli_fetch_array($result2))
 {
@@ -52,28 +63,25 @@ while($row = mysqli_fetch_array($result2))
 
 while($row = mysqli_fetch_array($result))
 {
- 
-    $stylestatut ='';
-  switch($row["statut"]){
-    case "Fini" : 
-      $stylestatut = 'style="color:green"';
-      break;
-    case "En cours" : 
-      $stylestatut = 'style="color:orange"';
-      break;
-    case "En attente" : 
-      $stylestatut = 'style="color:red"';
-      break;
-    default : 
-      $stylestatut = '';
-      break;
-  } 
 
  $sub_array = array();
   $sub_array[] = '<span class="sortable-handle"> ↕ </span><input class="update" type="date" data-id="'.$row["id"].'" data-column="date_de_fin" value="'.$row["date_de_fin"].'">';
   $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="client">' . $row["client"] . '</div>';
   $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="tache">' . $row["tache"] . '</div>';
-  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="statut" '.$stylestatut.' >' . $row["statut"] . '</div>';
+
+ // $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="statut" '.$stylestatut.' >' . $row["statut"] . '</div>';
+
+ $select2 = '<select size="1" class="update" data-id="'.$row["id"].'" data-column="statut">';
+ foreach($statuts as $statut){
+   if($statut["id"]==$row["etape_statut"]){
+     $select2.= '<option value="'.$statut["id"].'"selected>'.$statut['libele'].'</option>';
+   }
+   else{
+     $select2.= '<option value="'.$statut["id"].'">'.$statut['libele'].'</option>';
+   }
+ }
+ $select2.="</select>";
+ $sub_array[]= $select2;
 
 //  $sub_array[] = '<div contenteditable class="update" data-id="'.$row["id"].'" data-column="employe">' . $row["employe"] . '</div>';
 

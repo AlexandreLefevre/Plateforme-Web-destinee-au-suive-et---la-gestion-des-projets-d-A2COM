@@ -487,6 +487,7 @@ $('#myModal').on('hidden.bs.modal', function(e) {
     success:function(data)
     {
      $('#user_data').DataTable().destroy();
+     $('#user_data2').DataTable().destroy();
      fetch_data();
     }
    });
@@ -558,10 +559,6 @@ $('#myModal').on('hidden.bs.modal', function(e) {
    update_data(id, column_name, value);
   });
 
-$('select [data-column="graphisme"]').on('change',function(){
-  $('select [data-column="graphisme"]').addClass('red');
-  this.addClass('red');
-})
 
   $('#add').click(function(){
    var html = '<tr data-unsortable>';
@@ -793,7 +790,7 @@ $(document).ready(function(){
    });
   }
 
-  function update_data(id, column_name, value)
+  function update_data_suspendu(id, column_name, value)
   {
    $.ajax({
     url:"update.php",
@@ -803,10 +800,11 @@ $(document).ready(function(){
     {
      $('#user_data2').DataTable().destroy();
      fetch_data();
+     console.log('update data suspendu')
     }
    });
   }
-
+/*
   $(document).on('blur', '.update', function(){
    var id = $(this).data("id");
    var column_name = $(this).data("column");
@@ -870,8 +868,10 @@ $(document).ready(function(){
       var value = $(this).val();
       column_name = "etape_correction";
     }
-   update_data(id, column_name, value);
+   update_data_suspendu(id, column_name, value);
   });
+
+  */
 
   $(document).on('click', '.unsuspendre', function(e){
   e.preventDefault();

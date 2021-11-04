@@ -20,7 +20,7 @@ $query5 = "SELECT * FROM contenu_projetencours";
 $query6 = "SELECT * FROM correction_projetencours";
 
 //$query = "SELECT projetencours.id JOIN changement_etatprojet ON projetencours.id = changement_etatprojet.idProjetencours"
-$b = "SELECT COUNT(DISTINCT(idProjetencours)) FROM changement_etatprojet";
+// $b = "SELECT COUNT(DISTINCT(idProjetencours)) FROM changement_etatprojet";
 
 if(isset($_POST["search"]["value"]))
 {
@@ -189,21 +189,21 @@ $sub_array[]= $select;
 
  $select3 = '<select size="1" class="update" data-id="'.$row["id"].'" data-column="graphisme">';
  foreach($graphismes as $graphisme){
-   switch($graphisme['id']){
-     case 2 : $class = "orange";
-      break;
-    case 3 : $class = "red";
-      break;
-    case 4 : $class = "green";
-      break;
-    default : $class = "black";
-    break;
-   }
+  //  switch($graphisme['id']){
+  //    case 2 : $class = "orange";
+  //     break;
+  //   case 3 : $class = "red";
+  //     break;
+  //   case 4 : $class = "green";
+  //     break;
+  //   default : $class = "black";
+  //   break;
+  //  }
    if($graphisme["id"]==$row["etape_graphisme"]){
-     $select3.= '<option value="'.$graphisme["id"].'"selected class="'.$class.'">'.$graphisme['libele'].'</option>';
+     $select3.= '<option value="'.$graphisme["id"].'"selected>'.$graphisme['libele'].'</option>';
    }
    else{
-     $select3.= '<option value="'.$graphisme["id"].'" class="'.$class.'">'.$graphisme['libele'].'</option>';
+     $select3.= '<option value="'.$graphisme["id"].'">'.$graphisme['libele'].'</option>';
    }
  }
  $select3.="</select>";
@@ -243,7 +243,7 @@ $select5 = '<select size="1" class="update" data-id="'.$row["id"].'" data-column
  $select5.="</select>";
  $sub_array[]= $select5;
 
-  $sub_array[] = '<div contenteditable class="update '.$valide100.'" data-id="'.$row["id"].'" data-column="facturation4">' . $row["facturation4"] . '</div>';
+ $sub_array[] = '<div contenteditable class="update '.$valide100.'" data-id="'.$row["id"].'" data-column="facturation4">' . $row["facturation4"] . '</div>';
   $sub_array[] = '<input class="update '.$valide100.'" type="checkbox" data-id="'.$row["id"].'" data-column="validation4" '.$valide100check.'>';
   
  $sub_array[] = '<button type="button" data-target="#myModal'.$row["id"].'" role="button" data-toggle="modal" name="details" class="btn btn-success btn-xs success" id="'.$row["id"].'"><i class="fa fa-list-alt" style="font-size:19px"></i></button>';

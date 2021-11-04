@@ -10,6 +10,7 @@ if(isset($_POST["id"]))
      if(mysqli_query($db, $query1))
      {
       echo 'Data Updated';
+      echo $query1;
      }
  }
  else{

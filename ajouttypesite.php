@@ -7,7 +7,7 @@ if(isset($_POST['submit'])) {
 
     $typesite = $_POST['typesite'];
     
-    $requete_1 = $bdd->query("SELECT * FROM type_site where libelle = '".$typesite."'");
+    $requete_1 = $db->prepare("SELECT * FROM type_site where libelle = '".$typesite."'");
 
     while ($donnees = $requete_1->fetch()) {
       $typesites[] = array('Typedesite' => $donnees['libelle']);

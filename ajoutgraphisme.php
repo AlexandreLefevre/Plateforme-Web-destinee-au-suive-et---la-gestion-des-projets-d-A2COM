@@ -7,7 +7,7 @@ if(isset($_POST['submit'])) {
 
     $graphisme = $_POST['graphisme'];
     
-    $requete_1 = $bdd->query("SELECT * FROM graphisme_projetencours where libelle = '".$graphisme."'");
+    $requete_1 = $db->prepare("SELECT * FROM graphisme_projetencours where libelle = '".$graphisme."'");
 
     while ($donnees = $requete_1->fetch()) {
       $graphismes[] = array('Graphisme' => $donnees['libelle']);

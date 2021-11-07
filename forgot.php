@@ -7,7 +7,7 @@
      
         $email = htmlspecialchars($_POST['email']);
 
-        $check = $bdd->prepare('SELECT token, nom_utilisateur FROM user WHERE email = ?');
+        $check = $db->prepare('SELECT token, nom_utilisateur FROM user WHERE email = ?');
         $check->execute(array($email));
         $data = $check->fetch();
         $row = $check->rowCount();

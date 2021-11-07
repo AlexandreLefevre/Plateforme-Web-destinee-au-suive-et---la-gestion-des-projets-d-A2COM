@@ -6,7 +6,7 @@ if(isset($_POST['submit'])) {
 
     $correction = $_POST['correction'];
     
-    $requete_1 = $bdd->query("SELECT * FROM correction_projetencours where libelle = '".$correction."'");
+    $requete_1 = $db->prepare("SELECT * FROM correction_projetencours where libelle = '".$correction."'");
 
     while ($donnees = $requete_1->fetch()) {
       $corrections[] = array('Correction' => $donnees['libelle']);

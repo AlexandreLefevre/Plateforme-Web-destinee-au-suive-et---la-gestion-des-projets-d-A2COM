@@ -8,12 +8,12 @@ if(isset($_POST['submit'])) {
     $mot_de_passe = password_hash($_POST['mot_de_passe'], PASSWORD_DEFAULT);
     $email = $_POST['email'];
     $token = md5(uniqid($nomutilisateur, true));
-    $requete_1 = $bdd->query("SELECT * FROM user where nom_utilisateur = '".$nomutilisateur."'");
+    $requete_1 = $db->prepare("SELECT * FROM user where nom_utilisateur = '".$nomutilisateur."'");
 
     while ($donnees = $requete_1->fetch()) {
       $user[] = array('username' => $donnees['nom_utilisateur'], 'admin' => $donnees['Admin'], 'mot_de_passe' => $donnees['mot_de_passe']);
     }
-    $requete_1 = $bdd->query("SELECT * FROM user where Email = '".$email."'");
+    $requete_1 = $db->prepare("SELECT * FROM user where Email = '".$email."'");
 
     while ($donnees = $requete_1->fetch()) {
       $userEmail[] = array('username' => $donnees['nom_utilisateur'], 'admin' => $donnees['Admin'], 'mot_de_passe' => $donnees['mot_de_passe'], 'Email' => $donnees['Email']);

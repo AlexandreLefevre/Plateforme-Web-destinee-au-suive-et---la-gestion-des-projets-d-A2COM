@@ -6,7 +6,7 @@ if(isset($_POST['submit'])) {
 
     $contenu = $_POST['contenu'];
     
-    $requete_1 = $bdd->query("SELECT * FROM contenu_projetencours where libelle = '".$contenu."'");
+    $requete_1 = $db->prepare("SELECT * FROM contenu_projetencours where libelle = '".$contenu."'");
 
     while ($donnees = $requete_1->fetch()) {
       $contenus[] = array('Contenu' => $donnees['libelle']);

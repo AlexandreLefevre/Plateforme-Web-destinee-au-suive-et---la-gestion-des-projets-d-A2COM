@@ -58,13 +58,13 @@ header("Strict-Transport-Security:max-age=63072000");
                         <li class="nav-item">
 							<a href="GestionUser.php" class="nav-link">Gestion des utilisateurs</a>
 						</li>
-            <li class="nav-item">
+						<li class="nav-item">
 							<a href="typesite.php" class="nav-link">Ajouter type de site</a>
 						</li>
 						<li class="nav-item">
 							<a href="etapegraphisme.php" class="nav-link">Ajouter un état d'étape</a>
 						</li>
-            <li class="nav-item">
+                        <li class="nav-item">
 							<a href="historique.php" class="nav-link">Historique</a>
 						</li>
                         <?php endif; ?>
@@ -77,38 +77,6 @@ header("Strict-Transport-Security:max-age=63072000");
 		</div>
 	</div>
 
-          <div class="container" style="margin-top:100px">
-             <h1>Inscription</h1>
-             <form class="needs-validation" novalidate method="post" action="verificationinscription.php">
-                 <div class="form-row">
-                     <div class="col-md-4 mb-3">
-                         <label for="prenom">Nom d'utilisateur</label>
-                         <input type="text" class="form-control" name="nomutilisateur" placeholder="Nom d'utilisateur" required>
-						 <div class="valid-feedback">Ok !</div>
-						 <div class="invalid-feedback">Champ vide</div>
-
-                     </div>
-                     <div class="col-md-4 mb-3">
-                         <label for="nom">Mot de passe</label>
-                         <input type="text" class="form-control" name="mot_de_passe" placeholder="Mot de passe" required>
-						 <div class="valid-feedback">Ok !</div>
-						 <div class="invalid-feedback">Champ vide</div>
-
-                     </div>
-                 </div>
-                 <div class="form-row">
-                     <div class="col-md-6 mb-3">
-					 <label for="pseudo">Email</label>
-                     <input type="email" class="form-control" placeholder="Email" name="email">
-					 <div class="valid-feedback">Ok !</div>
-					 <div class="invalid-feedback">Ce n'est pas une addresse mail valable</div>
-                     </div>
-                 </div>>
-                 <button class="btn btn-primary" type="submit" name="submit">Inscription</button>
-             </form>
-
-           </div>
-</div>
          <script>
 
            (function() {

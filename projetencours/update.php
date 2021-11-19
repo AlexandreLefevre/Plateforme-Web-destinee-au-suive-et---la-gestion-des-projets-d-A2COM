@@ -6,9 +6,7 @@ $column_name = mysqli_real_escape_string($db, $_POST['column_name']);
 $column_value = mysqli_real_escape_string($db, $_POST['value']);
 $record_id = intval($_POST['id']);
 
-if( $column_name == 'facturation1' or $column_name == 'facturation2' or $column_name == 'facturation3'
- or $column_name == 'facturation4' or $column_name == 'validation1' or $column_name == 'validation2'
- or $column_name == 'validation3' or $column_name == 'validation4'){
+if(in_array($column_name, ['facturation1', 'facturation2', 'facturation3', 'facturation4', 'validation1', 'validation2', 'validation3', 'validation4'])){
 
      $query1 = "UPDATE facturation SET ".$column_name."='".$column_value."' WHERE idprojet = '".$record_id."'";
      if(mysqli_query($db, $query1))

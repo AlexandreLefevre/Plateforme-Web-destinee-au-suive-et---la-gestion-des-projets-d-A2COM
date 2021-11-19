@@ -13,12 +13,35 @@ if(isset($_POST["id"]))
      }
  }
  else{
-    $query = "UPDATE projetencours SET ".$_POST["column_name"]."='".$value."' WHERE id = '".$_POST["id"]."'";
+
+    $column_name = mysqli_real_escape_string($db, $_POST['column_name']);
+    $column_value = mysqli_real_escape_string($db, $_POST['value']);
+    $record_id = intval($_POST['id']);
+    
+    $query = "UPDATE projetencours SET ".$column_name."='".$column_value."' WHERE id = '".$record_id."'";
     if(mysqli_query($db, $query))
     {
-     echo 'Data Updated';
+        $message = "Changed attribute $column_name to $column_value";
+        add_status($record_id, $message);
+        echo 'Data Updated';
     }
  }
 
+
+
+}
+
+function add_status($project_id, $message){
+
+    global $db;
+
+    /* Addidional escape  */
+    $project_id = intval($project_id);
+    $message = mysqli_real_escape_string($db, $message);
+
+    $date = date('Y-m-d H:i:s');
+    $query = 'INSERT INTO project_status SET `project_id` = '.$project_id.', `date` = "'.$date.'", `message` = "'.$message.'"';
+    mysqli_query($db, $query) or die(mysqli_error($db));
+    
 }
 ?>

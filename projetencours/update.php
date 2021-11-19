@@ -5,12 +5,8 @@ if(isset($_POST['column_name']) && isset($_POST['value']) && isset($_POST['id'])
 $column_name = mysqli_real_escape_string($db, $_POST['column_name']);
 $column_value = mysqli_real_escape_string($db, $_POST['value']);
 $record_id = intval($_POST['id']);
-}
 
-if(isset($_POST["id"]))
-{
-
- if( $column_name == 'facturation1' or $column_name == 'facturation2' or $column_name == 'facturation3'
+if( $column_name == 'facturation1' or $column_name == 'facturation2' or $column_name == 'facturation3'
  or $column_name == 'facturation4' or $column_name == 'validation1' or $column_name == 'validation2'
  or $column_name == 'validation3' or $column_name == 'validation4'){
 
@@ -30,10 +26,8 @@ if(isset($_POST["id"]))
         echo 'Data Updated';
     }
  }
-
-
-
 }
+
 
 function add_status($project_id, $message){
 

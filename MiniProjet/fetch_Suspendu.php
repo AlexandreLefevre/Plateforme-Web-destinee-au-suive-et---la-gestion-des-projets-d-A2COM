@@ -12,13 +12,14 @@ $query3 = "SELECT * FROM statut_miniprojet";
 
 if(isset($_POST["search"]["value"]))
 {
+  $search = mysqli_real_escape_string($db, $_POST["search"]["value"]);
  $query .= '
  WHERE etatminiprojet = "suspendu"
- AND (client LIKE "%'.$_POST["search"]["value"].'%" 
- OR tache LIKE "%'.$_POST["search"]["value"].'%" 
- OR statut_miniprojet.libelle LIKE "%'.$_POST["search"]["value"].'%"
- OR user.nom_utilisateur LIKE "%'.$_POST["search"]["value"].'%"
- OR notes LIKE "%'.$_POST["search"]["value"].'%"   
+ AND (client LIKE "%'.$search.'%" 
+ OR tache LIKE "%'.$search.'%" 
+ OR statut_miniprojet.libelle LIKE "%'.$search.'%"
+ OR user.nom_utilisateur LIKE "%'.$search.'%"
+ OR notes LIKE "%'.$search.'%"   
  )';
 }
 
@@ -30,11 +31,6 @@ if(isset($_POST["order"]))
 else
 {
  $query .= 'ORDER BY order_id ASC ';
-}
-
-if($_POST["length"] != -1)
-{
- $query1 = 'LIMIT ' . $_POST['start'] . ', ' . $_POST['length'];
 }
 
 $number_filter_row = mysqli_num_rows(mysqli_query($db, $query));

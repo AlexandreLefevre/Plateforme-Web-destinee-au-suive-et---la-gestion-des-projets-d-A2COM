@@ -12,13 +12,14 @@ $query3 = "SELECT * FROM type_site";
 
 if(isset($_POST["search"]["value"]))
 {
- $query .= '
- WHERE etatprojetvideo = "En cours"
- AND (client LIKE "%'.$_POST["search"]["value"].'%" 
- OR tache LIKE "%'.$_POST["search"]["value"].'%" 
- OR user.nom_utilisateur LIKE "%'.$_POST["search"]["value"].'%"
- OR type_site.libelle LIKE "%'.$_POST["search"]["value"].'%"   
- )';
+  $search = mysqli_real_escape_string($db, $_POST["search"]["value"]);
+  $query .= '
+  WHERE etatprojetvideo = "En cours"
+  AND (client LIKE "%'.$search.'%" 
+  OR tache LIKE "%'.$search.'%" 
+  OR user.nom_utilisateur LIKE "%'.$search.'%"
+  OR type_site.libelle LIKE "%'.$search.'%"   
+  )';
 }
 
 if(isset($_POST["order"]))
@@ -32,11 +33,6 @@ else
 }
 
 $query1 = '';
-
-if($_POST["length"] != -1)
-{
- $query1 = 'LIMIT ' . $_POST['start'] . ', ' . $_POST['length'];
-}
 
 $number_filter_row = mysqli_num_rows(mysqli_query($db, $query));
 

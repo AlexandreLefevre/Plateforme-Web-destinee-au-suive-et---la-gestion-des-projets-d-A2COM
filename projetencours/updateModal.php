@@ -2,7 +2,7 @@
 require_once '../config.php';
 if(isset($_POST["modalid"]))
 {
- $id = $_POST["modalid"];
+ $id = intval($_POST["modalid"]);
  $query = "UPDATE fiche_detailees ";
  $boo = true;
 

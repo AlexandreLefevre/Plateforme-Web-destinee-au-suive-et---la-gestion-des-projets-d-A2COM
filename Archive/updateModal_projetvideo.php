@@ -4,7 +4,7 @@ require_once '../config.php';
 if(isset($_POST["modalid"]))
 {
 
- $id = $_POST["modalid"];
+ $id = invalt($_POST["modalid"]);
  $query = "UPDATE fiche_contact ";
  $boo = true;
 

@@ -24,15 +24,16 @@ $query6 = "SELECT * FROM correction_projetencours";
 
 if(isset($_POST["search"]["value"]))
 {
- $query .= '
- WHERE etatprojet = "En cours"
- AND (projet LIKE "%'.$_POST["search"]["value"].'%" 
- OR type_site.libelle LIKE "%'.$_POST["search"]["value"].'%" 
- OR graphisme_projetencours.libelle LIKE "%'.$_POST["search"]["value"].'%"
- OR contenu_projetencours.libelle LIKE "%'.$_POST["search"]["value"].'%"
- OR correction_projetencours.libelle LIKE "%'.$_POST["search"]["value"].'%"
- OR user.nom_utilisateur LIKE "%'.$_POST["search"]["value"].'%"    
- )';
+  $search = mysqli_real_escape_string($db, $_POST["search"]["value"]);
+  $query .= '
+  WHERE etatprojet = "En cours"
+  AND (projet LIKE "%'.$search.'%" 
+  OR type_site.libelle LIKE "%'.$search.'%" 
+  OR graphisme_projetencours.libelle LIKE "%'.$search.'%"
+  OR contenu_projetencours.libelle LIKE "%'.$search.'%"
+  OR correction_projetencours.libelle LIKE "%'.$search.'%"
+  OR user.nom_utilisateur LIKE "%'.$search.'%"    
+  )';
 }
 
 if(isset($_POST["order"]))
@@ -46,11 +47,6 @@ else
 }
 
 $query1 = '';
-
-if($_POST["length"] != -1)
-{
- $query1 = 'LIMIT ' . $_POST['start'] . ', ' . $_POST['length'];
-}
 
 $number_filter_row = mysqli_num_rows(mysqli_query($db, $query));
 

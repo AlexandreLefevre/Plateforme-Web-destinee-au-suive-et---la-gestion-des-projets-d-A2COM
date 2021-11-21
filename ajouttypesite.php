@@ -5,7 +5,7 @@ require_once "config.php";
 
 if(isset($_POST['submit'])) {
 
-    $typesite = $_POST['typesite'];
+    $typesite =  mysqli_real_escape_string($db, $_POST['typesite']);
     
     $requete_1 = $db->prepare("SELECT * FROM type_site where libelle = '".$typesite."'");
 
@@ -34,7 +34,7 @@ if(isset($_POST['submit'])) {
 }
  // deleted user
 if(isset($_POST['delete'])){
-  $id = $_POST['delete'];
+  $id = intval($_POST['delete']);
 
   $requete_1 = ("UPDATE projetencours SET projetencours.typesite=1 WHERE projetencours.typesite = '".$id."'");
   $stmt = $db->prepare($requete_1);

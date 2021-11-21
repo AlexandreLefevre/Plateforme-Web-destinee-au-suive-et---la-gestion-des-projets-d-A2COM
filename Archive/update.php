@@ -1,22 +1,20 @@
 <?php
 require_once '../config.php';
-if(isset($_POST["id"]))
-{
- $value = mysqli_real_escape_string($db, $_POST["value"]);
- if($_POST["column_name"] == 'facturation1' or $_POST["column_name"] == 'facturation2' or $_POST["column_name"] == 'facturation3'
- or $_POST["column_name"] == 'facturation4' or $_POST["column_name"] == 'validation1' or $_POST["column_name"] == 'validation2'
- or $_POST["column_name"] == 'validation3' or $_POST["column_name"] == 'validation4'){
-     $query1 = "UPDATE facturation SET ".$_POST["column_name"]."='".$value."' WHERE idprojet = '".$_POST["id"]."'";
+
+if(isset($_POST['column_name']) && isset($_POST['value']) && isset($_POST['id'])){
+$column_name = mysqli_real_escape_string($db, $_POST['column_name']);
+$column_value = mysqli_real_escape_string($db, $_POST['value']);
+$record_id = intval($_POST['id']);
+
+if(in_array($column_name, ['facturation1', 'facturation2', 'facturation3', 'facturation4', 'validation1', 'validation2', 'validation3', 'validation4'])){
+
+     $query1 = "UPDATE facturation SET ".$column_name."='".$column_value."' WHERE idprojet = '".$record_id."'";
      if(mysqli_query($db, $query1))
      {
       echo 'Data Updated';
      }
  }
  else{
-
-    $column_name = mysqli_real_escape_string($db, $_POST['column_name']);
-    $column_value = mysqli_real_escape_string($db, $_POST['value']);
-    $record_id = intval($_POST['id']);
     
     $query = "UPDATE projetencours SET ".$column_name."='".$column_value."' WHERE id = '".$record_id."'";
     if(mysqli_query($db, $query))
@@ -26,10 +24,8 @@ if(isset($_POST["id"]))
         echo 'Data Updated';
     }
  }
-
-
-
 }
+
 
 function add_status($project_id, $message){
 

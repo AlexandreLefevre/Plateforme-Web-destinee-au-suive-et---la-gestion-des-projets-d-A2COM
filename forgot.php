@@ -5,7 +5,7 @@
 
     if(!empty($_POST['email'])){
      
-        $email = htmlspecialchars($_POST['email']);
+        $email = mysqli_real_escape_string($db,htmlspecialchars($_POST['email']));
 
         $check = $db->prepare('SELECT token, nom_utilisateur FROM user WHERE email = ?');
         $check->execute(array($email));

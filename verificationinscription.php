@@ -4,9 +4,9 @@ require_once "config.php";
 
 if(isset($_POST['submit'])) {
 
-    $nomutilisateur = $_POST['nomutilisateur'];
+    $nomutilisateur = mysqli_real_escape_string($db,$_POST['nomutilisateur']);
     $mot_de_passe = password_hash($_POST['mot_de_passe'], PASSWORD_DEFAULT);
-    $email = $_POST['email'];
+    $email = mysqli_real_escape_string($db, $_POST['email']);
     $token = md5(uniqid($nomutilisateur, true));
     $requete_1 = $db->prepare("SELECT * FROM user where nom_utilisateur = '".$nomutilisateur."'");
 
@@ -43,7 +43,7 @@ if(isset($_POST['submit'])) {
 }
  // deleted user
 if(isset($_POST['delete'])){
-  $id = $_POST['delete'];
+  $id = intval($_POST['delete']);
 
   $requete_1 = ("UPDATE projetencours SET projetencours.user_id=70 WHERE projetencours.user_id = '".$id."'");
   $stmt = $db->prepare($requete_1);

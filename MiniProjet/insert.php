@@ -5,9 +5,9 @@ if(isset($_POST["client"], $_POST["tache"]))
 {
  $client = mysqli_real_escape_string($db, $_POST["client"]);
  $tache = mysqli_real_escape_string($db, $_POST["tache"]);
- $statut = $_POST["statut"];
- $employe = $_POST["employe"];
- $date_de_fin = $_POST["date_de_fin"];
+ $statut = mysqli_real_escape_string($db, $_POST["statut"]);
+ $employe = mysqli_real_escape_string($db, $_POST["employe"]);
+ $date_de_fin = date($_POST["date_de_fin"]);
  $notes = mysqli_real_escape_string($db, $_POST["notes"]);
 
  $query = "INSERT INTO miniprojet (client, tache, miniprojet.etape_statut, miniprojet.user_id, date_de_fin, notes) 

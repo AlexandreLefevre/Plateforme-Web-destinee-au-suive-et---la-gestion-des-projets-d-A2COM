@@ -4,7 +4,7 @@ require_once "config.php";
 
 if(isset($_POST['submit'])) {
 
-    $contenu = $_POST['contenu'];
+    $contenu = mysqli_real_escape_string($db, $_POST['contenu']);
     
     $requete_1 = $db->prepare("SELECT * FROM contenu_projetencours where libelle = '".$contenu."'");
 
@@ -33,7 +33,7 @@ if(isset($_POST['submit'])) {
 }
  // deleted user
 if(isset($_POST['delete'])){
-  $id = $_POST['delete'];
+  $id = intval($_POST['delete']);
 
   $requete_1 = ("UPDATE projetencours SET projetencours.etape_contenu=1 WHERE projetencours.etape_contenu = '".$id."'");
   $stmt = $db->prepare($requete_1);

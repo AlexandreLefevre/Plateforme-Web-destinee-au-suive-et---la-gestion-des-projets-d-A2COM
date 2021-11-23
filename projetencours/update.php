@@ -19,9 +19,11 @@ if(in_array($column_name, ['facturation1', 'facturation2', 'facturation3', 'fact
     $query = "UPDATE projetencours SET ".$column_name."='".$column_value."' WHERE id = '".$record_id."'";
     if(mysqli_query($db, $query))
     {
+        if(in_array($column_name, ['vente', 'projet'])){
         $message = "Changed attribute $column_name to $column_value";
         add_status($record_id, $message);
         echo 'Data Updated';
+        }
     }
  }
 }

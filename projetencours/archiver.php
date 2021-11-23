@@ -7,7 +7,9 @@ if(isset($_POST["id"]))
     //$query = "INSERT INTO changement_etatprojet values (NOW(), 3, ".$_POST['id'].")";
  if(mysqli_query($db, $query))
  {
-  echo 'Data Deleted';
+  $message = "Changement d'etat du projet à Projet Archivé";
+  add_status($record_id, $message);
+  echo 'Data Archived';
  }
 }
 ?>

@@ -7,7 +7,7 @@ if(isset($_POST["id"]))
     $query = "UPDATE projetencours SET etatprojet = 'suspendu' WHERE id = '".$record_id."'";
  if(mysqli_query($db, $query))
  {
-    $message = "Changement d'etat du projet à Projet Suspendu";
+    $message = "Etat du projet : Suspendu";
     add_status($record_id, $message);
     echo 'Data suspendu';
  }

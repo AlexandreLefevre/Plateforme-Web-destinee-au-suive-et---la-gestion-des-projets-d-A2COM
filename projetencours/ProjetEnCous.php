@@ -153,6 +153,7 @@ while($row = mysqli_fetch_array($result)){
     <div align="right">
     <button type="button" name="corbeille" id="corbeille" class="btn btn-danger">Corbeille</button>
      <button type="button" name="add" id="add" class="btn btn-info">Ajouter</button>
+     <button type="button" name="log" id="log" class="btn btn-warning">Logs</button>
     </div>
     <table id="user_data" class="table table-bordered">
      <thead>
@@ -625,6 +626,11 @@ html +="</select></td>";
   $('#corbeille').click(function(){
     document.location.href="corbeille.php"; 
   });
+
+  $('#log').click(function(){
+    document.location.href="logs.php"; 
+  });
+
   $(document).on('click', '#insert', function(){
    var vente = $('#data1 input').val();
    var projet = $('#data2').text();

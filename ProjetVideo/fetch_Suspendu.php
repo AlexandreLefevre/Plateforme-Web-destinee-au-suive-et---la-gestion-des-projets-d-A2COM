@@ -34,9 +34,14 @@ else
 
 $query1 = '';
 
+if($_POST["length"] != -1)
+{
+ $query1 = 'LIMIT ' . $_POST['start'] . ', ' . $_POST['length'];
+}
+
 $number_filter_row = mysqli_num_rows(mysqli_query($db, $query));
 
-$result = mysqli_query($db, $query);
+$result = mysqli_query($db, $query . $query1);
 
 $result2 = mysqli_query($db, $query2);
 

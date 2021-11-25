@@ -11,7 +11,9 @@ if(in_array($column_name, ['facturation1', 'facturation2', 'facturation3', 'fact
      $query1 = "UPDATE facturation SET ".$column_name."='".$column_value."' WHERE idprojet = '".$record_id."'";
      if(mysqli_query($db, $query1))
      {
-      echo 'Data Updated';
+        $message = "Changed attribute $column_name to $column_value";
+        add_status($record_id, $message);
+        echo 'Data Updated';
      }
  }
  else{
@@ -23,6 +25,27 @@ if(in_array($column_name, ['facturation1', 'facturation2', 'facturation3', 'fact
         $message = "Changed attribute $column_name to $column_value";
         add_status($record_id, $message);
         echo 'Data Updated';
+        }
+        elseif(in_array($column_name, ['graphisme'])){
+            $query2 = "SELECT * FROM graphisme_projetencours";
+            $result2 = mysqli_query($db, $query2);
+            $graphismes = array();
+            while($row = mysqli_fetch_array($result2))
+            {
+                $graphismes[$row['idGraphisme']] = $row['libelle'];
+            }
+
+            $graph = $graphismes[$column_value];
+
+            $message = "$column_name : $graph";
+              add_status($record_id, $message);
+              echo 'Data Updated';
+
+        }
+        else{
+            $message = " $column_name : $column_value";
+            add_status($record_id, $message);
+            echo 'Data Updated';
         }
     }
  }

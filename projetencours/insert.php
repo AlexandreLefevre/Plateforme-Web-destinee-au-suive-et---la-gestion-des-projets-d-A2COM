@@ -1,5 +1,6 @@
 <?php
 require_once '../config.php';
+require_once 'update.php';
 if(isset($_POST["nom_utilisateur"], $_POST["type_de_site"]))
 {
  $nom_utilisateur = mysqli_real_escape_string($db,$_POST["nom_utilisateur"]);
@@ -22,6 +23,7 @@ if(isset($_POST["nom_utilisateur"], $_POST["type_de_site"]))
  $query = "INSERT INTO projetencours (projetencours.user_id, projetencours.typesite, vente, projetencours.etape_graphisme, projet, projetencours.etape_contenu, projetencours.etape_correction, order_id) 
  VALUES('$nom_utilisateur', '$type_de_site', '$vente', '$graphisme', '$projet', '$contenu', '$correction',0)";
  echo($query);
+ 
  if(mysqli_query($db, $query))
  {
   echo 'Data Inserted';
@@ -41,6 +43,8 @@ VALUES('$lastid','$facturation', '$facturation2', '$facturation3', '$facturation
 echo($query);
 if(mysqli_query($db, $query3))
 {
+    $message = "Nouveau Projet Créé";
+  add_status($lastid, $message);
  echo 'Data Inserted';
 }
 ?>

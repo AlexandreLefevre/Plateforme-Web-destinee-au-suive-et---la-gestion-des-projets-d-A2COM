@@ -122,6 +122,7 @@ while($row = mysqli_fetch_array($result)){
     <div align="right">
     <button type="button" name="corbeille" id="corbeille" class="btn btn-danger">Corbeille</button>
      <button type="button" name="add" id="add" class="btn btn-info">Ajouter</button>
+     <button type="button" name="log" id="log" class="btn btn-warning">Logs</button>
     </div>
     <table id="user_data" class="table table-bordered">
      <thead>
@@ -267,6 +268,10 @@ html +="</select></td>";
     document.location.href="corbeille.php"; 
   });
 
+  $('#log').click(function(){
+    document.location.href="logs.php"; 
+  });
+  
   $(document).on('click', '#insert', function(){
 
    var client = $('#data1').text();
@@ -438,25 +443,7 @@ $(document).ready(function(){
     }
    });
   }
-
-  $(document).on('blur', '.update', function(){
-   var id = $(this).data("id");
-   var column_name = $(this).data("column");
-   var value = $(this).text();
-    if(column_name == 'date_de_fin'){
-      var value = $(this).val();
-    }
-    if(column_name == 'employe'){
-      var value = $(this).val();
-      column_name = "user_id";
-    }
-    if(column_name == 'statut'){
-      var value = $(this).val();
-      column_name = "etape_statut";
-    }
-   update_data(id, column_name, value);
-  });
-
+  
   $(document).on('click', '.unsuspendre', function(e){
   e.preventDefault();
    var id = $(this).attr("id");

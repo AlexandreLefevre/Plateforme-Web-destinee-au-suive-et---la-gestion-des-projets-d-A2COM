@@ -1,5 +1,6 @@
 <?php
 require_once '../config.php';
+require_once 'update.php';
 
 if(isset($_POST["client"], $_POST["tache"]))
 {
@@ -10,12 +11,17 @@ if(isset($_POST["client"], $_POST["tache"]))
  $date_de_fin = date($_POST["date_de_fin"]);
  $notes = mysqli_real_escape_string($db, $_POST["notes"]);
 
+ 
+
  $query = "INSERT INTO miniprojet (client, tache, miniprojet.etape_statut, miniprojet.user_id, date_de_fin, notes) 
  VALUES('$client', '$tache', '$statut', '$employe', '$date_de_fin', '$notes')";
  echo($query);
  if(mysqli_query($db, $query))
  {
-  echo 'Data Inserted';
+  $lastid= mysqli_insert_id($db);
+  $message = "Nouveau Mini-Projet Créé";
+  add_status($lastid, $message);
+   echo 'Data Inserted';
  }
 
 }

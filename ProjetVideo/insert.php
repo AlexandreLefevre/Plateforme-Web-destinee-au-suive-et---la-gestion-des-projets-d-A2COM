@@ -1,5 +1,7 @@
 <?php
 require_once '../config.php';
+require_once 'update.php';
+
 if(isset($_POST["client"], $_POST["tache"]))
 {
  $delai = date($_POST["delai"]);
@@ -20,7 +22,10 @@ if(isset($_POST["client"], $_POST["tache"]))
  $query2 = "INSERT INTO fiche_contact (id,projetvideo_id) VALUES('','".mysqli_insert_id($db)."')";
  if(mysqli_query($db, $query2))
  {
-  echo 'Data Inserted';
+  $lastid= mysqli_insert_id($db);
+    $message = "Nouveau Projet vidéo Créé";
+    add_status($lastid, $message);
+   echo 'Data Inserted';
  }
 
 }

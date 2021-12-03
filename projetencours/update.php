@@ -26,7 +26,7 @@ if(in_array($column_name, ['facturation1', 'facturation2', 'facturation3', 'fact
         add_status($record_id, $message);
         echo 'Data Updated';
         }
-        elseif(in_array($column_name, ['graphisme'])){
+        elseif(in_array($column_name, ['etape_graphisme'])){
             $query2 = "SELECT * FROM graphisme_projetencours";
             $result2 = mysqli_query($db, $query2);
             $graphismes = array();
@@ -42,6 +42,20 @@ if(in_array($column_name, ['facturation1', 'facturation2', 'facturation3', 'fact
               echo 'Data Updated';
 
         }
+        // switch ($column_name) {
+        //     case 'graphisme':
+        //         echo "i égal 0";
+        //         break;
+        //     case 'vente':
+        //         echo "i égal 1";
+        //         break;
+        //     case 'projet':
+        //         echo "i égal 2";
+        //         break;
+        //     default:
+        //         echo "i n'est ni égal à 2, ni à 1, ni à 0";
+        //         print_r($column_name);
+        // }
         else{
             $message = " $column_name : $column_value";
             add_status($record_id, $message);

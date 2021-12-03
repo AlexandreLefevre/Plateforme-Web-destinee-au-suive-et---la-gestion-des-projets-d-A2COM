@@ -62,9 +62,6 @@ require_once 'config.php';
 						<li class="nav-item">
 							<a href="etapegraphisme.php" class="nav-link">Ajouter un état d'étape</a>
 						</li>
-						<li class="nav-item">
-							<a href="historique.php" class="nav-link">Historique</a>
-						</li>
                         <?php endif; ?>
                         <li class="nav-item">
                            <a href="logout.php">Déconnexion</a>

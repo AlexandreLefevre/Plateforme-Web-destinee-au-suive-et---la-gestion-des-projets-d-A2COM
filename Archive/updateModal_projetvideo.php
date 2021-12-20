@@ -4,12 +4,12 @@ require_once '../config.php';
 if(isset($_POST["modalid"]))
 {
 
- $id = invalt($_POST["modalid"]);
+ $id = intval($_POST["modalid"]);
  $query = "UPDATE fiche_contact ";
  $boo = true;
 
 
- foreach(json_decode($_POST['data2']) as $key => $value){
+ foreach(json_decode($_POST['data']) as $key => $value){
      if($boo){
         $query.= "SET ".$key."='".$value."'";
         $boo=false;

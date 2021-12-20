@@ -190,7 +190,6 @@ $substeps = get_substeps_array();
        <th data-orderable="false"></th>
        <th data-orderable="false"></th>
        <th data-orderable="false"></th>
-       <th data-orderable="false"></th>
       </tr>
      </thead>
     </table>
@@ -219,7 +218,6 @@ $substeps = get_substeps_array();
                       <th data-orderable="false">100%</th>
                       <th></th>
        <th id="th1" data-orderable="false"></th>
-       <th data-orderable="false"></th>
        <th data-orderable="false"></th>
       </tr>
      </thead>
@@ -661,73 +659,6 @@ $(document).ready(function(){
     }
    });
   }
-/*
-  $(document).on('blur', '.update', function(){
-   var id = $(this).data("id");
-   var column_name = $(this).data("column");
-   var value = $(this).text();
-    if(column_name == 'valide25'){
-    var value = $(this).val();
-    if($(this).is(":checked")){
-    var value = 1;
-    }
-    else{
-      var value = 0;
-    }
-    }
-    if(column_name == 'valide50'){
-    var value = $(this).val();
-      if($(this).is(":checked")){
-    var value = 1;
-    }
-    else{
-      var value = 0;
-    }
-    }
-    if(column_name == 'valide75'){
-      var value = $(this).val();
-      if($(this).is(":checked")){
-    var value = 1;
-    }
-    else{
-      var value = 0;
-    }
-    }
-    if(column_name == 'valide100'){
-      var value = $(this).val();
-      if($(this).is(":checked")){
-    var value = 1;
-    }
-    else{
-      var value = 0;
-    }
-    }
-    if(column_name == 'vente'){
-      var value = $(this).val();
-    }
-    if(column_name == 'nom_utilisateur'){
-      var value = $(this).val();
-      column_name = "user_id";
-    }
-    if(column_name == 'type_de_site'){
-      var value = $(this).val();
-      column_name = "typesite";
-    }
-    if(column_name == 'graphisme'){
-      var value = $(this).val();
-      column_name = "etape_graphisme";
-    }
-    if(column_name == 'contenu'){
-      var value = $(this).val();
-      column_name = "etape_contenu";
-    }
-    if(column_name == 'correction'){
-      var value = $(this).val();
-      column_name = "etape_correction";
-    }
-   update_data_suspendu(id, column_name, value);
-  });
-  */
 
   $(document).on('click', '.unsuspendre', function(e){
   e.preventDefault();

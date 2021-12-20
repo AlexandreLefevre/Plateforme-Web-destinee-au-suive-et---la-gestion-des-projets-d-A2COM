@@ -1,13 +1,14 @@
 <?php
 require_once '../config.php';
-                session_start();
-                if(isset($_SESSION['username'])){
-                }
-                else{
-                    header('Location: login.php');
-                }
+session_start();
+if(isset($_SESSION['username'])){
 
-$query = "SELECT projetencours.id,etape1,etape2,etape3,etape4,etape5,etape6,etape7,etape8,etape9,etape10,etape11,etape12,etape13,etape14,etape15,etape16,etape17,etape18,etape19,etape20,etape21,etape22,etape23,etape24,etape25,etape26,etape27,etape28,etape29,etape30 FROM projetencours JOIN fiche_detailees ON projetencours.id=fiche_detailees.projetencours_id";
+}
+else{
+    header('Location: login.php');
+}
+
+$query = "SELECT projetencours.id,etape1,etape2,etape3,etape4,etape5,etape6,etape7,etape8,etape9,etape10,etape11,etape12,etape13,etape14,etape15,etape16,etape17,etape18,etape19,etape20,etape21,etape22,etape23,etape24,etape25,etape26,etape27,etape28,etape29,etape30, project_substeps.* FROM projetencours JOIN fiche_detailees ON projetencours.id=fiche_detailees.projetencours_id JOIN project_substeps ON projetencours.id = project_substeps.project_id";
 
 $query2 = "SELECT * FROM user WHERE user.Admin = 'user'";
 
@@ -68,10 +69,22 @@ while($row = mysqli_fetch_array($result2))
   $users[] = array("id"=>$row['IdUser'],"nom"=>$row["nom_utilisateur"]);
 }
 
-while($row = mysqli_fetch_array($result)){
-  $data[]=$row;
+
+$project_status = [];
+
+while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+  $id = $row['id'];
+  $substep_id = $row['substep_id'];
+
+  if(!isset($data[$id])) $data[$id] = $row;
+  
+  if(!isset($project_status[$id])) $project_status[$id] = [];
+  $project_status[$id][] = $substep_id;
 }
-            ?>
+
+$substeps = get_substeps_array();
+
+?>
 <html>
  <head>
   <title>Projet en Cours</title>
@@ -223,181 +236,20 @@ while($row = mysqli_fetch_array($result)){
         <h4 class="modal-title" id="myModalLabel">Fiche Détaillées</h4>
       </div>
       <div class="modal-body">
-        <div class="col-lg-7 col-md-4 col-sm-3">
-          <label>
-            <input type="checkbox" value="etape1" name="etape[]" id="etape1" <?php if($row['etape1']){echo("checked");}?>>
-            Premier acompte
-          </label>
+
+      <?php $etapes = !empty($project_status[$row['id']]) ? $project_status[$row['id']] : []; ?>
+
+       <div class="row">
+        <?php foreach($substeps as $substep_id => $substep_name) : ?>      
+          <div class="col-lg-6 col-md-4 col-sm-3">
+            <label>
+              <input type="checkbox" name="<?=$substep_id?>" <?=in_array($substep_id, $etapes) ? 'checked' : null; ?>>
+              <?=$substep_name?>
+            </label>
+          </div>
+        <?php endforeach; ?>
         </div>
-        <div class="col-md">
-          <label>
-            <input type="checkbox" value="etape16" name="etape[]" id="etape16" <?php if($row['etape16']){echo("checked");}?>>
-            Deuxième acompte (50%) payé
-          </label>
-        </div>
-        <div class="col-lg-7 col-md-4 col-sm-3">
-          <label>
-            <input type="checkbox" value="etape2" name="etape[]" id="etape2" <?php if($row['etape2']){echo("checked");}?>>
-            Template validé
-          </label>
-        </div>
-        <div class="col-md">
-          <label>
-            <input type="checkbox" value="etape17" name="etape[]" id="etape17" <?php if($row['etape17']){echo("checked");}?>>
-            Création de texte
-          </label>
-        </div>
-        <div class="col-lg-7 col-md-4 col-sm-3">
-          <label>
-            <input type="checkbox" value="etape3" name="etape[]" id="etape3" <?php if($row['etape3']){echo("checked");}?>>
-            Logo
-          </label>
-        </div>
-        <div class="col-md">
-          <label>
-            <input type="checkbox" value="etape18" name="etape[]" id="etape18" <?php if($row['etape18']){echo("checked");}?>>
-            Validation du contenu par le client
-          </label>
-        </div>
-        <div class="col-lg-7 col-md-4 col-sm-3">
-          <label>
-            <input type="checkbox" value="etape4" name="etape[]" id="etape4" <?php if($row['etape4']){echo("checked");}?>>
-            Couleurs
-          </label>
-        </div>
-        <div class="col-md">
-          <label>
-            <input type="checkbox" value="etape19" name="etape[]" id="etape19" <?php if($row['etape19']){echo("checked");}?>>
-            Toutes les matières reçues
-          </label>
-        </div>
-        <div class="col-lg-7 col-md-4 col-sm-3">
-          <label>
-            <input type="checkbox" value="etape5" name="etape[]" id="etape5" <?php if($row['etape5']){echo("checked");}?>>
-            Structure
-          </label>
-        </div>
-        <div class="col-md">
-          <label>
-            <input type="checkbox" value="etape20" name="etape[]" id="etape20" <?php if($row['etape20']){echo("checked");}?>>
-            Réalisation du E2/3
-          </label>
-        </div>
-        <div class="col-lg-7 col-md-4 col-sm-3">
-          <label>
-            <input type="checkbox" value="etape6" name="etape[]" id="etape6" <?php if($row['etape6']){echo("checked");}?>>
-            Informations de contact
-          </label>
-        </div>
-        <div class="col-md">
-          <label>
-            <input type="checkbox" value="etape21" name="etape[]" id="etape21" <?php if($row['etape21']){echo("checked");}?>>
-            Checkup interne du E2/3
-          </label>
-        </div>
-        <div class="col-lg-7 col-md-4 col-sm-3">
-          <label>
-            <input type="checkbox" value="etape7" name="etape[]" id="etape7" <?php if($row['etape7']){echo("checked");}?>>
-            Texte de la page d'accueil validé
-          </label>
-        </div>
-        <div class="col-md">
-          <label>
-            <input type="checkbox" value="etape22" name="etape[]" id="etape22" <?php if($row['etape22']){echo("checked");}?>>
-            Corrections internes pour E2/3 
-          </label>
-        </div>
-        <div class="col-lg-7 col-md-4 col-sm-3">
-          <label>
-            <input type="checkbox" value="etape8" name="etape[]" id="etape8" <?php if($row['etape8']){echo("checked");}?>>
-            Photos pour E1/3
-          </label>
-        </div>
-        <div class="col-md">
-          <label>
-            <input type="checkbox" value="etape23" name="etape[]" id="etape23" <?php if($row['etape23']){echo("checked");}?>>
-            Présentation au client 
-          </label>
-        </div>
-        <div class="col-lg-7 col-md-4 col-sm-3">
-          <label>
-            <input type="checkbox" value="etape9" name="etape[]" id="etape9" <?php if($row['etape9']){echo("checked");}?>>
-            Personnalisation du Template
-          </label>
-        </div>
-        <div class="col-md">
-          <label>
-            <input type="checkbox" value="etape24" name="etape[]" id="etape24" <?php if($row['etape24']){echo("checked");}?>>
-            Troisième acompte (75%) payé 
-          </label>
-        </div>
-        <div class="col-lg-7 col-md-4 col-sm-3">
-          <label>
-            <input type="checkbox" value="etape10" name="etape[]" id="etape10" <?php if($row['etape10']){echo("checked");}?>>
-            Création de page d'accueil
-          </label>
-        </div>
-        <div class="col-md">
-          <label>
-            <input type="checkbox" value="etape25" name="etape[]" id="etape25" <?php if($row['etape25']){echo("checked");}?>>
-            Deuxième tour de corrections 
-          </label>
-        </div>
-        <div class="col-lg-7 col-md-4 col-sm-3">
-          <label>
-            <input type="checkbox" value="etape11" name="etape[]" id="etape11" <?php if($row['etape11']){echo("checked");}?>>
-            Création d'une page intérieure
-          </label>
-        </div>
-        <div class="col-md">
-          <label>
-            <input type="checkbox" value="etape26" name="etape[]" id="etape26" <?php if($row['etape26']){echo("checked");}?>>
-            Validation finale par le client 
-          </label>
-        </div>
-        <div class="col-lg-7 col-md-4 col-sm-3">
-          <label>
-            <input type="checkbox" value="etape12" name="etape[]" id="etape12" <?php if($row['etape12']){echo("checked");}?>>
-            E1/3 Validation interne
-          </label>
-        </div>
-        <div class="col-md">
-          <label>
-            <input type="checkbox" value="etape27" name="etape[]" id="etape27" <?php if($row['etape27']){echo("checked");}?>>
-            Migration et SSL 
-          </label>
-        </div>
-        <div class="col-lg-7 col-md-4 col-sm-3">
-          <label>
-            <input type="checkbox" value="etape13" name="etape[]" id="etape13" <?php if($row['etape13']){echo("checked");}?>>
-            E1/3 Corrections internes
-        </div>
-        <div class="col-md">
-          <label>
-            <input type="checkbox" value="etape28" name="etape[]" id="etape28" <?php if($row['etape28']){echo("checked");}?>>
-            Vérification finale -> migration
-          </label>
-        </div>
-        <div class="col-lg-7 col-md-4 col-sm-3">
-          <label>
-            <input type="checkbox" value="etape14" name="etape[]" id="etape14" <?php if($row['etape14']){echo("checked");}?>>
-            E1/3 Corrections du client
-          </label>
-        </div>
-        <div class="col-lg-7 col-md-4 col-sm-3">
-          <label>
-            <input type="checkbox" value="etape15" name="etape[]" id="etape15" <?php if($row['etape15']){echo("checked");}?>>
-            E1/3 Validation par client
-          </label>
-        </div>  
-        <div class="form-group">
-            <label for="message-text" class="col-lg-7 col-md-4 col-sm-3">Commentaires:</label>
-            <textarea class="form-control" id="etape29" name="etape[]" value="etape29"><?php echo($row['etape29'])?></textarea>
-          </div> 
-          <div class="form-group">
-            <label for="message-text" class="col-lg-7 col-md-4 col-sm-3">Preview:</label>
-            <textarea class="form-control" id="etape30" name="etape[]" value="etape30"><?php echo($row['etape30'])?></textarea>
-          </div> 
+
       </div>
       <div class="modal-footer">
         <button type="button" id="savemodal" class="btn btn-primary" data-dismiss="modal" onclick="saveModal('<?php echo $row['id'] ?>')">Sauvegarder</button>
@@ -412,32 +264,31 @@ while($row = mysqli_fetch_array($result)){
 </html>
 
 <script type="text/javascript" language="javascript" >
-function saveModal($modalid){
-  var $test = "#myModal" + $modalid + " input[name='etape[]']";
-  var $data = {};
-  $("#myModal" + $modalid + " textarea").each(function(){
-    $data[$(this).attr('value')] = $(this).val();
+
+function saveModal(modalid){
+  var etapes = [];
+  var inputs = "#myModal" + modalid + " input";
+  $(inputs).each( function () {
+        if($(this).is(':checked')){
+          var etape_id = $(this).prop('name');
+          etapes.push(etape_id);
+        }
+  });
+  $.ajax({
+      url:"updateModal.php",
+      method:"POST",
+      data:{
+        modalid: modalid,
+        etapes: etapes
+      }
   });
 
-  $($test).each( function () {
-      if($(this).is(':checked'))
-      {
-        $data[$(this).val()] = true;
-      }
-      else{
-        $data[$(this).val()] = false;
-      }
-  });
-  var $data2 = JSON.stringify($data);
-  $.ajax({
-    url:"updateModal.php",
-    method:"POST",
-    data:{modalid:$modalid, data:$data2}
-   });
 }
 
-$('#myModal').on('hidden.bs.modal', function(e) {
-  $("#myModal .modal-body").find('input:radio, input:checkbox');
+
+$('.modal.fade').on('hide.bs.modal', function(e) {
+  console.log('hidden');
+
 });
 
  $(document).ready(function(){
@@ -446,8 +297,8 @@ $('#myModal').on('hidden.bs.modal', function(e) {
 
   function fetch_data()
   {
-  var dragSrc = null;  //Globally track source cell
-  var cells = null;  // All cells in table
+  var dragSrc = null; 
+  var cells = null;  
    var dataTable = $('#user_data').DataTable({
     lengthMenu: [[10, 20, -1], [10, 20, "Tout"]],
     processing : true,
@@ -876,7 +727,6 @@ $(document).ready(function(){
     }
    update_data_suspendu(id, column_name, value);
   });
-
   */
 
   $(document).on('click', '.unsuspendre', function(e){
@@ -907,13 +757,12 @@ $(document).ready(function(){
   );
 });
 
- /* When the user clicks on the button,
-toggle between hiding and showing the dropdown content */
+
 function myFunction() {
   document.getElementById("myDropdown").classList.toggle("show");
 }
 
-// Close the dropdown menu if the user clicks outside of it
+
 window.onclick = function(event) {
   if (!event.target.matches('.dropbtn')) {
     var dropdowns = document.getElementsByClassName("dropdown-content");

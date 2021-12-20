@@ -141,7 +141,7 @@ $updated_flag = false;
   <?php endif; ?>
       <?php $current_substeps = get_substeps_array(false); ?>
       <form method="POST">
-        <h3>Create new substep</h3>
+        <h3>Creer une nouvelle sous-étape</h3>
         <div class="row">
               <div class="col-md-6">
                   <input type="text" name="Substep[0][name]" value="" class="form-control"><br>
@@ -150,13 +150,13 @@ $updated_flag = false;
                   <input type="text" name="Substep[0][sort]" value="0" class="form-control"><br>
               </div>
           </div>
-        <h3>Modify existing substeps</h3>
+        <h3>Modifier les sous-étapes existantes</h3>
         <div class="row">
           <div class="col-md-6">
-            <h5>Name</h5>
+            <h5>Nom</h5>
           </div>
           <div class="col-md-2">
-            Priority
+            Priorité
           </div>
           <div class="col-md-4">
             Delete

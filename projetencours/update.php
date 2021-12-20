@@ -11,9 +11,46 @@ if(in_array($column_name, ['facturation1', 'facturation2', 'facturation3', 'fact
      $query1 = "UPDATE facturation SET ".$column_name."='".$column_value."' WHERE idprojet = '".$record_id."'";
      if(mysqli_query($db, $query1))
      {
-        $message = "Changed attribute $column_name to $column_value";
+        if(in_array($column_name, ['validation1'])){
+        $message = " Validation 25% : $column_value";
         add_status($record_id, $message);
         echo 'Data Updated';
+        }
+        elseif(in_array($column_name, ['validation2'])){
+            $message = " Validation 50% : $column_value";
+            add_status($record_id, $message);
+            echo 'Data Updated';
+        }
+        elseif(in_array($column_name, ['validation3'])){
+            $message = " Validation 75% : $column_value";
+            add_status($record_id, $message);
+            echo 'Data Updated';
+        }
+        elseif(in_array($column_name, ['validation4'])){
+            $message = " Validation 100% : $column_value";
+            add_status($record_id, $message);
+            echo 'Data Updated';
+        }
+        elseif(in_array($column_name, ['facturation1'])){
+            $message = " Facturation 25% : $column_value";
+            add_status($record_id, $message);
+            echo 'Data Updated';
+        }
+        elseif(in_array($column_name, ['facturation2'])){
+            $message = " Facturation 50% : $column_value";
+            add_status($record_id, $message);
+            echo 'Data Updated';
+        }
+        elseif(in_array($column_name, ['facturation3'])){
+            $message = " Facturation 75% : $column_value";
+            add_status($record_id, $message);
+            echo 'Data Updated';
+        }
+        elseif(in_array($column_name, ['facturation4'])){
+            $message = " Facturation 100% : $column_value";
+            add_status($record_id, $message);
+            echo 'Data Updated';
+        }
      }
  }
  else{
@@ -21,8 +58,13 @@ if(in_array($column_name, ['facturation1', 'facturation2', 'facturation3', 'fact
     $query = "UPDATE projetencours SET ".$column_name."='".$column_value."' WHERE id = '".$record_id."'";
     if(mysqli_query($db, $query))
     {
-        if(in_array($column_name, ['vente', 'projet'])){
-        $message = "$column_name : $column_value";
+        if(in_array($column_name, ['vente'])){
+        $message = "Date de vente : $column_value";
+        add_status($record_id, $message);
+        echo 'Data Updated';
+        }
+        elseif(in_array($column_name, ['projet'])){
+            $message = "Nom du projet : $column_value";
         add_status($record_id, $message);
         echo 'Data Updated';
         }
@@ -37,25 +79,75 @@ if(in_array($column_name, ['facturation1', 'facturation2', 'facturation3', 'fact
 
             $graph = $graphismes[$column_value];
 
-            $message = "$column_name : $graph";
+            $message = "Etape de graphisme : $graph";
               add_status($record_id, $message);
               echo 'Data Updated';
 
         }
-        // switch ($column_name) {
-        //     case 'graphisme':
-        //         echo "i égal 0";
-        //         break;
-        //     case 'vente':
-        //         echo "i égal 1";
-        //         break;
-        //     case 'projet':
-        //         echo "i égal 2";
-        //         break;
-        //     default:
-        //         echo "i n'est ni égal à 2, ni à 1, ni à 0";
-        //         print_r($column_name);
-        // }
+        elseif(in_array($column_name, ['etape_contenu'])){
+            $query4 = "SELECT * FROM contenu_projetencours";
+            $result4 = mysqli_query($db, $query4);
+            $contenus = array();
+            while($row = mysqli_fetch_array($result4))
+            {
+                $contenus[$row['idContenu']] = $row['libelle'];
+            }
+
+            $contenu = $contenus[$column_value];
+
+            $message = "Etape de contenu : $contenu";
+              add_status($record_id, $message);
+              echo 'Data Updated';
+
+        }
+        elseif(in_array($column_name, ['etape_correction'])){
+            $query5 = "SELECT * FROM correction_projetencours";
+            $result5 = mysqli_query($db, $query5);
+            $corrections = array();
+            while($row = mysqli_fetch_array($result5))
+            {
+                $corrections[$row['idCorrection']] = $row['libelle'];
+            }
+
+            $correction = $corrections[$column_value];
+
+            $message = "Etape de Correction : $correction";
+              add_status($record_id, $message);
+              echo 'Data Updated';
+
+        }
+        elseif(in_array($column_name, ['typesite'])){
+            $query6 = "SELECT * FROM type_site";
+            $result6 = mysqli_query($db, $query6);
+            $type_sites = array();
+            while($row = mysqli_fetch_array($result6))
+            {
+                $type_sites[$row['idTypeSite']] = $row['libelle'];
+            }
+
+            $type_site= $type_sites[$column_value];
+
+            $message = "Type de Site : $type_site";
+              add_status($record_id, $message);
+              echo 'Data Updated';
+
+        }
+        elseif(in_array($column_name, ['user_id'])){
+            $query3 = "SELECT * FROM user";
+            $result3 = mysqli_query($db, $query3);
+            $users = array();
+            while($row = mysqli_fetch_array($result3))
+            {
+                $users[$row['IdUser']] = $row['nom_utilisateur'];
+            }
+
+            $user = $users[$column_value];
+
+            $message = "Utilisateur : $user";
+              add_status($record_id, $message);
+              echo 'Data Updated';
+
+        }
         else{
             $message = " $column_name : $column_value";
             add_status($record_id, $message);

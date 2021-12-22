@@ -19,3 +19,14 @@ function get_substeps_array($only_name = true){
     }
     return $substeps;    
 }
+
+function get_project_active_statuses($id){
+    global $db;
+    $data = [];
+    $query = 'SELECT * FROM project_substeps WHERE project_id = '.intval($id);
+    $query_result = mysqli_query($db, $query);
+    while($row = mysqli_fetch_array($query_result, MYSQLI_ASSOC)){
+        $data[] = $row['substep_id'];        
+    }
+    return $data;
+}

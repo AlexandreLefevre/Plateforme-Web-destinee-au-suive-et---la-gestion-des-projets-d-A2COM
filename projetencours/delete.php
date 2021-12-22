@@ -3,6 +3,11 @@ require_once '../config.php';
 if(isset($_POST["id"]))
 {
 $record_id = intval($_POST['id']);  
+$query3 = "DELETE FROM project_substeps WHERE project_id = '".$record_id."'";
+if(mysqli_query($db, $query3))
+{
+ echo 'Data Deleted';
+}
 $query2 = "DELETE FROM fiche_detailees WHERE projetencours_id = '".$record_id."'";
 if(mysqli_query($db, $query2))
 {

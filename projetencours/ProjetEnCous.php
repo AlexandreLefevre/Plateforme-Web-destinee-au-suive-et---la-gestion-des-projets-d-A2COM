@@ -5,10 +5,10 @@ if(isset($_SESSION['username'])){
 
 }
 else{
-    header('Location: login.php');
+    header('Location: /login.php');
 }
 
-$query = "SELECT projetencours.id,etape1,etape2,etape3,etape4,etape5,etape6,etape7,etape8,etape9,etape10,etape11,etape12,etape13,etape14,etape15,etape16,etape17,etape18,etape19,etape20,etape21,etape22,etape23,etape24,etape25,etape26,etape27,etape28,etape29,etape30, project_substeps.* FROM projetencours JOIN fiche_detailees ON projetencours.id=fiche_detailees.projetencours_id JOIN project_substeps ON projetencours.id = project_substeps.project_id";
+$query = "SELECT projetencours.id,etape1,etape2,etape3,etape4,etape5,etape6,etape7,etape8,etape9,etape10,etape11,etape12,etape13,etape14,etape15,etape16,etape17,etape18,etape19,etape20,etape21,etape22,etape23,etape24,etape25,etape26,etape27,etape28,etape29,etape30, project_substeps.* FROM projetencours JOIN fiche_detailees ON projetencours.id=fiche_detailees.projetencours_id LEFT JOIN project_substeps ON projetencours.id = project_substeps.project_id";
 
 $query2 = "SELECT * FROM user WHERE user.Admin = 'user'";
 
@@ -70,26 +70,21 @@ while($row = mysqli_fetch_array($result2))
 }
 
 
-$project_status = [];
-
 while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
   $id = $row['id'];
-  $substep_id = $row['substep_id'];
-
   if(!isset($data[$id])) $data[$id] = $row;
-  
-  if(!isset($project_status[$id])) $project_status[$id] = [];
-  $project_status[$id][] = $substep_id;
 }
 
-$substeps = get_substeps_array();
+//$substeps = get_substeps_array();
 
 ?>
 <html>
  <head>
   <title>Projet en Cours</title>
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <!--<script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
   
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
   <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
@@ -98,7 +93,8 @@ $substeps = get_substeps_array();
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 
-  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+
   <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
   <script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
@@ -225,6 +221,7 @@ $substeps = get_substeps_array();
   </div>
 </div>
 
+<?php /* ?>
 <?php foreach ($data as $row):?>
 <div class="modal fade" id="myModal<?php echo $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document"> 
@@ -258,25 +255,53 @@ $substeps = get_substeps_array();
 
 <?php endforeach; ?>
 
+<?php // */ ?>
+
+<div class="modal fade" id="status-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document"> 
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Fiche Détaillées</h4>
+      </div>
+      <div class="modal-body">
+          asdasd
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="savemodal" class="btn btn-primary" data-dismiss="modal" onclick="saveModal()">Sauvegarder</button>
+      </div>
+    </div>
+  </div>
+</div>
  </body>
 </html>
 
 <script type="text/javascript" language="javascript" >
 
-function saveModal(modalid){
+
+
+
+
+
+function saveModal(){
+
+  var modal_id = $('#status-modal').find('[name="modal_id"]').val();
   var etapes = [];
-  var inputs = "#myModal" + modalid + " input";
+  var inputs = "#status-modal input";
+
   $(inputs).each( function () {
         if($(this).is(':checked')){
           var etape_id = $(this).prop('name');
           etapes.push(etape_id);
         }
   });
+  
   $.ajax({
       url:"updateModal.php",
       method:"POST",
       data:{
-        modalid: modalid,
+        modalid: modal_id,
         etapes: etapes
       }
   });
@@ -284,12 +309,20 @@ function saveModal(modalid){
 }
 
 
-$('.modal.fade').on('hide.bs.modal', function(e) {
-  console.log('hidden');
+// $('.modal.fade').on('hide.bs.modal', function(e) {
+//   console.log('hidden');
 
-});
+// });
 
  $(document).ready(function(){
+   
+    
+    $(document).on('click', 'td > button[name="details"]', function(e){
+      e.preventDefault();
+      var id = $(this).attr('id');
+      var modal = $('#status-modal');
+      modal.modal('show').find('.modal-body').html('').load('status-modal-ajax.php?id=' + id);    
+    });
   
   fetch_data();
 

@@ -88,7 +88,7 @@ require_once '../config.php';
    <table id="user_data" class="table table-bordered">
      <thead>
       <tr>
-                      <th>Date du changement</th>
+                      <th data-orderable="false">Date du changement</th>
                       <th data-orderable="false">Projet vidéo</th>
                       <th data-orderable="false">Modifications</th>
       </tr>

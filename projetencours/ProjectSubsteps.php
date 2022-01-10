@@ -107,16 +107,16 @@ $updated_flag = false;
 						</li>
                         <?php else: ?>
                             <li class="nav-item">
-							<a href="Inscription.php" class="nav-link">Création de compte</a>
+							<a href="../Inscription.php" class="nav-link">Création de compte</a>
 						</li>
                         <li class="nav-item">
-							<a href="GestionUser.php" class="nav-link">Gestion des utilisateurs</a>
+							<a href="../GestionUser.php" class="nav-link">Gestion des utilisateurs</a>
 						</li>
             <li class="nav-item">
-							<a href="typesite.php" class="nav-link">Ajouter type de site</a>
+							<a href="../typesite.php" class="nav-link">Ajouter type de site</a>
 						</li>
 						<li class="nav-item">
-							<a href="etapegraphisme.php" class="nav-link">Ajouter un état d'étape</a>
+							<a href="../etapegraphisme.php" class="nav-link">Ajouter un état d'étape</a>
 						</li>
             <li class="nav-item">
 							<a href="projetencours/ProjectSubsteps.php" class="nav-link">Ajouter une sous-étape</a>

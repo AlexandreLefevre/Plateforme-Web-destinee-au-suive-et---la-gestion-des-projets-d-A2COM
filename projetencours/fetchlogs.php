@@ -17,10 +17,11 @@ if(isset($_POST["search"]["value"]))
   ';
 }
 
-// if(isset($_POST["order"]))
-// {
-//  $query .= 'ORDER BY project_status.date ASC ';
-// }
+if(isset($_POST["order"]))
+{
+  $query .= 'ORDER BY '.$columns[$_POST['order']['0']['column']].' '.$_POST['order']['0']['dir'].'
+  ';
+}
 
 $query1 = '';
 

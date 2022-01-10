@@ -12,51 +12,31 @@ if(in_array($column_name, ['facturation1', 'facturation2', 'facturation3', 'fact
      if(mysqli_query($db, $query1))
      {
         if(in_array($column_name, ['validation1'])){
-            if($column_value == 0){
-                $message = " Validation 25% : Pas validé";
-                add_status($record_id, $message);
-               echo 'Data Updated';
+            if($column_value == 1){
+                $message = " Validation 25% : Validé";
+        add_status($record_id, $message);
+        echo 'Data Updated';
             }
             else{
-                $message = " Validation 25% : Validé";
+                $message = " Validation 25% : Pas validé";
         add_status($record_id, $message);
         echo 'Data Updated';
             }
         }
         elseif(in_array($column_name, ['validation2'])){
-            if($column_value == 0){
-                $message = " Validation 50% : Pas validé";
-                add_status($record_id, $message);
-               echo 'Data Updated';
-            }
-            else{
-                $message = " Validation 50% : Validé";
-        add_status($record_id, $message);
-        echo 'Data Updated';
-            }
+            $message = " Validation 50% : $column_value";
+            add_status($record_id, $message);
+            echo 'Data Updated';
         }
         elseif(in_array($column_name, ['validation3'])){
-            if($column_value == 0){
-                $message = " Validation 75% : Pas validé";
-                add_status($record_id, $message);
-               echo 'Data Updated';
-            }
-            else{
-                $message = " Validation 75% : Validé";
-        add_status($record_id, $message);
-        echo 'Data Updated';
-            }
+            $message = " Validation 75% : $column_value";
+            add_status($record_id, $message);
+            echo 'Data Updated';
+        }
         elseif(in_array($column_name, ['validation4'])){
-            if($column_value == 0){
-                $message = " Validation 100% : Pas validé";
-                add_status($record_id, $message);
-               echo 'Data Updated';
-            }
-            else{
-                $message = " Validation 100% : Validé";
-        add_status($record_id, $message);
-        echo 'Data Updated';
-            }
+            $message = " Validation 100% : $column_value";
+            add_status($record_id, $message);
+            echo 'Data Updated';
         }
         elseif(in_array($column_name, ['facturation1'])){
             $message = " Facturation 25% : $column_value";

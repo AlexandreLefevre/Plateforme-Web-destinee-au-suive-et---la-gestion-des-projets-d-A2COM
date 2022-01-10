@@ -128,7 +128,7 @@ while($row = mysqli_fetch_array($result)){
      <thead>
       <tr>
                       <th>Deadline</th>
-                      <th>Client</th>
+                      <th>Projet</th>
                       <th>Résumé</th>
                       <th data-orderable="false">Statut</th>
                       <th data-orderable="false">Qui va faire ?</th>
@@ -149,7 +149,7 @@ while($row = mysqli_fetch_array($result)){
      <thead>
       <tr>
                       <th>Deadline</th>
-                      <th>Client</th>
+                      <th>Projet</th>
                       <th>Résumé</th>
                       <th data-orderable="false">Statut</th>
                       <th data-orderable="false">Qui va faire ?</th>

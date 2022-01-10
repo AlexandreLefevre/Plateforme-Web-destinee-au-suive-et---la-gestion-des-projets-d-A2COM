@@ -50,7 +50,7 @@ if(mysqli_query($db, $query)){
             $statuts = array();
             while($row = mysqli_fetch_array($result4))
             {
-                $statuts[$row['IdStatut']] = $row['libelle'];
+                $statuts[$row['idStatut']] = $row['libelle'];
             }
 
             $statut = $statuts[$column_value];

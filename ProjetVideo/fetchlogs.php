@@ -14,6 +14,7 @@ if(isset($_POST["search"]["value"]))
   $query .= '
   WHERE videoproject_status.message LIKE "%'.$search.'%"
   OR projetvideo.client LIKE "%'.$search.'%"
+  ORDER BY videoproject_status.date desc
   ';
 }
 

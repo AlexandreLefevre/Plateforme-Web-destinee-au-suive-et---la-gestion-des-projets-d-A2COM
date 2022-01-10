@@ -5,14 +5,14 @@
         $u = htmlspecialchars(base64_decode($_GET['u']));
         $token = htmlspecialchars(base64_decode($_GET['token']));
 
-        $check = $bdd->prepare('SELECT * FROM password_recover WHERE token_user = ? AND token = ?');
+        $check = $db->prepare('SELECT * FROM password_recover WHERE token_user = ? AND token = ?');
         $check->execute(array($u, $token));
         $row = $check->rowCount();
         $data = $check->fetch();
 
         if($row){
             
-            $get = $bdd->prepare('SELECT token FROM user WHERE token = ?');
+            $get = $db->prepare('SELECT token FROM user WHERE token = ?');
             $get->execute(array($u));
             $data_u = $get->fetch();
 

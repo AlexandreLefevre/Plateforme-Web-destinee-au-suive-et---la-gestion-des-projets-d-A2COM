@@ -2,7 +2,7 @@
     require_once 'config.php';
     if(!empty($_GET['u'])){
         $token = htmlspecialchars(base64_decode($_GET['u']));
-        $check = $bdd->prepare('SELECT * FROM password_recover WHERE token_user = ?');
+        $check = $db->prepare('SELECT * FROM password_recover WHERE token_user = ?');
         $check->execute(array($token));
         $row = $check->rowCount();
 

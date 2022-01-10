@@ -46,5 +46,9 @@ if(mysqli_query($db, $query3))
     $message = "Nouveau Projet Créé";
   add_status($lastid, $message);
  echo 'Data Inserted';
+ if($vente != ""){
+  $message = $vente;
+  add_status($lastid, $message);
+ }
 }
 ?>

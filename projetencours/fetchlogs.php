@@ -14,12 +14,7 @@ if(isset($_POST["search"]["value"]))
   $query .= '
   WHERE project_status.message LIKE "%'.$search.'%"
   OR projetencours.projet LIKE "%'.$search.'%"
-  ';
-}
-
-if(isset($_POST["order"]))
-{
-  $query .= 'ORDER BY '.$columns[$_POST['order']['0']['column']].' '.$_POST['order']['0']['dir'].'
+  ORDER BY project_status.date desc
   ';
 }
 

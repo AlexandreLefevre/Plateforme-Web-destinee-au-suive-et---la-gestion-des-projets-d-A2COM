@@ -17,7 +17,7 @@
             $token_user = $data['token'];
             $user= $data['nom_utilisateur'];
 
-            $insert = $bdd->prepare('INSERT INTO password_recover(token_user, token) VALUES(?,?)');
+            $insert = $db->prepare('INSERT INTO password_recover(token_user, token) VALUES(?,?)');
             $insert->execute(array($token_user, $token));
 
             $link = 'recover.php?u='.base64_encode($token_user).'&token='.base64_encode($token);

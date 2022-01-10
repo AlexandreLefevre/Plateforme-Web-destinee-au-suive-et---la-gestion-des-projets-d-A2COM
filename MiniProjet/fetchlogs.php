@@ -14,6 +14,7 @@ if(isset($_POST["search"]["value"]))
   $query .= '
   WHERE miniproject_status.message LIKE "%'.$search.'%"
   OR miniprojet.client LIKE "%'.$search.'%"
+  ORDER BY miniproject_status.date desc
   ';
 }
 

@@ -5,7 +5,7 @@
             $password_repeat = htmlspecialchars($_POST['password_repeat']);
             $token = htmlspecialchars($_POST['token']);
 
-            $check = $bdd->prepare('SELECT * FROM user WHERE token = ?');
+            $check = $db->prepare('SELECT * FROM user WHERE token = ?');
             $check->execute(array($token));
             $row = $check->rowCount();
 
@@ -13,10 +13,10 @@
                 if($password === $password_repeat){
                     $password = password_hash($password, PASSWORD_DEFAULT);
 
-                    $update = $bdd->prepare('UPDATE user SET mot_de_passe = ? WHERE token = ?');
+                    $update = $db->prepare('UPDATE user SET mot_de_passe = ? WHERE token = ?');
                     $update->execute(array($password, $token));
                     
-                    $delete = $bdd->prepare('DELETE FROM password_recover WHERE token_user = ?');
+                    $delete = $db->prepare('DELETE FROM password_recover WHERE token_user = ?');
                     $delete->execute(array($token));
 
                     echo "<script>alert('Le mot de passe a bien été modifié !')</script>";

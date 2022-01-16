@@ -106,7 +106,7 @@ while($row = mysqli_fetch_array($result))
 {
   $valide25 ='';
   switch($row["validation1"]){
-    case 1 : 
+    case "1" : 
       $valide25 = 'green';
       $valide25check = 'checked';
       break;
@@ -117,7 +117,7 @@ while($row = mysqli_fetch_array($result))
   }
   $valide50 ='';
   switch($row["validation2"]){
-    case 1 : 
+    case "1" : 
       $valide50 = 'green';
       $valide50check = 'checked';
       break;
@@ -128,7 +128,7 @@ while($row = mysqli_fetch_array($result))
   }
   $valide75 ='';
   switch($row["validation3"]){
-    case 1 : 
+    case "1" : 
       $valide75 = 'green';
       $valide75check = 'checked';
       break;
@@ -139,7 +139,7 @@ while($row = mysqli_fetch_array($result))
   }
   $valide100 ='';
   switch($row["validation4"]){
-    case 1 : 
+    case "1" : 
       $valide100 = 'green';
       $valide100check = 'checked';
       break;

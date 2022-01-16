@@ -18,6 +18,7 @@ if(isset($_POST["nom_utilisateur"], $_POST["type_de_site"]))
  $valide50 = intval($_POST["valide50"]);
  $valide75 = intval($_POST["valide75"]);
  $valide100 = intval($_POST["valide100"]);
+ $column_value = mysqli_real_escape_string($db, $_POST['value']);
 
 
  $query = "INSERT INTO projetencours (projetencours.user_id, projetencours.typesite, vente, projetencours.etape_graphisme, projet, projetencours.etape_contenu, projetencours.etape_correction, order_id) 
@@ -47,7 +48,11 @@ if(mysqli_query($db, $query3))
   add_status($lastid, $message);
  echo 'Data Inserted';
  if($vente != ""){
-  $message = $vente;
+  $message = "Date de vente : $vente";
+  add_status($lastid, $message);
+ }
+ if($projet != ""){
+  $message = "Nom du projet : $projet";
   add_status($lastid, $message);
  }
 }

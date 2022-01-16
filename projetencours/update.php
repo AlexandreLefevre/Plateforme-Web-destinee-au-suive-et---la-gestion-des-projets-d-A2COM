@@ -61,17 +61,21 @@ if(in_array($column_name, ['facturation1', 'facturation2', 'facturation3', 'fact
      }
  }
  else{
-    
+    $queryOldValue = "SELECT ".$column_name." FROM projetencours WHERE id = '".$record_id."'";
+
+    $resultOld = mysqli_query($db, $queryOldValue);
+    $OldValue = mysqli_fetch_array($resultOld);
+
     $query = "UPDATE projetencours SET ".$column_name."='".$column_value."' WHERE id = '".$record_id."'";
     if(mysqli_query($db, $query))
     {
         if(in_array($column_name, ['vente'])){
-        $message = "Date de vente : $column_value";
+        $message = "Date de vente : ".$OldValue[$column_name]." -> $column_value";
         add_status($record_id, $message);
         echo 'Data Updated';
         }
         elseif(in_array($column_name, ['projet'])){
-            $message = "Nom du projet : $column_value";
+            $message = "Nom du projet : ".$OldValue[$column_name]." ->  $column_value";
         add_status($record_id, $message);
         echo 'Data Updated';
         }
@@ -86,7 +90,9 @@ if(in_array($column_name, ['facturation1', 'facturation2', 'facturation3', 'fact
 
             $graph = $graphismes[$column_value];
 
-            $message = "Etape de graphisme : $graph";
+            $graph2 = $graphismes[$OldValue[$column_name]];
+
+            $message = "Etape de graphisme : $graph2 -> $graph";
               add_status($record_id, $message);
               echo 'Data Updated';
 

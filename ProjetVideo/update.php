@@ -6,20 +6,25 @@ $column_name = mysqli_real_escape_string($db, $_POST['column_name']);
 $column_value = mysqli_real_escape_string($db, $_POST['value']);
 $record_id = intval($_POST['id']);
 
+$queryOldValue = "SELECT ".$column_name." FROM projetvideo WHERE id = '".$record_id."'";
+
+$resultOld = mysqli_query($db, $queryOldValue);
+$OldValue = mysqli_fetch_array($resultOld);
+
 $query = "UPDATE projetvideo SET ".$column_name."='".$column_value."' WHERE id = '".$record_id."'";
 if(mysqli_query($db, $query)){
  if(in_array($column_name, ['delai'])){
-        $message = "Deadline : $column_value";
+        $message = "Deadline :  ".$OldValue[$column_name]." ---> $column_value";
         add_status($record_id, $message);
         echo 'Data Updated';
         }
        elseif(in_array($column_name, ['tache'])){
-            $message = " Tache à faire : $column_value";
+            $message = " Tache à faire : ".$OldValue[$column_name]." ---> $column_value";
             add_status($record_id, $message);
             echo 'Data Updated';
         }
         elseif(in_array($column_name, ['client'])){
-            $message = " Nom du projet vidéo : $column_value";
+            $message = " Nom du projet vidéo : ".$OldValue[$column_name]." ---> $column_value";
             add_status($record_id, $message);
             echo 'Data Updated';
         }
@@ -33,8 +38,9 @@ if(mysqli_query($db, $query)){
             }
 
             $user = $users[$column_value];
+            $user2 = $users[$OldValue[$column_name]];
 
-            $message = "Utilisateur : $user";
+            $message = "Chef De Projet : $user2 ---> $user";
               add_status($record_id, $message);
               echo 'Data Updated';
 
@@ -49,8 +55,9 @@ if(mysqli_query($db, $query)){
             }
 
             $type_site= $type_sites[$column_value];
+            $type_site2 = $type_sites[$OldValue[$column_name]];
 
-            $message = "Type de Site : $type_site";
+            $message = "Type de Site : $type_site2 ---> $type_site";
               add_status($record_id, $message);
               echo 'Data Updated';
 

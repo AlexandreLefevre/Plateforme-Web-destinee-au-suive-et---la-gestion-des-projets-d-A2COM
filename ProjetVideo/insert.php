@@ -19,13 +19,22 @@ if(isset($_POST["client"], $_POST["tache"]))
   echo 'Data Inserted';
  }
 
- $query2 = "INSERT INTO fiche_contact (id,projetvideo_id) VALUES('','".mysqli_insert_id($db)."')";
+ $lastid= mysqli_insert_id($db);
+
+ $query2 = "INSERT INTO fiche_contact (id,projetvideo_id) VALUES('','".$lastid."')";
  if(mysqli_query($db, $query2))
  {
-  $lastid= mysqli_insert_id($db);
     $message = "Nouveau Projet vidéo Créé";
     add_status($lastid, $message);
    echo 'Data Inserted';
+   if($delai != ""){
+    $message = "Deadline : $delai";
+    add_status($lastid, $message);
+   }
+   if($client != ""){
+    $message = "Nom du projet vidéo : $client";
+    add_status($lastid, $message);
+   }
  }
 
 }

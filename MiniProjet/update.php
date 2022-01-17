@@ -6,25 +6,30 @@ $column_name = mysqli_real_escape_string($db, $_POST['column_name']);
 $column_value = mysqli_real_escape_string($db, $_POST['value']);
 $record_id = intval($_POST['id']);
 
+$queryOldValue = "SELECT ".$column_name." FROM miniprojet WHERE id = '".$record_id."'";
+
+$resultOld = mysqli_query($db, $queryOldValue);
+$OldValue = mysqli_fetch_array($resultOld);
+
 $query = "UPDATE miniprojet SET ".$column_name."='".$column_value."' WHERE id = '".$record_id."'";
 if(mysqli_query($db, $query)){
- if(in_array($column_name, ['date_de_fin', 'client', 'tache', 'notes'])){
-        $message = "$column_name : $column_value";
-        add_status($record_id, $message);
-        echo 'Data Updated';
+ if(in_array($column_name, ['date_de_fin'])){
+    $message = "Deadline :  ".$OldValue[$column_name]." ---> $column_value";
+    add_status($record_id, $message);
+    echo 'Data Updated';
         }
         elseif(in_array($column_name, ['client'])){
-            $message = " Nom du Mini-Projet : $column_value";
+            $message = " Nom du Mini-Projet : ".$OldValue[$column_name]." ---> $column_value";
             add_status($record_id, $message);
             echo 'Data Updated';
         }
         elseif(in_array($column_name, ['tache'])){
-            $message = " Tache à faire : $column_value";
+            $message = " Tache à faire : ".$OldValue[$column_name]." ---> $column_value";
             add_status($record_id, $message);
             echo 'Data Updated';
         }
         elseif(in_array($column_name, ['notes'])){
-            $message = " Notes : $column_value";
+            $message = " Notes : ".$OldValue[$column_name]." ---> $column_value";
             add_status($record_id, $message);
             echo 'Data Updated';
         }
@@ -38,8 +43,9 @@ if(mysqli_query($db, $query)){
             }
 
             $user = $users[$column_value];
+            $user2 = $users[$OldValue[$column_name]];
 
-            $message = "Utilisateur : $user";
+            $message = "Chef De Projet : $user2 ---> $user";
               add_status($record_id, $message);
               echo 'Data Updated';
 
@@ -54,8 +60,9 @@ if(mysqli_query($db, $query)){
             }
 
             $statut = $statuts[$column_value];
+            $statut2 = $statuts[$OldValue[$column_name]];
 
-            $message = "Utilisateur : $statut";
+            $message = "Statut : $statut2 ---> $statut";
               add_status($record_id, $message);
               echo 'Data Updated';
 

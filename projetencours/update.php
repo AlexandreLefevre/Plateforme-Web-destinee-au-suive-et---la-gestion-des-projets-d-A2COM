@@ -7,6 +7,10 @@ $column_value = mysqli_real_escape_string($db, $_POST['value']);
 $record_id = intval($_POST['id']);
 
 if(in_array($column_name, ['facturation1', 'facturation2', 'facturation3', 'facturation4', 'validation1', 'validation2', 'validation3', 'validation4'])){
+    $queryOldValue = "SELECT ".$column_name." FROM facturation WHERE idprojet = '".$record_id."'";
+
+    $resultOld = mysqli_query($db, $queryOldValue);
+    $OldValue = mysqli_fetch_array($resultOld);
 
      $query1 = "UPDATE facturation SET ".$column_name."='".$column_value."' WHERE idprojet = '".$record_id."'";
      if(mysqli_query($db, $query1))
@@ -23,38 +27,59 @@ if(in_array($column_name, ['facturation1', 'facturation2', 'facturation3', 'fact
         echo 'Data Updated';
             }
         }
-        elseif(in_array($column_name, ['validation2'])){
-            $message = " Validation 50% : $column_value";
+        if(in_array($column_name, ['validation2'])){
+            if($column_value == 1){
+            $message = " Validation 50% : Validé";
             add_status($record_id, $message);
             echo 'Data Updated';
+            }
+            else{
+                $message = " Validation 50% : Pas validé";
+        add_status($record_id, $message);
+        echo 'Data Updated';
+            }
         }
-        elseif(in_array($column_name, ['validation3'])){
-            $message = " Validation 75% : $column_value";
+        if(in_array($column_name, ['validation3'])){
+            if($column_value == 1){
+            $message = " Validation 75% : Validé";
             add_status($record_id, $message);
             echo 'Data Updated';
+            }
+            else{
+                $message = " Validation 75% : Pas validé";
+        add_status($record_id, $message);
+        echo 'Data Updated';
+            }
         }
-        elseif(in_array($column_name, ['validation4'])){
-            $message = " Validation 100% : $column_value";
+        if(in_array($column_name, ['validation4'])){
+            if($column_value == 1){
+            $message = " Validation 100% : Validé";
             add_status($record_id, $message);
             echo 'Data Updated';
+            }
+            else{
+                $message = " Validation 100% : Pas validé";
+        add_status($record_id, $message);
+        echo 'Data Updated';
+            }
         }
-        elseif(in_array($column_name, ['facturation1'])){
-            $message = " Facturation 25% : $column_value";
+        if(in_array($column_name, ['facturation1'])){
+            $message = " Facturation 25% : ".$OldValue[$column_name]." ---> $column_value";
             add_status($record_id, $message);
             echo 'Data Updated';
         }
         elseif(in_array($column_name, ['facturation2'])){
-            $message = " Facturation 50% : $column_value";
+            $message = " Facturation 50% : ".$OldValue[$column_name]." ---> $column_value";
             add_status($record_id, $message);
             echo 'Data Updated';
         }
         elseif(in_array($column_name, ['facturation3'])){
-            $message = " Facturation 75% : $column_value";
+            $message = " Facturation 75% : ".$OldValue[$column_name]." ---> $column_value";
             add_status($record_id, $message);
             echo 'Data Updated';
         }
         elseif(in_array($column_name, ['facturation4'])){
-            $message = " Facturation 100% : $column_value";
+            $message = " Facturation 100% : ".$OldValue[$column_name]." ---> $column_value";
             add_status($record_id, $message);
             echo 'Data Updated';
         }
@@ -70,12 +95,12 @@ if(in_array($column_name, ['facturation1', 'facturation2', 'facturation3', 'fact
     if(mysqli_query($db, $query))
     {
         if(in_array($column_name, ['vente'])){
-        $message = "Date de vente : ".$OldValue[$column_name]." -> $column_value";
+        $message = "Date de vente : ".$OldValue[$column_name]." ---> $column_value";
         add_status($record_id, $message);
         echo 'Data Updated';
         }
         elseif(in_array($column_name, ['projet'])){
-            $message = "Nom du projet : ".$OldValue[$column_name]." ->  $column_value";
+            $message = "Nom du projet : ".$OldValue[$column_name]." --->  $column_value";
         add_status($record_id, $message);
         echo 'Data Updated';
         }
@@ -92,7 +117,7 @@ if(in_array($column_name, ['facturation1', 'facturation2', 'facturation3', 'fact
 
             $graph2 = $graphismes[$OldValue[$column_name]];
 
-            $message = "Etape de graphisme : $graph2 -> $graph";
+            $message = "Etape de graphisme : $graph2 ---> $graph";
               add_status($record_id, $message);
               echo 'Data Updated';
 
@@ -107,8 +132,8 @@ if(in_array($column_name, ['facturation1', 'facturation2', 'facturation3', 'fact
             }
 
             $contenu = $contenus[$column_value];
-
-            $message = "Etape de contenu : $contenu";
+            $contenu2 = $contenus[$OldValue[$column_name]];
+            $message = "Etape de contenu : $contenu2 ---> $contenu";
               add_status($record_id, $message);
               echo 'Data Updated';
 
@@ -123,8 +148,9 @@ if(in_array($column_name, ['facturation1', 'facturation2', 'facturation3', 'fact
             }
 
             $correction = $corrections[$column_value];
+            $correction2 = $corrections[$OldValue[$column_name]];
 
-            $message = "Etape de Correction : $correction";
+            $message = "Etape de Correction : $correction2 ---> $correction";
               add_status($record_id, $message);
               echo 'Data Updated';
 
@@ -139,8 +165,9 @@ if(in_array($column_name, ['facturation1', 'facturation2', 'facturation3', 'fact
             }
 
             $type_site= $type_sites[$column_value];
+            $type_site2 = $type_sites[$OldValue[$column_name]];
 
-            $message = "Type de Site : $type_site";
+            $message = "Type de Site : $type_site2 ---> $type_site";
               add_status($record_id, $message);
               echo 'Data Updated';
 
@@ -155,8 +182,9 @@ if(in_array($column_name, ['facturation1', 'facturation2', 'facturation3', 'fact
             }
 
             $user = $users[$column_value];
+            $user2 = $users[$OldValue[$column_name]];
 
-            $message = "Utilisateur : $user";
+            $message = "Utilisateur : $user2 --> $user";
               add_status($record_id, $message);
               echo 'Data Updated';
 

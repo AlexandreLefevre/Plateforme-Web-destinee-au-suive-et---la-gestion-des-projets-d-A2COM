@@ -22,6 +22,14 @@ if(isset($_POST["client"], $_POST["tache"]))
   $message = "Nouveau Mini-Projet Créé";
   add_status($lastid, $message);
    echo 'Data Inserted';
+   if($date_de_fin != ""){
+    $message = "Deadline : $date_de_fin";
+    add_status($lastid, $message);
+   }
+   if($client != ""){
+    $message = "Nom du Mini-projet : $client";
+    add_status($lastid, $message);
+   }
  }
 
 }
